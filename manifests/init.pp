@@ -32,7 +32,12 @@
 #
 # @param manage_repo Configure the upstream HashiCorp repository. Only relevant when $nomad::install_method = 'repo'.
 #
-# @param manage_service Instruct puppet to manage service or not
+# * `service_registration`
+#   Extra configuration for service registration.
+#   `vault server --help`
+#
+# * `manage_service`
+#   Instruct puppet to manage service or not
 #
 # @param num_procs
 #   Sets the GOMAXPROCS environment variable, to determine how many CPUs Vault
@@ -85,27 +90,28 @@ class vault (
   $manage_config_file                  = true,
   $config_mode                         = '0750',
   $purge_config_dir                    = true,
-  $download_url                        = undef,
-  $download_url_base                   = 'https://releases.hashicorp.com/vault/',
-  $download_extension                  = 'zip',
-  $service_name                        = 'vault',
-  $service_enable                      = true,
-  $service_ensure                      = 'running',
-  $service_provider                    = $facts['service_provider'],
-  Boolean $manage_repo                 = $vault::params::manage_repo,
-  $manage_service                      = true,
-  Optional[Boolean] $manage_service_file = $vault::params::manage_service_file,
-  Hash $storage                        = { 'file' => { 'path' => '/var/lib/vault' } },
-  $manage_storage_dir                  = false,
-  Variant[Hash, Array[Hash]] $listener = { 'tcp' => { 'address' => '127.0.0.1:8200', 'tls_disable' => 1 }, },
-  Optional[Hash] $ha_storage           = undef,
-  Optional[Hash] $seal                 = undef,
-  Optional[Boolean] $disable_cache     = undef,
-  Optional[Hash] $telemetry            = undef,
-  Optional[String] $default_lease_ttl  = undef,
-  Optional[String] $max_lease_ttl      = undef,
-  $disable_mlock                       = undef,
-  $manage_file_capabilities            = undef,
+  $download_url                        = $::vault::params::download_url,
+  $download_url_base                   = $::vault::params::download_url_base,
+  $download_extension                  = $::vault::params::download_extension,
+  $service_name                        = $::vault::params::service_name,
+  $service_enable                      = $::vault::params::service_enable,
+  $service_ensure                      = $::vault::params::service_ensure,
+  $service_provider                    = $::vault::params::service_provider,
+  Boolean $manage_repo                 = $::vault::params::manage_repo,
+  $manage_service                      = $::vault::params::manage_service,
+  $manage_service_file                 = $::vault::params::manage_service_file,
+  Hash $storage                        = $::vault::params::storage,
+  $manage_storage_dir                  = $::vault::params::manage_storage_dir,
+  Variant[Hash, Array[Hash]] $listener = $::vault::params::listener,
+  Optional[Hash] $ha_storage           = $::vault::params::ha_storage,
+  Optional[Hash] $seal                 = $::vault::params::seal,
+  Optional[Boolean] $disable_cache     = $::vault::params::disable_cache,
+  Optional[Hash] $telemetry            = $::vault::params::telemetry,
+  Optional[String] $default_lease_ttl  = $::vault::params::default_lease_ttl,
+  Optional[String] $max_lease_ttl      = $::vault::params::max_lease_ttl,
+  Optional[Hash] $service_registration = $::vault::params::service_registration,
+  $disable_mlock                       = $::vault::params::disable_mlock,
+  $manage_file_capabilities            = $::vault::params::manage_file_capabilities,
   $service_options                     = '',
   $num_procs                           = $facts['processors']['count'],
   $install_method                      = $vault::params::install_method,

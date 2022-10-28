@@ -94,7 +94,8 @@ describe 'vault' do
               max_lease_ttl: exist,
               disable_mlock: exist,
               ui: exist,
-              api_addr: exist
+              api_addr: exist,
+              service_registration: exist,
             )
           end
         end
@@ -127,6 +128,20 @@ describe 'vault' do
           it {
             expect(param_value(catalogue, 'File', '/etc/vault/config.json', 'content')).to include_json(
               api_addr: 'something'
+            )
+          }
+        end
+
+        context 'when service_registration is set' do
+          let(:params) do
+            {
+              service_registration: { 'consul' => { 'address' => '127.0.0.1:8500'} }
+            }
+          end
+
+          it {
+            expect(param_value(catalogue, 'File', '/etc/vault/config.json', 'content')).to include_json(
+              service_registration: { 'consul' => { 'address' => '127.0.0.1:8500'} },
             )
           }
         end

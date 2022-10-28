@@ -17,17 +17,18 @@ class vault::config {
 
   if $vault::manage_config_file {
     $_config_hash = delete_undef_values({
-        'listener'          => $vault::listener,
-        'storage'           => $vault::storage,
-        'ha_storage'        => $vault::ha_storage,
-        'seal'              => $vault::seal,
-        'telemetry'         => $vault::telemetry,
-        'disable_cache'     => $vault::disable_cache,
-        'default_lease_ttl' => $vault::default_lease_ttl,
-        'max_lease_ttl'     => $vault::max_lease_ttl,
-        'disable_mlock'     => $vault::disable_mlock,
-        'ui'                => $vault::enable_ui,
-        'api_addr'          => $vault::api_addr,
+      'listener'             => $::vault::listener,
+      'storage'              => $::vault::storage,
+      'ha_storage'           => $::vault::ha_storage,
+      'seal'                 => $::vault::seal,
+      'telemetry'            => $::vault::telemetry,
+      'disable_cache'        => $::vault::disable_cache,
+      'default_lease_ttl'    => $::vault::default_lease_ttl,
+      'max_lease_ttl'        => $::vault::max_lease_ttl,
+      'disable_mlock'        => $::vault::disable_mlock,
+      'ui'                   => $::vault::enable_ui,
+      'api_addr'             => $::vault::api_addr,
+      'service_registration' => $::vault::service_registration,
     })
 
     $config_hash = merge($_config_hash, $vault::extra_config)
