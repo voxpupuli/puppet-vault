@@ -37,6 +37,10 @@ class vault::config {
       owner   => $vault::user,
       group   => $vault::group,
       mode    => $vault::config_mode,
+      owner   => $::vault::user,
+      group   => $::vault::group,
+      mode    => $::vault::config_mode,
+      notify  => Class['vault::service'],
     }
 
     # If manage_storage_dir is true and a file or raft storage backend is
