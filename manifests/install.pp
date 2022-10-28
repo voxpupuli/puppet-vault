@@ -3,27 +3,43 @@
 #
 class vault::install {
   assert_private()
-  $vault_bin = "${vault::bin_dir}/vault"
+  $vault_bin = "${::vault::bin_dir}/vault"
 
-  case $vault::install_method {
+  case $::vault::install_method {
     'archive': {
-      if $vault::manage_download_dir {
-        file { $vault::download_dir:
+      if $::vault::manage_download_dir {
+        file { $::vault::download_dir:
           ensure => directory,
         }
       }
 
-      archive { "${vault::download_dir}/${vault::download_filename}":
-        ensure       => present,
-        extract      => true,
-        extract_path => $vault::bin_dir,
-        source       => $vault::real_download_url,
-        cleanup      => true,
-        creates      => $vault_bin,
-        before       => File['vault_binary'],
+      $_manage_file_capabilities = true
+      $_vault_versioned_bin = "/opt/vault-${::vault::version}/vault"
+
+      file { "/opt/vault-${::vault::version}":
+        ensure => directory,
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0755',
       }
 
-      $_manage_file_capabilities = true
+      archive { "${::vault::download_dir}/${::vault::download_filename}":
+        ensure       => present,
+        extract      => true,
+        extract_path => "/opt/vault-${::vault::version}",
+        source       => $::vault::real_download_url,
+        cleanup      => true,
+        creates      => $_vault_versioned_bin,
+        before       => File['vault_binary'],
+        notify       => Exec['install_versioned_vault'],
+      }
+
+      exec { 'install_versioned_vault':
+        command     => "/bin/cp -f ${_vault_versioned_bin} ${vault_bin}",
+        refreshonly => true,
+        notify      => Class['vault::service'],
+      }
+
     }
 
     'repo': {
