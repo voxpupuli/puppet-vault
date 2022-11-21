@@ -67,6 +67,7 @@
 # @param manage_file_capabilities
 # @param disable_mlock
 # @param max_lease_ttl
+# @param service_registration
 # @param default_lease_ttl
 # @param telemetry
 # @param disable_cache
@@ -75,6 +76,7 @@
 # @param listener
 # @param manage_storage_dir
 # @param storage
+# @param manage_service Instruct puppet to manage service or not
 # @param manage_service_file
 # @param service_ensure
 # @param service_enable
@@ -90,28 +92,28 @@ class vault (
   $manage_config_file                  = true,
   $config_mode                         = '0750',
   $purge_config_dir                    = true,
-  $download_url                        = $::vault::params::download_url,
-  $download_url_base                   = $::vault::params::download_url_base,
-  $download_extension                  = $::vault::params::download_extension,
-  $service_name                        = $::vault::params::service_name,
-  $service_enable                      = $::vault::params::service_enable,
-  $service_ensure                      = $::vault::params::service_ensure,
-  $service_provider                    = $::vault::params::service_provider,
-  Boolean $manage_repo                 = $::vault::params::manage_repo,
-  $manage_service                      = $::vault::params::manage_service,
-  $manage_service_file                 = $::vault::params::manage_service_file,
-  Hash $storage                        = $::vault::params::storage,
-  $manage_storage_dir                  = $::vault::params::manage_storage_dir,
-  Variant[Hash, Array[Hash]] $listener = $::vault::params::listener,
-  Optional[Hash] $ha_storage           = $::vault::params::ha_storage,
-  Optional[Hash] $seal                 = $::vault::params::seal,
-  Optional[Boolean] $disable_cache     = $::vault::params::disable_cache,
-  Optional[Hash] $telemetry            = $::vault::params::telemetry,
-  Optional[String] $default_lease_ttl  = $::vault::params::default_lease_ttl,
-  Optional[String] $max_lease_ttl      = $::vault::params::max_lease_ttl,
-  Optional[Hash] $service_registration = $::vault::params::service_registration,
-  $disable_mlock                       = $::vault::params::disable_mlock,
-  $manage_file_capabilities            = $::vault::params::manage_file_capabilities,
+  $download_url                        = $vault::params::download_url,
+  $download_url_base                   = $vault::params::download_url_base,
+  $download_extension                  = $vault::params::download_extension,
+  $service_name                        = $vault::params::service_name,
+  $service_enable                      = $vault::params::service_enable,
+  $service_ensure                      = $vault::params::service_ensure,
+  $service_provider                    = $vault::params::service_provider,
+  Boolean $manage_repo                 = $vault::params::manage_repo,
+  $manage_service                      = $vault::params::manage_service,
+  $manage_service_file                 = $vault::params::manage_service_file,
+  Hash $storage                        = $vault::params::storage,
+  $manage_storage_dir                  = $vault::params::manage_storage_dir,
+  Variant[Hash, Array[Hash]] $listener = $vault::params::listener,
+  Optional[Hash] $ha_storage           = $vault::params::ha_storage,
+  Optional[Hash] $seal                 = $vault::params::seal,
+  Optional[Boolean] $disable_cache     = $vault::params::disable_cache,
+  Optional[Hash] $telemetry            = $vault::params::telemetry,
+  Optional[String] $default_lease_ttl  = $vault::params::default_lease_ttl,
+  Optional[String] $max_lease_ttl      = $vault::params::max_lease_ttl,
+  Optional[Hash] $service_registration = $vault::params::service_registration,
+  $disable_mlock                       = $vault::params::disable_mlock,
+  $manage_file_capabilities            = $vault::params::manage_file_capabilities,
   $service_options                     = '',
   $num_procs                           = $facts['processors']['count'],
   $install_method                      = $vault::params::install_method,

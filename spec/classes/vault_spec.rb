@@ -95,7 +95,7 @@ describe 'vault' do
               disable_mlock: exist,
               ui: exist,
               api_addr: exist,
-              service_registration: exist,
+              service_registration: exist
             )
           end
         end
@@ -135,13 +135,13 @@ describe 'vault' do
         context 'when service_registration is set' do
           let(:params) do
             {
-              service_registration: { 'consul' => { 'address' => '127.0.0.1:8500'} }
+              service_registration: { 'consul' => { 'address' => '127.0.0.1:8500' } }
             }
           end
 
           it {
             expect(param_value(catalogue, 'File', '/etc/vault/config.json', 'content')).to include_json(
-              service_registration: { 'consul' => { 'address' => '127.0.0.1:8500'} },
+              service_registration: { 'consul' => { 'address' => '127.0.0.1:8500' } }
             )
           }
         end
@@ -152,7 +152,7 @@ describe 'vault' do
           it {
             is_expected.to contain_archive('/tmp/vault.zip').
               that_comes_before('File[vault_binary]')
-            is_expected.to contain_file('/opt/vault-1.4.2').
+            is_expected.to contain_file('/opt/vault-1.12.0').
               with_ensure('directory').
               with_owner('root').
               with_group('root').
@@ -162,7 +162,7 @@ describe 'vault' do
           context 'when installed with default download options' do
             let(:params) do
               super().merge(
-                version: '0.7.0',
+                version: '0.7.0'
               )
             end
 
