@@ -16,7 +16,7 @@ class vault::params {
   $download_extension = 'zip'
   $version            = '1.4.2'
   $service_name       = 'vault'
-  $num_procs          = $facts['processorcount']
+  $num_procs          = $facts['os']['processorcount']
   $package_name       = 'vault'
   $package_ensure     = 'installed'
 
@@ -26,7 +26,7 @@ class vault::params {
 
   # storage and listener are mandatory, we provide some sensible
   # defaults here
-  $storage             = { 'file' => { 'path' => '/var/lib/vault' }}
+  $storage             = { 'file' => { 'path' => '/var/lib/vault' } }
   $manage_storage_dir  = false
   $listener            = {
     'tcp' => {
