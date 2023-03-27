@@ -1,0 +1,22 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<% if $is_ha { %>ha_<% } %>storage "postgresql" {
+  connection_url = "<%= $storage['connection_url'] %>"
+  <%- if $storage['table'] != undef { -%>
+  table = "<%= $storage['table'] %>"
+  <%- } -%>
+  <%- if $storage['max_idle_connections'] != undef { -%>
+  max_idle_connections = <%= $storage['max_idle_connections'] %>
+  <%- } -%>
+  <%- if $storage['max_parallel'] != undef { -%>
+  max_parallel = "<%= $storage['max_parallel'] %>"
+  <%- } -%>
+  <%- if $storage['ha_enabled'] != undef { -%>
+  ha_enabled = "<%= $storage['ha_enabled'] %>"
+  <%- } -%>
+  <%- if $storage['ha_table'] != undef { -%>
+  ha_enabled = "<%= $storage['ha_table'] %>"
+  <%- } -%>
+}

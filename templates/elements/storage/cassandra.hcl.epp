@@ -1,0 +1,52 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<%- if $is_ha { fail('The Cassandra storage backend is not highly available') } -%>
+storage "cassandra" {
+  <%- if $storage['hosts'] != undef { -%>
+  hosts = "<%= $storage['hosts'] %>"
+  <%- } -%>
+  <%- if $storage['keyspace'] != undef { -%>
+  keyspace = "<%= $storage['keyspace'] %>"
+  <%- } -%>
+  <%- if $storage['table'] != undef { -%>
+  table = "<%= $storage['table'] %>"
+  <%- } -%>
+  <%- if $storage['consistency'] != undef { -%>
+  consistency = "<%= $storage['consistency'] %>"
+  <%- } -%>
+  <%- if $storage['protocol_version'] != undef { -%>
+  protocol_version = "<%= $storage['protocol_version'] %>"
+  <%- } -%>
+  <%- if $storage['username'] != undef { -%>
+  username = "<%= $storage['username'] %>"
+  <%- } -%>
+  <%- if $storage['password'] != undef { -%>
+  password = "<%= $storage['password'] %>"
+  <%- } -%>
+  <%- if $storage['initial_connection_timeout'] != undef { -%>
+  initial_connection_timeout = <%= $storage['initial_connection_timeout'] %>
+  <%- } -%>
+  <%- if $storage['connection_timeout'] != undef { -%>
+  connection_timeout = <%= $storage['connection_timeout'] %>
+  <%- } -%>
+  <%- if $storage['simple_retry_policy_retries'] != undef { -%>
+  simple_retry_policy_retries = <%= $storage['simple_retry_policy_retries'] %>
+  <%- } -%>
+  <%- if $storage['tls'] != undef { -%>
+  tls = <%= $storage['tls'] %>
+  <%- } -%>
+  <%- if $storage['pem_bundle_file'] != undef { -%>
+  pem_bundle_file = "<%= $storage['pem_bundle_file'] %>"
+  <%- } -%>
+  <%- if $storage['pem_json_file'] != undef { -%>
+  pem_json_file = "<%= $storage['pem_json_file'] %>"
+  <%- } -%>
+  <%- if $storage['tls_skip_verify'] != undef { -%>
+  tls_skip_verify = <%= $storage['tls_skip_verify'] %>
+  <%- } -%>
+  <%- if $storage['tls_min_version'] != undef { -%>
+  tls_min_version = "<%= $storage['tls_min_version'] %>"
+  <%- } -%>
+}

@@ -1,0 +1,26 @@
+<%- |
+  Optional[Hash] $seal
+| -%>
+<%- if $seal != undef { -%>
+  <%- if $seal['alicloudkms'] != undef { -%>
+<%= epp('vault/elements/seal/alicloudkms.hcl.epp', { seal => $seal['alicloudkms'] }) %>
+  <%- } -%>
+  <%- if $seal['awskms'] != undef { -%>
+<%= epp('vault/elements/seal/awskms.hcl.epp', { seal => $seal['awskms'] }) %>
+  <%- } -%>
+  <%- if $seal['azurekeyvault'] != undef { -%>
+<%= epp('vault/elements/seal/azurekeyvault.hcl.epp', { seal => $seal['azurekeyvault'] }) %>
+  <%- } -%>
+  <%- if $seal['gcpckms'] != undef { -%>
+<%= epp('vault/elements/seal/gcpckms.hcl.epp', { seal => $seal['gcpckms'] }) %>
+  <%- } -%>
+  <%- if $seal['ocikms'] != undef { -%>
+<%= epp('vault/elements/seal/ocikms.hcl.epp', { seal => $seal['ocikms'] }) %>
+  <%- } -%>
+  <%- if $seal['pkcs11'] != undef { -%>
+<%= epp('vault/elements/seal/pkcs11.hcl.epp', { seal => $seal['pkcs11'] }) %>
+  <%- } -%>
+  <%- if $seal['transit'] != undef { -%>
+<%= epp('vault/elements/seal/transit.hcl.epp', { seal => $seal['transit'] }) %>
+  <%- } -%>
+<%- } -%>

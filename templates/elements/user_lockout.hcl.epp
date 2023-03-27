@@ -1,0 +1,21 @@
+<%- |
+  Optional[Hash] $user_lockout
+| -%>
+<%- if $user_lockout != undef { -%>
+  <%- $user_lockout.each |$name, $settings| { -%>
+user_lockout "<%= $name %>" {
+  <%- if $settings['lockout_threshold'] != undef { -%>
+  user_lockout = "<%= $settings['user_lockout'] %>"
+  <%- } -%>
+  <%- if $settings['lockout_duration'] != undef { -%>
+  lockout_duration = "<%= $settings['lockout_duration'] %>"
+  <%- } -%>
+  <%- if $settings['lockout_counter_reset'] != undef { -%>
+  lockout_counter_reset = "<%= $settings['lockout_counter_reset'] %>"
+  <%- } -%>
+  <%- if $settings['disable_lockout'] != undef { -%>
+  disable_lockout = <%= $settings['disable_lockout'] %>
+  <%- } -%>
+}
+  <%- } -%>
+<%- } -%>

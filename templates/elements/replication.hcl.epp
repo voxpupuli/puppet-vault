@@ -1,0 +1,25 @@
+<%- |
+  Optional[Hash] $replication
+| -%>
+<%- if $replication != undef { -%>
+replication {
+  <%- if $replication['resolver_discover_servers'] != undef { -%>
+  resolver_discover_servers = <%= $replication['resolver_discover_servers'] %>
+  <%- } -%>
+  <%- if $replication['logshipper_buffer_length'] != undef { -%>
+  logshipper_buffer_length = <%= $replication['logshipper_buffer_length'] %>
+  <%- } -%>
+  <%- if $replication['logshipper_buffer_size'] != undef { -%>
+  logshipper_buffer_size = "<%= $replication['logshipper_buffer_size'] %>"
+  <%- } -%>
+  <%- if $replication['allow_forwarding_via_header'] != undef { -%>
+  allow_forwarding_via_header = <%= $replication['allow_forwarding_via_header'] %>
+  <%- } -%>
+  <%- if $replication['best_effort_wal_wait_duration'] != undef { -%>
+  best_effort_wal_wait_duration = "<%= $replication['best_effort_wal_wait_duration'] %>"
+  <%- } -%>
+  <%- if $replication['allow_forwarding_via_token'] != undef { -%>
+  allow_forwarding_via_token = "<%= $replication['allow_forwarding_via_token'] %>"
+  <%- } -%>
+}
+<%- } -%>

@@ -1,0 +1,75 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<% if $is_ha { %>ha_<% } %>storage "raft" {
+  <%- if $storage['path'] != undef { -%>
+  path = "<%= $storage['path'] %>"
+  <%- } -%>
+  <%- if $storage['node'] != undef { -%>
+  node_id = "<%= $storage['node_id'] %>"
+  <%- } -%>
+  <%- if $storage['performance_multiplier'] != undef { -%>
+  performance_multiplier = <%= $storage['performance_multiplier'] %>
+  <%- } -%>
+  <%- if $storage['trailing_logs'] != undef { -%>
+  trailing_logs = <%= $storage['trailing_logs'] %>
+  <%- } -%>
+  <%- if $storage['snapshot_threshold'] != undef { -%>
+  snapshot_threshold = <%= $storage['snapshot_threshold'] %>
+  <%- } -%>
+  <%- if $storage['retry_join'] != undef { -%>
+    <%- $storage['retry_join'].each |$retry_join| { -%>
+  retry_join {
+    <%- if $retry_join['leader_api_addr'] != undef { -%>
+    leader_api_addr = "<%= $retry_join['leader_api_addr'] %>"
+    <%- } -%>
+    <%- if $retry_join['auto_join'] != undef { -%>
+    auto_join = "<%= $retry_join['auto_join'] %>"
+    <%- } -%>
+    <%- if $retry_join['auto_join_scheme'] != undef { -%>
+    auto_join_scheme = "<%= $retry_join['auto_join_scheme'] %>"
+    <%- } -%>
+    <%- if $retry_join['auto_join_port'] != undef { -%>
+    auto_join_port = <%= $retry_join['auto_join_port'] %>
+    <%- } -%>
+    <%- if $retry_join['leader_ca_cert_file'] != undef { -%>
+    leader_ca_cert_file = "<%= $retry_join['leader_ca_cert_file'] %>"
+    <%- } -%>
+    <%- if $retry_join['leader_client_cert_file'] != undef { -%>
+    leader_client_cert_file = "<%= $retry_join['leader_client_cert_file'] %>"
+    <%- } -%>
+    <%- if $retry_join['leader_client_key_file'] != undef { -%>
+    leader_client_key_file = "<%= $retry_join['leader_client_key_file'] %>"
+    <%- } -%>
+    <%- if $retry_join['leader_ca_cert'] != undef { -%>
+    leader_ca_cert = "<%= $retry_join['leader_ca_cert'] %>"
+    <%- } -%>
+    <%- if $retry_join['leader_client_cert'] != undef { -%>
+    leader_client_cert = "<%= $retry_join['leader_client_cert'] %>"
+    <%- } -%>
+    <%- if $retry_join['leader_client_key'] != undef { -%>
+    leader_client_key = "<%= $retry_join['leader_client_key'] %>"
+    <%- } -%>
+  }
+    <%- } -%>
+  <%- } -%>
+  <%- if $storage['retry_join_as_non_voter'] != undef { -%>
+  retry_join_as_non_voter = <%= $storage['retry_join_as_non_voter'] %>
+  <%- } -%>
+  <%- if $storage['max_entry_size'] != undef { -%>
+  max_entry_size = <%= $storage['max_entry_size'] %>
+  <%- } -%>
+  <%- if $storage['autopilot_reconcile_interval'] != undef { -%>
+  autopilot_reconcile_interval = "<%= $storage['autopilot_reconcile_interval'] %>"
+  <%- } -%>
+  <%- if $storage['autopilot_update_interval'] != undef { -%>
+  autopilot_update_interval = "<%= $storage['autopilot_update_interval'] %>"
+  <%- } -%>
+  <%- if $storage['autopilot_upgrade_version'] != undef { -%>
+  autopilot_upgrade_version = "<%= $storage['autopilot_upgrade_version'] %>"
+  <%- } -%>
+  <%- if $storage['autopilot_redundancy_zone'] != undef { -%>
+  autopilot_redundancy_zone = "<%= $storage['autopilot_redundancy_zone'] %>"
+  <%- } -%>
+}

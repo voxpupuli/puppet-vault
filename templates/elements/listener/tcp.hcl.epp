@@ -1,0 +1,102 @@
+<%- |
+Hash $listener
+| -%>
+listener "tcp" {
+  <%- if $listener['address'] != undef { -%>
+  address = "<%= $listener['address'] %>"
+  <%- } -%>
+  <%- if $listener['cluster_address'] != undef { -%>
+  cluster_address = "<%= $listener['cluster_address'] %>"
+  <%- } -%>
+  <%- if $listener['http_idle_timeout'] != undef { -%>
+  http_idle_timeout = "<%= $listener['http_idle_timeout'] %>"
+  <%- } -%>
+  <%- if $listener['http_read_header_timeout'] != undef { -%>
+  http_read_header_timeout = "<%= $listener['http_read_header_timeout'] %>"
+  <%- } -%>
+  <%- if $listener['http_read_timeout'] != undef { -%>
+  http_read_timeout = "<%= $listener['http_read_timeout'] %>"
+  <%- } -%>
+  <%- if $listener['http_write_timeout'] != undef { -%>
+  http_write_timeout = "<%= $listener['http_write_timeout'] %>"
+  <%- } -%>
+  <%- if $listener['max_request_size'] != undef { -%>
+  max_request_size = <%= $listener['max_request_size'] %>
+  <%- } -%>
+  <%- if $listener['max_request_duration'] != undef { -%>
+  max_request_duration = "<%= $listener['max_request_duration'] %>"
+  <%- } -%>
+  <%- if $listener['proxy_protocol_behavior'] != undef  { -%>
+  proxy_protocol_behavior = "<%= $listener['proxy_protocol_behavior'] %>"
+  <%- } -%>
+  <%- if $listener['proxy_protocol_authorized_addrs'] != undef { -%>
+  proxy_protocol_authorized_addrs = "<%= $listener['proxy_protocol_authorized_addrs'] %>"
+  <%- } -%>
+  <%- if $listener['tls_disable'] != undef { -%>
+  tls_disable = "<%= $listener['tls_disable'] %>"
+  <%- } -%>
+  <%- if $listener['tls_cert_file'] != undef { -%>
+  tls_cert_file = "<%= $listener['tls_cert_file'] %>"
+  <%- } -%>
+  <%- if $listener['tls_key_file'] != undef { -%>
+  tls_key_file = "<%= $listener['tls_key_file'] %>"
+  <%- } -%>
+  <%- if $listener['tls_min_version'] != undef { -%>
+  tls_min_version = "<%= $listener['tls_min_version'] %>"
+  <%- } -%>
+  <%- if $listener['tls_max_version'] != undef { -%>
+  tls_max_version = "<%= $listener['tls_max_version'] %>"
+  <%- } -%>
+  <%- if $listener['tls_cipher_suites'] != undef { -%>
+  tls_cipher_suites = "<%= $listener['tls_cipher_suites'] %>"
+  <%- } -%>
+  <%- if $listener['tls_require_and_verify_client_cert'] != undef { -%>
+  tls_require_and_verify_client_cert = "<%= $listener['tls_require_and_verify_client_cert'] %>"
+  <%- } -%>
+  <%- if $listener['tls_client_ca_file'] != undef { -%>
+  tls_client_ca_file = "<%= $listener['tls_client_ca_file'] %>"
+  <%- } -%>
+  <%- if $listener['tls_disable_client_certs'] != undef { -%>
+  tls_disable_client_certs = "<%= $listener['tls_disable_client_certs'] %>"
+  <%- } -%>
+  <%- if $listener['x_forwarded_for_authorized_addrs'] != undef { -%>
+  x_forwarded_for_authorized_addrs = "<%= $listener['x_forwarded_for_authorized_addrs'] %>"
+  <%- } -%>
+  <%- if $listener['x_forwarded_for_hop_skips'] != undef { -%>
+  x_forwarded_for_hop_skips = "<%= $listener['x_forwarded_for_hop_skips'] %>"
+  <%- } -%>
+  <%- if $listener['x_forwarded_for_reject_not_authorized'] != undef { -%>
+  x_forwarded_for_reject_not_authorized = "<%= $listener['x_forwarded_reject_not_authorized'] %>"
+  <%- } -%>
+  <%- if $listener['x_forwarded_for_reject_not_present'] != undef { -%>
+  x_forwarded_for_reject_not_present = "<%= $listener['x_forwarded_for_reject_not_present'] %>"
+  <%- } -%>
+  <%- if $listener['telemetry'] != undef { -%>
+  telemetry {
+    <%- if $listener['telemetry']['unauthenticated_metrics_access'] != undef { -%>
+    unauthenticated_metrics_access = <%= $listener['telemetry']['unauthenticated_metrics_access'] %>
+    <%- } -%>
+  }
+  <%- } -%>
+  <%- if $listener['profiling'] != undef { -%>
+  profiling {
+    <%- if $listener['profiling']['unauthenticated_pprof_access'] != undef { -%>
+    unauthenticated_metrics_access = <%= $listener['profiling']['unauthenticated_pprof_access'] %>
+    <%- } -%>
+    <%- if $listener['profiling']['unauthenticated_in_flight_request_access'] != undef { -%>
+    unauthenticated_in_flight_request_access = <%= $listener['profiling']['unauthenticated_in_flight_request_access'] %>
+    <%- } -%>
+  }
+  <%- } -%>
+  <%- if $listener['custom_response_headers'] != undef { -%>
+  custom_response_headers {
+    <%- $listener['custom_response_headers'].each |$key, $headers| { -%>
+    "<%= $key %>" {
+      <%- $headers.each |$header, $values| { -%>
+      "<%= $header %>" = [<%- $values.each |$value| { -%>"<%= $value %>",<%- } -%>]
+      <%- } -%>
+    }
+    <%- } -%>
+  }
+  <%- } -%>
+}

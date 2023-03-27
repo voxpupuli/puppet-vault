@@ -1,0 +1,60 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<% if $is_ha { %>ha_<% } %>storage "consul" {
+  <%- if $storage['address'] != undef { -%>
+  address = "<%= $storage['address'] %>"
+  <%- } -%>
+  <%- if $storage['check_timeout'] != undef { -%>
+  check_timeout = "<%= $storage['check_timeout'] %>"
+  <%- } -%>
+  <%- if $storage['consistency_mode'] != undef { -%>
+  consistency_mode = "<%= $storage['consistency_mode'] %>"
+  <%- } -%>
+  <%- if $storage['disable_registration'] != undef { -%>
+  disable_registration = "<%= $storage['disable_registration'] %>"
+  <%- } -%>
+  <%- if $storage['max_parallel'] != undef { -%>
+  max_parallel = "<%= $storage['max_parallel'] %>"
+  <%- } -%>
+  <%- if $storage['path'] != undef { -%>
+  path = "<%= $storage['path'] %>"
+  <%- } -%>
+  <%- if $storage['scheme'] != undef { -%>
+  scheme = "<%= $storage['scheme'] %>"
+  <%- } -%>
+  <%- if $storage['service'] != undef { -%>
+  service = "<%= $storage['service'] %>"
+  <%- } -%>
+  <%- if $storage['service_tags'] != undef { -%>
+  service_tags = "<%= $storage['service_tags'] %>"
+  <%- } -%>
+  <%- if $storage['service_address'] != undef { -%>
+  service_address = "<%= $storage['service_address'] %>"
+  <%- } -%>
+  <%- if $storage['token'] != undef { -%>
+  token = "<%= $storage['token'] %>"
+  <%- } -%>
+  <%- if $storage['session_ttl'] != undef { -%>
+  session_ttl = "<%= $storage['session_ttl'] %>"
+  <%- } -%>
+  <%- if $storage['lock_wait_time'] != undef { -%>
+  lock_wait_time = "<%= $storage['lock_wait_time'] %>"
+  <%- } -%>
+  <%- if $storage['tls_ca_file'] != undef { -%>
+  tls_ca_file = "<%= $storage['tls_ca_file'] %>"
+  <%- } -%>
+  <%- if $storage['tls_cert_file'] != undef { -%>
+  tls_cert_file = "<%= $storage['tls_cert_file'] %>"
+  <%- } -%>
+  <%- if $storage['tls_key_file'] != undef { -%>
+  tls_key_file = "<%= $storage['tls_key_file'] %>"
+  <%- } -%>
+  <%- if $storage['tls_min_version'] != undef { -%>
+  tls_min_version = "<%= $storage['tls_min_version'] %>"
+  <%- } -%>
+  <%- if $storage['tls_skip_verify'] != undef { -%>
+  tls_skip_verify = "<%= $storage['tls_skip_verify'] %>"
+  <%- } -%>
+}
