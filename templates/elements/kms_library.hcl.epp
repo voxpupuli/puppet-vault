@@ -1,0 +1,8 @@
+<%- |
+  Optional[Hash] $kms_library
+| -%>
+<%- if $kms_library != undef { -%>
+  <%- if $kms_library['pkcs11'] != undef { -%>
+<%= epp('vault/element/kms_library/pkcs11.hcl.epp', { settings => $kms_library['pkcs11'] }) %>
+  <%- } -%>
+<%- } -%>

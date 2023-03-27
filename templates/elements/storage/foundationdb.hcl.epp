@@ -1,0 +1,33 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<% if $is_ha { %>ha_<% } %>storage "foundationdb" {
+  <%- if $storage['api_version'] != undef { -%>
+  api_version = <%= $storage['api_version'] %>
+  <%- } -%>
+  <%- if $storage['cluster_file'] != undef { -%>
+  cluster_file = "<%= $storage['cluster_file'] %>"
+  <%- } -%>
+  <%- if $storage['tls_verify_peers'] != undef { -%>
+  tls_verify_peers = <%= $storage['tls_verify_peers'] %>
+  <%- } -%>
+  <%- if $storage['tls_ca_file'] != undef { -%>
+  tls_ca_file = "<%= $storage['tls_ca_file'] %>"
+  <%- } -%>
+  <%- if $storage['tls_cert_file'] != undef { -%>
+  tls_cert_file = "<%= $storage['tls_cert_file'] %>"
+  <%- } -%>
+  <%- if $storage['tls_key_file'] != undef { -%>
+  tls_key_file = "<%= $storage['tls_key_file'] %>"
+  <%- } -%>
+  <%- if $storage['tls_password'] != undef { -%>
+  tls_password = "<%= $storage['tls_password'] %>"
+  <%- } -%>
+  <%- if $storage['path'] != undef { -%>
+  path = "<%= $storage['path'] %>"
+  <%- } -%>
+  <%- if $storage['ha_enabled'] != undef { -%>
+  ha_enabled = "<%= $storage['ha_enabled'] %>"
+  <%- } -%>
+}

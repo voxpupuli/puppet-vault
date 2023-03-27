@@ -26,4 +26,12 @@ class vault::params {
       $manage_repo         = true
     }
   }
+
+  $download_base = 'https://releases.hashicorp.com/vault/'
+
+  if $install_method == 'repo' and $manage_repo {
+    $config_dir = '/etc/vault.d'
+  } else {
+    $config_dir = '/etc/vault'
+  }
 }

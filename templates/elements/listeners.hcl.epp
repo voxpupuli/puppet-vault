@@ -1,0 +1,13 @@
+<%- |
+  Hash $listener
+| -%>
+<%- if $listener['unix'] != undef { -%>
+  <%- $listener['unix'].each |$unix_listener| { -%>
+<%= epp('vault/elements/listener/unix.hcl.epp', { listener => $unix_listener }) %>
+  <%- } -%>
+<%- } -%>
+<%- if $listener['tcp'] != undef { -%>
+  <%- $listener['tcp'].each |$tcp_listener| { -%>
+<%= epp('vault/elements/listener/tcp.hcl.epp', { listener => $tcp_listener }) %>
+  <%- } -%>
+<%- } -%>

@@ -1,0 +1,21 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<%- if $is_ha { fail('The Azure storage backend is not highly available') } -%>
+storage "azure" {
+  accountName = "<%= $storage['accountName'] %>"
+  <%- if $storage['accountKey'] != undef { -%>
+  accountKey = "<%= $storage['accountKey'] %>"
+  <%- } -%>
+  container = "<%= $storage['container'] %>"
+  <%- if $storage['environment'] != undef { -%>
+  environment = "<%= $storage['environment'] %>"
+  <%- } -%>
+  <%- if $storage['arm_endpoint'] != undef { -%>
+  arm_endpoint = "<%= $storage['arm_endpoint'] %>"
+  <%- } -%>
+  <%- if $storage['max_parallel'] != undef { -%>
+  max_parallel = "<%= $storage['max_parallel'] %>"
+  <%- } -%>
+}

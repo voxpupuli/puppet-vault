@@ -1,0 +1,16 @@
+<%- |
+  Hash $seal
+| -%>
+seal "azurekeyvault" {
+  tenant_id = "<%= $seal['tenant_id'] %>"
+  client_id = "<%= $seal['client_id'] %>"
+  client_secret = "<%= $seal['client_secret'] %>"
+  <%- if $seal['environment'] != undef { -%>
+  environment = "<%= ['azurekeyvault']['environment'] %>"
+  <%- } -%>
+  vault_name = "<%= $seal['vault_name'] %>"
+  key_name = "<%= $seal['key_name'] %>"
+  <%- if $seal['disabled'] != undef { -%>
+  disabled = "<%= $seal['disabled'] %>"
+  <%- } -%>
+}

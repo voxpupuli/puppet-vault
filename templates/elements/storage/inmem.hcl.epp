@@ -1,0 +1,5 @@
+<%- |
+  Boolean $is_ha = false
+| -%>
+<%- if $is_ha { fail('The In-Memory storage backend is not highly available') } -%>
+storage "inmem" {}

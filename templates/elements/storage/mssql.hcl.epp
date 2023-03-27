@@ -1,0 +1,38 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<%- if $is_ha { fail('The MSSQL storage backend is not highly available') } -%>
+storage "mssql" {
+  server = "<%= $storage['server'] %>"
+  <%- if $storage['port'] != undef { -%>
+  port = <%= $storage['port'] %>
+  <%- } -%>
+  <%- if $storage['username'] != undef { -%>
+  username = "<%= $storage['username'] %>"
+  <%- } -%>
+  <%- if $storage['password'] != undef { -%>
+  password = "<%= $storage['password'] %>"
+  <%- } -%>
+  <%- if $storage['database'] != undef { -%>
+  database = "<%= $storage['database'] %>"
+  <%- } -%>
+  <%- if $storage['table'] != undef { -%>
+  table = "<%= $storage['table'] %>"
+  <%- } -%>
+  <%- if $storage['schema'] != undef { -%>
+  schema = "<%= $storage['schema'] %>"
+  <%- } -%>
+  <%- if $storage['appname'] != undef { -%>
+  appname = "<%= $storage['appname'] %>"
+  <%- } -%>
+  <%- if $storage['connectionTimeout'] != undef { -%>
+  connection_timeout = <%= $storage['connectionTimeout'] %>
+  <%- } -%>
+  <%- if $storage['logLevel'] != undef { -%>
+  logLevel = <%= $storage['logLevel'] %>
+  <%- } -%>
+  <%- if $storage['max_parallel'] != undef { -%>
+  max_parallel = "<%= $storage['max_parallel'] %>"
+  <%- } -%>
+}
