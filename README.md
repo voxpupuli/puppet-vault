@@ -36,6 +36,7 @@ Please see [The official documentation](https://www.vaultproject.io/docs/configu
 * `manage_group`: Whether or not the module should create the group.
 * `bin_dir`: Directory the vault executable will be installed in.
 * `config_dir`: Directory the vault configuration will be kept in.
+* `config_output`: What format to output the configuration in (`hcl` or `json`) (defalut: `json`)
 * `config_mode`: Mode of the configuration file (config.json). Defaults to '0750'
 * `purge_config_dir`: Whether the `config_dir` should be purged before installing the generated config.
 * `install_method`: Supports the values `repo` or `archive`. See [Installation parameters](#installation-parameters).
@@ -84,7 +85,7 @@ By default, with no parameters the module will configure vault with some sensibl
 ```
 { 'file' => { 'path' => '/var/lib/vault' }}
 ```
-
+* `ha_storage`: An optional hash containing the `ha_storage` configuration
 * `listener`: A hash or array of hashes containing the listener configuration(s), default:
 
 ```
@@ -95,26 +96,46 @@ By default, with no parameters the module will configure vault with some sensibl
   }
 }
 ```
-
-* `ha_storage`: An optional hash containing the `ha_storage` configuration
-
-* `seal`: An optional hash containing the `seal` configuration
-
-* `telemetry`: An optional hash containing the `telemetry` configuration
-
+* `user_lockout` An optional hash for configuring failed user login behavior. (default: `undef`)
+* `seal`: An optional hash containing the `seal` configuration (default: `undef`)
+* `cluster_name`: An optional string containing the name of the cluster (default: `undef`)
+* `cache_size`: An optional string containing the cache size (default: `undef`)
 * `disable_cache`: A boolean to disable or enable the cache (default: `undef`)
-
 * `disable_mlock`: A boolean to disable or enable mlock [See below](#mlock) (default: `undef`)
-
+* `plugin_directory`: An optional string containing the plugin directory path (default: `undef`)
+* `plugin_file_uid`: An optional integer containing uid for the owning user (default: `undef`)
+* `plugin_file_permissions`: An optional integer containing file permissions (default: `undef`)
+* `telemetry`: An optional hash containing the `telemetry` configuration
 * `default_lease_ttl`: A string containing the default lease TTL (default: `undef`)
-
 * `max_lease_ttl`: A string containing the max lease TTL (default: `undef`)
-
-* `enable_ui`: Enable the vault UI (requires vault 0.10.0+ or Enterprise) (default: `undef`)
-
+* `default_max_request_duration`: A string containing the default max request duration (default: `undef`)
+* `detect_deadlocks`: An optional boolean indicating whether to detect deadlocks (default: `undef`)
+* `raw_storage_endpoint`: An optional boolean enabling sys/raw endpoint (default: `undef`)
+* `introspection_endpoint`: An optional boolean enabling sys/internal/inspect endpoints (default: `undef`)
+* `enable_ui`: An optional boolean to enable the vault UI (requires vault 0.10.0+ or Enterprise) (default: `undef`)
+* `pid_file`: An optional string containing path to the pid file (default: `undef`)
+* `enable_response_header_hostname`: An optional boolean controlling whether to enable the hostname response header (default: `undef`)
+* `enable_response_header_raft_node_id`: An optional boolean controlling whether to enable the raft node id response header (default: `undef`)
+* `log_level`: An optional string containing the log level (default: `undef`)
+* `log_format`: An optional string equivalent to the -log-format command-line flag (default: `undef`)
+* `log_file`: An optional string equivalent to the -log-file command-line flag (default `undef`)
+* `log_rotate_duration`: An optional string equivalent to the -log-rotate-duration command-line flag (default: `undef`)
+* `log_rotate_bytes`: An optional string equivalent to the -log-rotate-bytes command-line flag (default: `undef`)
+* `log_rotate_max_files`: An optional string equivalent to the -log-rotate-max-files command-line flag (default: `undef`)
+* `experiments`: An optional array of experiments to enable (default: `undef`)
 * `api_addr`: Specifies the address (full URL) to advertise to other Vault servers in the cluster for client redirection. This value is also used for plugin backends. This can also be provided via the environment variable VAULT_API_ADDR. In general this should be set as a full URL that points to the value of the listener address (default: `undef`)
-
-* `extra_config`: A hash containing extra configuration, intended for newly released configuration not yet supported by the module. This hash will get merged with other configuration attributes into the JSON config file.
+* `cluster_addr`: An optional string specifying the address to advertise to other Vault servers in the cluster for request forwarding
+* `disable_clustering`: An optional boolean used to disable clustering features (default: `undef`)
+* `disable_sealwrap`: An optional boolean to disable seal wrapping for any value except root key (default: `undef`)
+* `disable_performance_standby`: An optional boolean to disable perfomance standbys (default: `undef`)
+* `license_path`: An optional string to specify the path to the license file (default: `undef`)
+* `replication`: An optional hash containing various parameters for tuning replication (default: `undef`)
+* `sentinel`: An optional hash containing configuration for vault's sentinel integration (default: `undef`)
+* `service_registration`: An optional hash for configuring vault's mechanims for service registration (default: `undef`)
+* `log_requests_level`: An optional string to configure logging completed requests (default: `undef`)
+* `entropy_augmentation`: An optional string for configuring Vault's entropy sampling (default: `undef`)
+* `kms_library`: An optional string for configuring platform specific isolation for managed keys (default: `undef`)
+* `extra_config`: A hash containing extra configuration, intended for newly released configuration not yet supported by the module. This hash will get merged with other configuration attributes into the config file.
 
 ## Examples
 
