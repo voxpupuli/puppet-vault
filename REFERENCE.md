@@ -8,7 +8,7 @@
 
 #### Public Classes
 
-* [`vault`](#vault): install hashicorp vault
+* [`vault`](#vault)
 
 #### Private Classes
 
@@ -21,190 +21,143 @@
 
 ### <a name="vault"></a>`vault`
 
-install hashicorp vault
+The vault class.
 
 #### Parameters
 
 The following parameters are available in the `vault` class:
 
+* [`service_provider`](#-vault--service_provider)
+* [`service_options`](#-vault--service_options)
+* [`manage_service`](#-vault--manage_service)
+* [`manage_service_file`](#-vault--manage_service_file)
+* [`manage_storage_dir`](#-vault--manage_storage_dir)
+* [`manage_repo`](#-vault--manage_repo)
+* [`num_procs`](#-vault--num_procs)
+* [`install_method`](#-vault--install_method)
+* [`package_name`](#-vault--package_name)
+* [`package_ensure`](#-vault--package_ensure)
+* [`download_dir`](#-vault--download_dir)
+* [`manage_download_dir`](#-vault--manage_download_dir)
+* [`download_filename`](#-vault--download_filename)
+* [`version`](#-vault--version)
+* [`os`](#-vault--os)
+* [`arch`](#-vault--arch)
+* [`storage`](#-vault--storage)
+* [`ha_storage`](#-vault--ha_storage)
+* [`listener`](#-vault--listener)
+* [`user_lockout`](#-vault--user_lockout)
+* [`seal`](#-vault--seal)
+* [`cluster_name`](#-vault--cluster_name)
+* [`cache_size`](#-vault--cache_size)
+* [`disable_cache`](#-vault--disable_cache)
+* [`disable_mlock`](#-vault--disable_mlock)
+* [`manage_file_capabilities`](#-vault--manage_file_capabilities)
+* [`plugin_directory`](#-vault--plugin_directory)
+* [`plugin_file_uid`](#-vault--plugin_file_uid)
+* [`plugin_file_permissions`](#-vault--plugin_file_permissions)
+* [`telemetry`](#-vault--telemetry)
+* [`default_lease_ttl`](#-vault--default_lease_ttl)
+* [`max_lease_ttl`](#-vault--max_lease_ttl)
+* [`default_max_request_duration`](#-vault--default_max_request_duration)
+* [`detect_deadlocks`](#-vault--detect_deadlocks)
+* [`raw_storage_endpoint`](#-vault--raw_storage_endpoint)
+* [`introspection_endpoint`](#-vault--introspection_endpoint)
+* [`enable_ui`](#-vault--enable_ui)
+* [`pid_file`](#-vault--pid_file)
+* [`enable_response_header_hostname`](#-vault--enable_response_header_hostname)
+* [`enable_response_header_raft_node_id`](#-vault--enable_response_header_raft_node_id)
+* [`log_level`](#-vault--log_level)
+* [`log_format`](#-vault--log_format)
+* [`log_file`](#-vault--log_file)
+* [`log_rotate_duration`](#-vault--log_rotate_duration)
+* [`log_rotate_bytes`](#-vault--log_rotate_bytes)
+* [`log_rotate_max_files`](#-vault--log_rotate_max_files)
+* [`experiments`](#-vault--experiments)
+* [`api_addr`](#-vault--api_addr)
+* [`cluster_addr`](#-vault--cluster_addr)
+* [`disable_clustering`](#-vault--disable_clustering)
+* [`disable_sealwrap`](#-vault--disable_sealwrap)
+* [`disable_performance_standby`](#-vault--disable_performance_standby)
+* [`license_path`](#-vault--license_path)
+* [`replication`](#-vault--replication)
+* [`sentinel`](#-vault--sentinel)
+* [`service_registration`](#-vault--service_registration)
+* [`log_requests_level`](#-vault--log_requests_level)
+* [`entropy_augmentation`](#-vault--entropy_augmentation)
+* [`kms_library`](#-vault--kms_library)
+* [`extra_config`](#-vault--extra_config)
 * [`user`](#-vault--user)
 * [`manage_user`](#-vault--manage_user)
 * [`group`](#-vault--group)
 * [`manage_group`](#-vault--manage_group)
 * [`bin_dir`](#-vault--bin_dir)
 * [`config_dir`](#-vault--config_dir)
+* [`manage_config_dir`](#-vault--manage_config_dir)
+* [`manage_config_file`](#-vault--manage_config_file)
+* [`config_output`](#-vault--config_output)
 * [`config_mode`](#-vault--config_mode)
 * [`purge_config_dir`](#-vault--purge_config_dir)
 * [`download_url`](#-vault--download_url)
 * [`download_url_base`](#-vault--download_url_base)
 * [`download_extension`](#-vault--download_extension)
 * [`service_name`](#-vault--service_name)
-* [`service_provider`](#-vault--service_provider)
-* [`service_options`](#-vault--service_options)
-* [`manage_repo`](#-vault--manage_repo)
-* [`manage_service`](#-vault--manage_service)
-* [`num_procs`](#-vault--num_procs)
-* [`api_addr`](#-vault--api_addr)
-* [`version`](#-vault--version)
-* [`extra_config`](#-vault--extra_config)
-* [`enable_ui`](#-vault--enable_ui)
-* [`arch`](#-vault--arch)
-* [`os`](#-vault--os)
-* [`manage_download_dir`](#-vault--manage_download_dir)
-* [`download_dir`](#-vault--download_dir)
-* [`package_ensure`](#-vault--package_ensure)
-* [`package_name`](#-vault--package_name)
-* [`install_method`](#-vault--install_method)
-* [`manage_file_capabilities`](#-vault--manage_file_capabilities)
-* [`disable_mlock`](#-vault--disable_mlock)
-* [`max_lease_ttl`](#-vault--max_lease_ttl)
-* [`default_lease_ttl`](#-vault--default_lease_ttl)
-* [`telemetry`](#-vault--telemetry)
-* [`disable_cache`](#-vault--disable_cache)
-* [`seal`](#-vault--seal)
-* [`ha_storage`](#-vault--ha_storage)
-* [`listener`](#-vault--listener)
-* [`manage_storage_dir`](#-vault--manage_storage_dir)
-* [`storage`](#-vault--storage)
-* [`manage_service_file`](#-vault--manage_service_file)
-* [`service_ensure`](#-vault--service_ensure)
 * [`service_enable`](#-vault--service_enable)
-* [`manage_config_file`](#-vault--manage_config_file)
-* [`download_filename`](#-vault--download_filename)
-* [`manage_config_dir`](#-vault--manage_config_dir)
-
-##### <a name="-vault--user"></a>`user`
-
-Data type: `Any`
-
-Customise the user vault runs as, will also create the user unless `manage_user` is false.
-
-Default value: `'vault'`
-
-##### <a name="-vault--manage_user"></a>`manage_user`
-
-Data type: `Any`
-
-Whether or not the module should create the user.
-
-Default value: `true`
-
-##### <a name="-vault--group"></a>`group`
-
-Data type: `Any`
-
-Customise the group vault runs as, will also create the user unless `manage_group` is false.
-
-Default value: `'vault'`
-
-##### <a name="-vault--manage_group"></a>`manage_group`
-
-Data type: `Any`
-
-Whether or not the module should create the group.
-
-Default value: `true`
-
-##### <a name="-vault--bin_dir"></a>`bin_dir`
-
-Data type: `Any`
-
-Directory the vault executable will be installed in.
-
-Default value: `$vault::params::bin_dir`
-
-##### <a name="-vault--config_dir"></a>`config_dir`
-
-Data type: `Any`
-
-Directory the vault configuration will be kept in.
-
-Default value: `if $install_method == 'repo' and $manage_repo { '/etc/vault.d' } else { '/etc/vault'`
-
-##### <a name="-vault--config_mode"></a>`config_mode`
-
-Data type: `Any`
-
-Mode of the configuration file (config.json). Defaults to '0750'
-
-Default value: `'0750'`
-
-##### <a name="-vault--purge_config_dir"></a>`purge_config_dir`
-
-Data type: `Any`
-
-Whether the `config_dir` should be purged before installing the generated config.
-
-Default value: `true`
-
-##### <a name="-vault--download_url"></a>`download_url`
-
-Data type: `Any`
-
-Manual URL to download the vault zip distribution from.
-
-Default value: `undef`
-
-##### <a name="-vault--download_url_base"></a>`download_url_base`
-
-Data type: `Any`
-
-Hashicorp base URL to download vault zip distribution from.
-
-Default value: `'https://releases.hashicorp.com/vault/'`
-
-##### <a name="-vault--download_extension"></a>`download_extension`
-
-Data type: `Any`
-
-The extension of the vault download
-
-Default value: `'zip'`
-
-##### <a name="-vault--service_name"></a>`service_name`
-
-Data type: `Any`
-
-Customise the name of the system service
-
-Default value: `'vault'`
+* [`service_ensure`](#-vault--service_ensure)
 
 ##### <a name="-vault--service_provider"></a>`service_provider`
 
-Data type: `Any`
+Data type: `String`
 
-Customise the name of the system service provider; this
-also controls the init configuration files that are installed.
+Customise the name of the system service provider; this also controls the
+init configuration files that are installed.
 
 Default value: `$facts['service_provider']`
 
 ##### <a name="-vault--service_options"></a>`service_options`
 
-Data type: `Any`
+Data type: `Optional[String]`
 
 Extra argument to pass to `vault server`, as per: `vault server --help`
 
-Default value: `''`
-
-##### <a name="-vault--manage_repo"></a>`manage_repo`
-
-Data type: `Boolean`
-
-Configure the upstream HashiCorp repository. Only relevant when $nomad::install_method = 'repo'.
-
-Default value: `$vault::params::manage_repo`
+Default value: `undef`
 
 ##### <a name="-vault--manage_service"></a>`manage_service`
 
-Data type: `Any`
+Data type: `Boolean`
 
 Instruct puppet to manage service or not
 
 Default value: `true`
 
+##### <a name="-vault--manage_service_file"></a>`manage_service_file`
+
+Data type: `Optional[Boolean]`
+
+Whether or not this module should manage the service file
+
+Default value: `$vault::params::manage_service_file`
+
+##### <a name="-vault--manage_storage_dir"></a>`manage_storage_dir`
+
+Data type: `Boolean`
+
+Whether or not this module should concern itself with the storage directory
+
+Default value: `false`
+
+##### <a name="-vault--manage_repo"></a>`manage_repo`
+
+Data type: `Boolean`
+
+Configure the upstream HashiCorp repository. Only relevant when
+$nomad::install_method = 'repo'.
+
+Default value: `$vault::params::manage_repo`
+
 ##### <a name="-vault--num_procs"></a>`num_procs`
 
-Data type: `Any`
+Data type: `Variant[Integer, String]`
 
 Sets the GOMAXPROCS environment variable, to determine how many CPUs Vault
 can use. The official Vault Terraform install.sh script sets this to the
@@ -214,159 +167,91 @@ on the system, retrieved from the ``processorcount`` Fact.
 
 Default value: `$facts['processors']['count']`
 
-##### <a name="-vault--api_addr"></a>`api_addr`
-
-Data type: `Optional[String]`
-
-Specifies the address (full URL) to advertise to other Vault servers in the
-cluster for client redirection. This value is also used for plugin backends.
-This can also be provided via the environment variable VAULT_API_ADDR. In
-general this should be set as a full URL that points to the value of the
-listener address
-
-Default value: `undef`
-
-##### <a name="-vault--version"></a>`version`
-
-Data type: `Any`
-
-The version of Vault to install
-
-Default value: `'1.12.0'`
-
-##### <a name="-vault--extra_config"></a>`extra_config`
-
-Data type: `Hash`
-
-
-
-Default value: `{}`
-
-##### <a name="-vault--enable_ui"></a>`enable_ui`
-
-Data type: `Optional[Boolean]`
-
-
-
-Default value: `undef`
-
-##### <a name="-vault--arch"></a>`arch`
-
-Data type: `Any`
-
-
-
-Default value: `$vault::params::arch`
-
-##### <a name="-vault--os"></a>`os`
-
-Data type: `Any`
-
-
-
-Default value: `downcase($facts['kernel'])`
-
-##### <a name="-vault--manage_download_dir"></a>`manage_download_dir`
-
-Data type: `Any`
-
-
-
-Default value: `false`
-
-##### <a name="-vault--download_dir"></a>`download_dir`
-
-Data type: `Any`
-
-
-
-Default value: `'/tmp'`
-
-##### <a name="-vault--package_ensure"></a>`package_ensure`
-
-Data type: `Any`
-
-
-
-Default value: `'installed'`
-
-##### <a name="-vault--package_name"></a>`package_name`
-
-Data type: `Any`
-
-
-
-Default value: `'vault'`
-
 ##### <a name="-vault--install_method"></a>`install_method`
 
-Data type: `Any`
+Data type: `Enum['archive', 'repo']`
 
-
+How to install vault (i.e. from the official Hashicorp repo or archive)
 
 Default value: `$vault::params::install_method`
 
-##### <a name="-vault--manage_file_capabilities"></a>`manage_file_capabilities`
+##### <a name="-vault--package_name"></a>`package_name`
 
-Data type: `Any`
+Data type: `String`
 
+The name of the package to install
 
+Default value: `'vault'`
 
-Default value: `undef`
+##### <a name="-vault--package_ensure"></a>`package_ensure`
 
-##### <a name="-vault--disable_mlock"></a>`disable_mlock`
+Data type: `String`
 
-Data type: `Any`
+State of the package to ensure (i.e. installed)
 
+Default value: `'installed'`
 
+##### <a name="-vault--download_dir"></a>`download_dir`
 
-Default value: `undef`
+Data type: `StdLib::AbsolutePath`
 
-##### <a name="-vault--max_lease_ttl"></a>`max_lease_ttl`
+The directory to download the archive to for extraction
 
-Data type: `Optional[String]`
+Default value: `'/tmp'`
 
+##### <a name="-vault--manage_download_dir"></a>`manage_download_dir`
 
+Data type: `Boolean`
 
-Default value: `undef`
+Whether or not to manage the download directory
 
-##### <a name="-vault--default_lease_ttl"></a>`default_lease_ttl`
+Default value: `false`
 
-Data type: `Optional[String]`
+##### <a name="-vault--download_filename"></a>`download_filename`
 
+Data type: `String`
 
+The filename to write the downloaded archive to
 
-Default value: `undef`
+Default value: `'vault.zip'`
 
-##### <a name="-vault--telemetry"></a>`telemetry`
+##### <a name="-vault--version"></a>`version`
 
-Data type: `Optional[Hash]`
+Data type: `String`
 
+The version of Vault to download and install (for archive installation)
 
+Default value: `'1.12.0'`
 
-Default value: `undef`
+##### <a name="-vault--os"></a>`os`
 
-##### <a name="-vault--disable_cache"></a>`disable_cache`
+Data type: `String`
 
-Data type: `Optional[Boolean]`
+The operating system name
 
+Default value: `downcase($facts['kernel'])`
 
+##### <a name="-vault--arch"></a>`arch`
 
-Default value: `undef`
+Data type: `String`
 
-##### <a name="-vault--seal"></a>`seal`
+The cpu architecture
 
-Data type: `Optional[Hash]`
+Default value: `$vault::params::arch`
 
+##### <a name="-vault--storage"></a>`storage`
 
+Data type: `Hash`
 
-Default value: `undef`
+Configures the storage backend where Vault data is stored.
+
+Default value: `{ 'file' => { 'path' => '/var/lib/vault' } }`
 
 ##### <a name="-vault--ha_storage"></a>`ha_storage`
 
 Data type: `Optional[Hash]`
 
-
+Configures the storage backend where Vault HA coordination will take place.
 
 Default value: `undef`
 
@@ -374,71 +259,500 @@ Default value: `undef`
 
 Data type: `Variant[Hash, Array[Hash]]`
 
-
+Configures how Vault is listening for API requests.
 
 Default value: `{ 'tcp' => { 'address' => '127.0.0.1:8200', 'tls_disable' => 1 }, }`
 
-##### <a name="-vault--manage_storage_dir"></a>`manage_storage_dir`
+##### <a name="-vault--user_lockout"></a>`user_lockout`
 
-Data type: `Any`
+Data type: `Optional[Hash]`
 
+Configures the user-lockout behaviour for failed logins.
 
+Default value: `undef`
 
-Default value: `false`
+##### <a name="-vault--seal"></a>`seal`
 
-##### <a name="-vault--storage"></a>`storage`
+Data type: `Optional[Hash]`
 
-Data type: `Hash`
+Configures the seal type to use for auto-unsealing, as well as for seal
+wrapping as an additional layer of data protection.
 
+Default value: `undef`
 
+##### <a name="-vault--cluster_name"></a>`cluster_name`
 
-Default value: `{ 'file' => { 'path' => '/var/lib/vault' } }`
+Data type: `Optional[String]`
 
-##### <a name="-vault--manage_service_file"></a>`manage_service_file`
+Specifies the identifier for the Vault cluster
+
+Default value: `undef`
+
+##### <a name="-vault--cache_size"></a>`cache_size`
+
+Data type: `Optional[String]`
+
+Specifies the size of the read cache used by the physical storage subsystem.
+
+Default value: `undef`
+
+##### <a name="-vault--disable_cache"></a>`disable_cache`
 
 Data type: `Optional[Boolean]`
 
+Disables all caches within Vault, including the read cache used by the
+physical storage subsystem.
+
+Default value: `undef`
+
+##### <a name="-vault--disable_mlock"></a>`disable_mlock`
+
+Data type: `Boolean`
+
+Disables the server from executing the mlock syscall.
+
+Default value: `undef`
+
+##### <a name="-vault--manage_file_capabilities"></a>`manage_file_capabilities`
+
+Data type: `Boolean`
+
+Whether or not to control the ipc_lock capability on the vault binary
+
+Default value: `undef`
+
+##### <a name="-vault--plugin_directory"></a>`plugin_directory`
+
+Data type: `Optional[String]`
+
+A directory from which plugins are allowed to be loaded.
+
+Default value: `undef`
+
+##### <a name="-vault--plugin_file_uid"></a>`plugin_file_uid`
+
+Data type: `Optional[Integer]`
+
+Uid of the plugin directories and plugin binaries if they are owned by an
+user other than the user running Vault.
+
+Default value: `undef`
+
+##### <a name="-vault--plugin_file_permissions"></a>`plugin_file_permissions`
+
+Data type: `Optional[String]`
+
+Octal permission string of the plugin directories and plugin binaries if
+they have write or execute permissions for group or others.
+
+Default value: `undef`
+
+##### <a name="-vault--telemetry"></a>`telemetry`
+
+Data type: `Optional[Hash]`
+
+Specifies the telemetry reporting system.
+
+Default value: `undef`
+
+##### <a name="-vault--default_lease_ttl"></a>`default_lease_ttl`
+
+Data type: `Optional[String]`
+
+Specifies the default lease duration for tokens and secrets.
+
+Default value: `undef`
+
+##### <a name="-vault--max_lease_ttl"></a>`max_lease_ttl`
+
+Data type: `Optional[String]`
+
+Specifies the maximum possible lease duration for tokens and secrets.
+
+Default value: `undef`
+
+##### <a name="-vault--default_max_request_duration"></a>`default_max_request_duration`
+
+Data type: `Optional[String]`
+
+Specifies the default maximum request duration allowed before Vault cancels
+the request.
+
+Default value: `undef`
+
+##### <a name="-vault--detect_deadlocks"></a>`detect_deadlocks`
+
+Data type: `Optional[String]`
+
+Specifies the internal mutex locks that should be monitored for potential
+deadlocks.
+
+Default value: `undef`
+
+##### <a name="-vault--raw_storage_endpoint"></a>`raw_storage_endpoint`
+
+Data type: `Optional[Boolean]`
+
+Enables the sys/raw endpoint which allows the decryption/encryption of raw
+data into and out of the security barrier.
+
+Default value: `undef`
+
+##### <a name="-vault--introspection_endpoint"></a>`introspection_endpoint`
+
+Data type: `Optional[Boolean]`
+
+Enables the sys/internal/inspect endpoint which allows users with a root
+token or sudo privileges to inspect certain subsystems inside Vault.
+
+Default value: `undef`
+
+##### <a name="-vault--enable_ui"></a>`enable_ui`
+
+Data type: `Optional[Boolean]`
+
+Enables the built-in web UI, which is available on all listeners (address +
+port) at the /ui path.
+
+Default value: `undef`
+
+##### <a name="-vault--pid_file"></a>`pid_file`
+
+Data type: `Optional[String]`
+
+Path to the file in which the Vault server's Process ID (PID) should be
+stored.
+
+Default value: `undef`
+
+##### <a name="-vault--enable_response_header_hostname"></a>`enable_response_header_hostname`
+
+Data type: `Optional[Boolean]`
+
+Enables the addition of an HTTP header in all of Vault's HTTP responses:
+X-Vault-Hostname.
+
+Default value: `undef`
+
+##### <a name="-vault--enable_response_header_raft_node_id"></a>`enable_response_header_raft_node_id`
+
+Data type: `Optional[Boolean]`
+
+Enables the addition of an HTTP header in all of Vault's HTTP responses:
+X-Vault-Raft-Node-ID.
+
+Default value: `undef`
+
+##### <a name="-vault--log_level"></a>`log_level`
+
+Data type: `Optional[String]`
+
+Log verbosity level. Supported values (in order of descending detail) are
+trace, debug, info, warn, and error.
+
+Default value: `undef`
+
+##### <a name="-vault--log_format"></a>`log_format`
+
+Data type: `Optional[String]`
+
+Equivalent to the -log-format command-line flag.
+
+Default value: `undef`
+
+##### <a name="-vault--log_file"></a>`log_file`
+
+Data type: `Optional[String]`
+
+Equivalent to the -log-file command-line flag.
+
+Default value: `undef`
+
+##### <a name="-vault--log_rotate_duration"></a>`log_rotate_duration`
+
+Data type: `Optional[String]`
+
+Equivalent to the -log-rotate-duration command-line flag.
+
+Default value: `undef`
+
+##### <a name="-vault--log_rotate_bytes"></a>`log_rotate_bytes`
+
+Data type: `Optional[String]`
+
+Equivalent to the -log-rotate-bytes command-line flag.
+
+Default value: `undef`
+
+##### <a name="-vault--log_rotate_max_files"></a>`log_rotate_max_files`
+
+Data type: `Optional[String]`
+
+Equivalent to the -log-rotate-max-files command-line flag.
+
+Default value: `undef`
+
+##### <a name="-vault--experiments"></a>`experiments`
+
+Data type: `Optional[Array]`
+
+The list of experiments to enable for this node.
+
+Default value: `undef`
+
+##### <a name="-vault--api_addr"></a>`api_addr`
+
+Data type: `Optional[String]`
+
+Specifies the address (full URL) to advertise to other Vault servers in the
+cluster for client redirection.
+
+Default value: `undef`
+
+##### <a name="-vault--cluster_addr"></a>`cluster_addr`
+
+Data type: `Optional[String]`
+
+Specifies the address to advertise to other Vault servers in the cluster for
+request forwarding.
+
+Default value: `undef`
+
+##### <a name="-vault--disable_clustering"></a>`disable_clustering`
+
+Data type: `Optional[Boolean]`
+
+Specifies whether clustering features such as request forwarding are
+enabled.
+
+Default value: `undef`
+
+##### <a name="-vault--disable_sealwrap"></a>`disable_sealwrap`
+
+Data type: `Optional[Boolean]`
+
+Disables using seal wrapping for any value except the root key.
+
+Default value: `undef`
+
+##### <a name="-vault--disable_performance_standby"></a>`disable_performance_standby`
+
+Data type: `Optional[Boolean]`
+
+Specifies whether performance standbys should be disabled on this node.
+
+Default value: `undef`
+
+##### <a name="-vault--license_path"></a>`license_path`
+
+Data type: `Optional[String]`
+
+Path to license file.
+
+Default value: `undef`
+
+##### <a name="-vault--replication"></a>`replication`
+
+Data type: `Optional[Hash]`
+
+The replication stanza specifies various parameters for tuning replication
+related values.
+
+Default value: `undef`
+
+##### <a name="-vault--sentinel"></a>`sentinel`
+
+Data type: `Optional[Hash]`
+
+The sentinel stanza specifies configurations for Vault's Sentinel
+integration.
+
+Default value: `undef`
+
+##### <a name="-vault--service_registration"></a>`service_registration`
+
+Data type: `Optional[Hash]`
+
+The optional service_registration stanza configures Vault's mechanism for
+service registration.
+
+Default value: `undef`
+
+##### <a name="-vault--log_requests_level"></a>`log_requests_level`
+
+Data type: `Optional[String]`
+
+Vault can be configured to log completed requests using the
+log_requests_level configuration parameter.
+
+Default value: `undef`
+
+##### <a name="-vault--entropy_augmentation"></a>`entropy_augmentation`
+
+Data type: `Optional[String]`
+
+Entropy augmentation enables Vault to sample entropy from external
+cryptographic modules.
+
+Default value: `undef`
+
+##### <a name="-vault--kms_library"></a>`kms_library`
+
+Data type: `Optional[String]`
+
+The kms_library stanza isolates platform specific configuration for managed
+keys.
+
+Default value: `undef`
+
+##### <a name="-vault--extra_config"></a>`extra_config`
+
+Data type: `Hash`
+
+Extra configuration options not covered by the rest of the parameters
+
+Default value: `{}`
+
+##### <a name="-vault--user"></a>`user`
+
+Data type: `String`
 
 
-Default value: `$vault::params::manage_service_file`
 
-##### <a name="-vault--service_ensure"></a>`service_ensure`
+Default value: `'vault'`
 
-Data type: `Any`
+##### <a name="-vault--manage_user"></a>`manage_user`
 
-
-
-Default value: `'running'`
-
-##### <a name="-vault--service_enable"></a>`service_enable`
-
-Data type: `Any`
+Data type: `Boolean`
 
 
 
 Default value: `true`
 
-##### <a name="-vault--manage_config_file"></a>`manage_config_file`
+##### <a name="-vault--group"></a>`group`
 
-Data type: `Any`
+Data type: `String`
+
+
+
+Default value: `'vault'`
+
+##### <a name="-vault--manage_group"></a>`manage_group`
+
+Data type: `Boolean`
 
 
 
 Default value: `true`
 
-##### <a name="-vault--download_filename"></a>`download_filename`
+##### <a name="-vault--bin_dir"></a>`bin_dir`
 
-Data type: `Any`
+Data type: `StdLib::AbsolutePath`
 
 
 
-Default value: `'vault.zip'`
+Default value: `$vault::params::bin_dir`
+
+##### <a name="-vault--config_dir"></a>`config_dir`
+
+Data type: `StdLib::AbsolutePath`
+
+
+
+Default value: `$vault::params::config_dir`
 
 ##### <a name="-vault--manage_config_dir"></a>`manage_config_dir`
 
 Data type: `Boolean`
 
-enable/disable the directory management. not required for package based installations
+
 
 Default value: `$install_method == 'archive'`
+
+##### <a name="-vault--manage_config_file"></a>`manage_config_file`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### <a name="-vault--config_output"></a>`config_output`
+
+Data type: `Enum['hcl', 'json']`
+
+
+
+Default value: `'json'`
+
+##### <a name="-vault--config_mode"></a>`config_mode`
+
+Data type: `StdLib::Filemode`
+
+
+
+Default value: `'0750'`
+
+##### <a name="-vault--purge_config_dir"></a>`purge_config_dir`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### <a name="-vault--download_url"></a>`download_url`
+
+Data type: `Optional[StdLib::HTTPUrl]`
+
+
+
+Default value: `undef`
+
+##### <a name="-vault--download_url_base"></a>`download_url_base`
+
+Data type: `StdLib::HTTPUrl`
+
+
+
+Default value: `$vault::params::download_base`
+
+##### <a name="-vault--download_extension"></a>`download_extension`
+
+Data type: `String`
+
+
+
+Default value: `'zip'`
+
+##### <a name="-vault--service_name"></a>`service_name`
+
+Data type: `String`
+
+
+
+Default value: `'vault'`
+
+##### <a name="-vault--service_enable"></a>`service_enable`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+##### <a name="-vault--service_ensure"></a>`service_ensure`
+
+Data type:
+
+```puppet
+Variant[
+    Boolean,
+    Enum['running', 'stopped']
+  ]
+```
+
+
+
+Default value: `'running'`
 
