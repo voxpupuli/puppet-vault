@@ -307,7 +307,7 @@ Default value: `undef`
 
 ##### <a name="-vault--disable_mlock"></a>`disable_mlock`
 
-Data type: `Boolean`
+Data type: `Optional[Boolean]`
 
 Disables the server from executing the mlock syscall.
 
@@ -315,7 +315,7 @@ Default value: `undef`
 
 ##### <a name="-vault--manage_file_capabilities"></a>`manage_file_capabilities`
 
-Data type: `Boolean`
+Data type: `Optional[Boolean]`
 
 Whether or not to control the ipc_lock capability on the vault binary
 
@@ -659,7 +659,7 @@ Data type: `StdLib::AbsolutePath`
 
 
 
-Default value: `$vault::params::config_dir`
+Default value: `if $install_method == 'repo' and $manage_repo { '/etc/vault.d' } else { '/etc/vault'`
 
 ##### <a name="-vault--manage_config_dir"></a>`manage_config_dir`
 

@@ -101,7 +101,7 @@ By default, with no parameters the module will configure vault with some sensibl
 * `cluster_name`: An optional string containing the name of the cluster (default: `undef`)
 * `cache_size`: An optional string containing the cache size (default: `undef`)
 * `disable_cache`: A boolean to disable or enable the cache (default: `undef`)
-* `disable_mlock`: A boolean to disable or enable mlock [See below](#mlock) (default: `undef`)
+* `disable_mlock`: An optional boolean to disable or enable mlock [See below](#mlock) (default: `undef`)
 * `plugin_directory`: An optional string containing the plugin directory path (default: `undef`)
 * `plugin_file_uid`: An optional integer containing uid for the owning user (default: `undef`)
 * `plugin_file_permissions`: An optional integer containing file permissions (default: `undef`)
