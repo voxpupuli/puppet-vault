@@ -265,12 +265,16 @@
 #   Extra configuration options not covered by the rest of the parameters
 #
 class vault (
+  Enum['archive', 'repo']    $install_method                      = $vault::params::install_method,
   String                     $user                                = 'vault',
   Boolean                    $manage_user                         = true,
   String                     $group                               = 'vault',
   Boolean                    $manage_group                        = true,
+  Boolean                    $manage_repo                         = $vault::params::manage_repo,
   StdLib::AbsolutePath       $bin_dir                             = $vault::params::bin_dir,
-  StdLib::AbsolutePath       $config_dir                          = $vault::params::config_dir,
+  # lint:ignore:140chars
+  StdLib::AbsolutePath       $config_dir                          = if $install_method == 'repo' and $manage_repo { '/etc/vault.d' } else { '/etc/vault' },
+  # lint:endignore
   Boolean                    $manage_config_dir                   = $install_method == 'archive',
   Boolean                    $manage_config_file                  = true,
   Enum['hcl', 'json']        $config_output                       = 'json',
@@ -290,9 +294,7 @@ class vault (
   Boolean                    $manage_service                      = true,
   Optional[Boolean]          $manage_service_file                 = $vault::params::manage_service_file,
   Boolean                    $manage_storage_dir                  = false,
-  Boolean                    $manage_repo                         = $vault::params::manage_repo,
   Variant[Integer, String]   $num_procs                           = $facts['processors']['count'],
-  Enum['archive', 'repo']    $install_method                      = $vault::params::install_method,
   String                     $package_name                        = 'vault',
   String                     $package_ensure                      = 'installed',
   StdLib::AbsolutePath       $download_dir                        = '/tmp',
@@ -309,8 +311,8 @@ class vault (
   Optional[String]           $cluster_name                        = undef,
   Optional[String]           $cache_size                          = undef,
   Optional[Boolean]          $disable_cache                       = undef,
-  Boolean                    $disable_mlock                       = undef,
-  Boolean                    $manage_file_capabilities            = undef,
+  Optional[Boolean]          $disable_mlock                       = undef,
+  Optional[Boolean]          $manage_file_capabilities            = undef,
   Optional[String]           $plugin_directory                    = undef,
   Optional[Integer]          $plugin_file_uid                     = undef,
   Optional[String]           $plugin_file_permissions             = undef,
