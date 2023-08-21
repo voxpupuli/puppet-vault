@@ -19,3 +19,4 @@ if File.exist?(File.join(__dir__, 'default_module_facts.yml'))
 end
 
 require 'rspec/json_expectations'
+Dir['./spec/support/spec/**/*.rb'].sort.each { |f| require f }
