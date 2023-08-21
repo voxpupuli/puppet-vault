@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.0.0](https://github.com/voxpupuli/puppet-vault/tree/v4.0.0) (2023-08-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v3.0.0...v4.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 6 support [\#30](https://github.com/voxpupuli/puppet-vault/pull/30) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Add EL8/9 & Rocky/AlmaLinux/OracleLinux support [\#40](https://github.com/voxpupuli/puppet-vault/pull/40) ([bastelfreak](https://github.com/bastelfreak))
+- stm/file\_capability: Allow 6.x [\#39](https://github.com/voxpupuli/puppet-vault/pull/39) ([bastelfreak](https://github.com/bastelfreak))
+- puppet/systemd: Allow 5.x [\#38](https://github.com/voxpupuli/puppet-vault/pull/38) ([bastelfreak](https://github.com/bastelfreak))
+- puppet/hashi\_stack: Allow 3.x [\#37](https://github.com/voxpupuli/puppet-vault/pull/37) ([bastelfreak](https://github.com/bastelfreak))
+- puppet/archive: Allow 7.x [\#36](https://github.com/voxpupuli/puppet-vault/pull/36) ([bastelfreak](https://github.com/bastelfreak))
+- puppetlabs/stdlib: Allow 9.x [\#35](https://github.com/voxpupuli/puppet-vault/pull/35) ([bastelfreak](https://github.com/bastelfreak))
+- Add Puppet 8 support [\#34](https://github.com/voxpupuli/puppet-vault/pull/34) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v3.0.0](https://github.com/voxpupuli/puppet-vault/tree/v3.0.0) (2023-02-24)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v2.3.0...v3.0.0)

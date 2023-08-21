@@ -6,7 +6,7 @@
 [![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/vault.svg)](https://forge.puppetlabs.com/puppet/vault)
 [![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/vault.svg)](https://forge.puppetlabs.com/puppet/vault)
 [![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/vault.svg)](https://forge.puppetlabs.com/puppet/vault)
-[![puppetmodule.info docs](http://www.puppetmodule.info/images/badge.png)](http://www.puppetmodule.info/m/puppet-catalog-diff)
+[![puppetmodule.info docs](https://www.puppetmodule.info/images/badge.png)](https://www.puppetmodule.info/m/puppet-catalog-diff)
 [![Apache-2 License](https://img.shields.io/github/license/voxpupuli/puppet-vault.svg)](LICENSE)
 [![Donated by jsok](https://img.shields.io/badge/donated%20by-jsok-fb7047.svg)](#transfer-notice)
 
@@ -140,7 +140,7 @@ By default, with no parameters the module will configure vault with some sensibl
 ## Examples
 
 ```puppet
-class { '::vault':
+class { 'vault':
   storage => {
     file => {
       path => '/tmp',
@@ -202,7 +202,7 @@ The module will use `setcap` on the vault binary to enable this.
 If you do not wish to use `mlock`, set the `disable_mlock` attribute to `true`
 
 ```puppet
-class { '::vault':
+class { 'vault':
   disable_mlock => true
 }
 ```
