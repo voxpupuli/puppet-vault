@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.1.0](https://github.com/voxpupuli/puppet-vault/tree/v4.1.0) (2023-11-19)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v4.0.0...v4.1.0)
+
+**Implemented enhancements:**
+
+- puppet/systemd: Allow 6.x [\#43](https://github.com/voxpupuli/puppet-vault/pull/43) ([bastelfreak](https://github.com/bastelfreak))
+- Add Debian 12 support [\#42](https://github.com/voxpupuli/puppet-vault/pull/42) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v4.0.0](https://github.com/voxpupuli/puppet-vault/tree/v4.0.0) (2023-08-21)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v3.0.0...v4.0.0)
