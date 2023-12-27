@@ -72,6 +72,7 @@ The following parameters are available in the `vault` class:
 * [`manage_config_file`](#-vault--manage_config_file)
 * [`download_filename`](#-vault--download_filename)
 * [`manage_config_dir`](#-vault--manage_config_dir)
+* [`mode`](#-vault--mode)
 
 ##### <a name="-vault--user"></a>`user`
 
@@ -442,3 +443,10 @@ enable/disable the directory management. not required for package based installa
 
 Default value: `$install_method == 'archive'`
 
+##### <a name="-vault--mode"></a>`mode`
+
+Data type: `Enum['server', 'agent']`
+
+start vault in server or agent mode
+
+Default value: `$mode == 'server'`
