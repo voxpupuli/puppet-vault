@@ -1,6 +1,7 @@
 <% |
   String $bin_dir,
-  String $config_dir
+  String $config_dir,
+  String $config_output
 | %>
 [Unit]
 Description="HashiCorp Vault - A tool for managing secrets"
@@ -24,7 +25,7 @@ SecureBits=keep-caps
 AmbientCapabilities=CAP_IPC_LOCK
 CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK
 NoNewPrivileges=yes
-ExecStart=<%= $bin_dir %>vault server -config=<%= $config_dir %>vault.hcl
+ExecStart=<%= $bin_dir %>vault server -config=<%= $config_dir %>vault.<%= $config_output %>
 ExecReload=/bin/kill --signal HUP $MAINPID
 KillMode=process
 KillSignal=SIGINT

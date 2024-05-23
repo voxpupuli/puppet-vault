@@ -114,7 +114,7 @@ class vault::config {
         }
       )
     }
-    file { "${vault::config_dir}/config.json":
+    file { "${vault::config_dir}/vault.${vault::config_output}":
       content => $content,
       owner   => $vault::user,
       group   => $vault::group,

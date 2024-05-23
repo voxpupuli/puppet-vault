@@ -36,7 +36,7 @@ Please see [The official documentation](https://www.vaultproject.io/docs/configu
 * `manage_group`: Whether or not the module should create the group.
 * `bin_dir`: Directory the vault executable will be installed in.
 * `config_dir`: Directory the vault configuration will be kept in.
-* `config_output`: What format to output the configuration in (`hcl` or `json`) (defalut: `json`)
+* `config_output`: What format to output the configuration in (`hcl` or `json`) (default: `json`)
 * `config_mode`: Mode of the configuration file (config.json). Defaults to '0750'
 * `purge_config_dir`: Whether the `config_dir` should be purged before installing the generated config.
 * `install_method`: Supports the values `repo` or `archive`. See [Installation parameters](#installation-parameters).
