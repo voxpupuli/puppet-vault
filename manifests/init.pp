@@ -278,7 +278,7 @@ class vault (
   Boolean                    $manage_config_dir                   = $install_method == 'archive',
   Boolean                    $manage_config_file                  = true,
   Enum['hcl', 'json']        $config_output                       = 'json',
-  StdLib::Filemode           $config_mode                         = '0750',
+  StdLib::Filemode           $config_mode                         = '0444',
   Boolean                    $purge_config_dir                    = true,
   Optional[StdLib::HTTPUrl]  $download_url                        = undef,
   StdLib::HTTPUrl            $download_url_base                   = $vault::params::download_base,
