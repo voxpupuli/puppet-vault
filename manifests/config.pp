@@ -62,8 +62,8 @@ class vault::config {
           'kms_library'                         => $vault::kms_library,
       })
 
-      $config_hash = merge($_config_hash, $vault::extra_config)
-      $content = to_json_pretty($config_hash)
+      $config_hash = stdlib::merge($_config_hash, $vault::extra_config)
+      $content = stdlib::to_json_pretty($config_hash)
     } else {
       $content = epp(
         'vault/vault.hcl.epp',
