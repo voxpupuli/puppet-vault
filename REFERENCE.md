@@ -691,7 +691,7 @@ Data type: `StdLib::Filemode`
 
 
 
-Default value: `'0750'`
+Default value: `'0444'`
 
 ##### <a name="-vault--purge_config_dir"></a>`purge_config_dir`
 
