@@ -1,5 +1,5 @@
 <%- |
-Hash $listener
+  Hash $listener
 | -%>
 listener "tcp" {
   <%- if $listener['address'] != undef { -%>
