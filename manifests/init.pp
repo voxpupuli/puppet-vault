@@ -303,7 +303,7 @@ class vault (
   String                     $version                             = '1.12.0',
   String                     $os                                  = downcase($facts['kernel']),
   String                     $arch                                = $vault::params::arch,
-  Hash                       $storage                             = { 'file' => { 'path' => '/var/lib/vault' } },
+  Hash                       $storage                             = { 'file' => { 'path' => '/var/lib/vault' }, },
   Optional[Hash]             $ha_storage                          = undef,
   Variant[Hash, Array[Hash]] $listener                            = { 'tcp' => { 'address' => '127.0.0.1:8200', 'tls_disable' => 1 }, },
   Optional[Hash]             $user_lockout                        = undef,
@@ -327,7 +327,9 @@ class vault (
   Optional[String]           $pid_file                            = undef,
   Optional[Boolean]          $enable_response_header_hostname     = undef,
   Optional[Boolean]          $enable_response_header_raft_node_id = undef,
-  Optional[String]           $log_level                           = undef,
+  Optional[
+    Enum['trace', 'debug', 'info', 'warn', 'error']
+  ]                          $log_level                           = undef,
   Optional[String]           $log_format                          = undef,
   Optional[String]           $log_file                            = undef,
   Optional[String]           $log_rotate_duration                 = undef,

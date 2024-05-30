@@ -1,6 +1,7 @@
 <%- |
-Hash $listener
+  Hash $listener
 | -%>
+
 listener "unix" {
   address = "<%= $listener['address'] %>"
   <%- if $listener['mode'] != undef and $listener['mode'] != '' { -%>
