@@ -245,7 +245,7 @@ Data type: `Hash`
 
 Configures the storage backend where Vault data is stored.
 
-Default value: `{ 'file' => { 'path' => '/var/lib/vault' } }`
+Default value: `{ 'file' => { 'path' => '/var/lib/vault' }, }`
 
 ##### <a name="-vault--ha_storage"></a>`ha_storage`
 
@@ -445,7 +445,13 @@ Default value: `undef`
 
 ##### <a name="-vault--log_level"></a>`log_level`
 
-Data type: `Optional[String]`
+Data type:
+
+```puppet
+Optional[
+    Enum['trace', 'debug', 'info', 'warn', 'error']
+  ]
+```
 
 Log verbosity level. Supported values (in order of descending detail) are
 trace, debug, info, warn, and error.
