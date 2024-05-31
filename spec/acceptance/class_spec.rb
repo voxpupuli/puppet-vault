@@ -23,7 +23,6 @@ describe 'vault class' do
           },
           bin_dir => '/usr/local/bin',
           install_method => 'archive',
-          require => Class['file_capability'],
         }
         PUPPET
       end
@@ -102,7 +101,6 @@ describe 'vault class' do
             }
           },
           install_method => 'repo',
-          require => Class['file_capability'],
         }
         PUPPET
       end
