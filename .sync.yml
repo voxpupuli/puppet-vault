@@ -11,3 +11,6 @@ spec/spec_helper_acceptance.rb:
 .puppet-lint.rc:
   enabled_lint_checks:
     - parameter_documentation
+.github/workflows/ci.yml:
+  with:
+    beaker_facter: 'vault_version:Vault:1.12.0'
