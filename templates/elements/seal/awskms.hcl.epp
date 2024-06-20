@@ -1,0 +1,20 @@
+<%- |
+  Hash $seal
+| -%>
+seal "awskms" {
+  <%- if $seal['region'] != undef { -%>
+  region = "<%= $seal['region'] %>"
+  <%- } -%>
+  access_key = "<%= $seal['access_key'] %>"
+  <%- if $seal['session_token'] != undef { -%>
+  session_token = "<%= ['awskms']['session_token'] %>"
+  <%- } -%>
+  secret_key = "<%= $seal['secret_key'] %>"
+  kms_key_id = "<%= $seal['kms_key_id'] %>"
+  <%- if $seal['disabled'] != undef { -%>
+  disabled = "<%= $seal['disabled'] %>"
+  <%- } -%>
+  <%- if $seal['endpoint'] != undef { -%>
+  endpoint = "<%= $seal['endpoint'] %>"
+  <%- } -%>
+}

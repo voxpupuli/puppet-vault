@@ -1,0 +1,48 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<% if $is_ha { %>ha_<% } %>storage "etcd" {
+  <%- if $storage['address'] != undef { -%>
+  address = "<%= $storage['address'] %>"
+  <%- } -%>
+  <%- if $storage['discovery_srv'] != undef { -%>
+  discovery_srv = "<%= $storage['discovery_srv'] %>"
+  <%- } -%>
+  <%- if $storage['discovery_srv_name'] != undef { -%>
+  discovery_srv_name = "<%= $storage['discovery_srv_name'] %>"
+  <%- } -%>
+  <%- if $storage['etcd_api'] != undef { -%>
+  etcd_api = "<%= $storage['etcd_api'] %>"
+  <%- } -%>
+  <%- if $storage['ha_enabled'] != undef { -%>
+  ha_enabled = "<%= $storage['ha_enabled'] %>"
+  <%- } -%>
+  <%- if $storage['path'] != undef { -%>
+  path = "<%= $storage['path'] %>"
+  <%- } -%>
+  <%- if $storage['sync'] != undef { -%>
+  sync = "<%= $storage['sync'] %>"
+  <%- } -%>
+  <%- if $storage['username'] != undef { -%>
+  username = "<%= $storage['username'] %>"
+  <%- } -%>
+  <%- if $storage['password'] != undef { -%>
+  password = "<%= $storage['password'] %>"
+  <%- } -%>
+  <%- if $storage['tls_ca_file'] != undef { -%>
+  tls_ca_file = "<%= $storage['tls_ca_file'] %>"
+  <%- } -%>
+  <%- if $storage['tls_cert_file'] != undef { -%>
+  tls_cert_file = "<%= $storage['tls_cert_file'] %>"
+  <%- } -%>
+  <%- if $storage['tls_key_file'] != undef { -%>
+  tls_key_file = "<%= $storage['tls_key_file'] %>"
+  <%- } -%>
+  <%- if $storage['request_timeout'] != undef { -%>
+  request_timeout = "<%= $storage['request_timeout'] %>"
+  <%- } -%>
+  <%- if $storage['lock_timeout'] != undef { -%>
+  lock_timeout = "<%= $storage['lock_timeout'] %>"
+  <%- } -%>
+}

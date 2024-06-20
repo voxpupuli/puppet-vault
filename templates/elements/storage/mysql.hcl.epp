@@ -1,0 +1,38 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<% if $is_ha { %>ha_<% } %>storage "mysql" {
+  <%- if $storage['address'] != undef { -%>
+  address = "<%= $storage['address'] %>"
+  <%- } -%>
+  username = "<%= $storage['username'] %>"
+  password = "<%= $storage['password'] %>"
+  <%- if $storage['database'] != undef { -%>
+  database = "<%= $storage['database'] %>"
+  <%- } -%>
+  <%- if $storage['table'] != undef { -%>
+  table = "<%= $storage['table'] %>"
+  <%- } -%>
+  <%- if $storage['tls_ca_file'] != undef { -%>
+  tls_ca_file = "<%= $storage['tls_ca_file'] %>"
+  <%- } -%>
+  <%- if $storage['plaintext_credentials_transmission'] != undef { -%>
+  plaintext_credentials_transmission = "<%= $storage['plaintext_credentials_transmission'] %>"
+  <%- } -%>
+  <%- if $storage['max_parallel'] != undef { -%>
+  max_parallel = "<%= $storage['max_parallel'] %>"
+  <%- } -%>
+  <%- if $storage['max_idle_connections'] != undef { -%>
+  max_idle_connections = "<%= $storage['max_idle_connections'] %>"
+  <%- } -%>
+  <%- if $storage['max_connection_lifetime'] != undef { -%>
+  max_connection_lifetime = "<%= $storage['max_connection_lifetime'] %>"
+  <%- } -%>
+  <%- if $storage['ha_enabled'] != undef { -%>
+  ha_enabled = "<%= $storage['ha_enabled'] %>"
+  <%- } -%>
+  <%- if $storage['lock_table'] != undef { -%>
+  lock_table = "<%= $storage['lock_table'] %>"
+  <%- } -%>
+}

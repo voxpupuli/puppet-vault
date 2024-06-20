@@ -1,0 +1,11 @@
+<%- |
+  Hash $registration
+| -%>
+service_registration "kubernetes" {
+  <%- if $registration['namespace'] != undef { -%>
+  namespace = "<%= $registration['namespace'] %>"
+  <%- } -%>
+  <%- if $registration['pod_name'] != undef { -%>
+  pod_name = "<%= $registration['pod_name'] %>"
+  <%- } -%>
+}

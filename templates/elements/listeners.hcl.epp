@@ -1,0 +1,9 @@
+<%- |
+  Variant[Hash, Array[Hash]] $listener
+| -%>
+<%- if $listener['unix'] != undef { -%>
+<%= epp('vault/elements/listener/unix.hcl.epp', { listener => $listener['unix'] }) -%>
+<%- } -%>
+<%- if $listener['tcp'] != undef { -%>
+<%= epp('vault/elements/listener/tcp.hcl.epp', { listener => $listener['tcp'] }) -%>
+<%- } -%>

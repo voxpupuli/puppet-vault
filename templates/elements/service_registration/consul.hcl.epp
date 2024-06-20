@@ -1,0 +1,44 @@
+<%- |
+  Hash $registration
+| -%>
+service_registration "consul" {
+  <%- if $registration['address'] != undef { -%>
+  address = "<%= $registration['address'] %>"
+  <%- } -%>
+  <%- if $registration['check_timeout'] != undef { -%>
+  check_timeout = "<%= $registration['check_timeout'] %>"
+  <%- } -%>
+  <%- if $registration['disable_registration'] != undef { -%>
+  disable_registration = "<%= $registration['disable_registration'] %>"
+  <%- } -%>
+  <%- if $registration['scheme'] != undef { -%>
+  scheme = "<%= $registration['scheme'] %>"
+  <%- } -%>
+  <%- if $registration['service'] != undef { -%>
+  service = "<%= $registration['service'] %>"
+  <%- } -%>
+  <%- if $registration['service_tags'] != undef { -%>
+  service_tags = "<%= registration['service_tags'] %>"
+  <%- } -%>
+  <%- if $registration['service_address'] != undef { -%>
+  service_address = "<%= $registration['service_address'] %>"
+  <%- } -%>
+  <%- if $registration['token'] != undef { -%>
+  token = "<%= $registration['token'] %>"
+  <%- } -%>
+  <%- if $registration['tls_ca_file'] != undef { -%>
+  tls_ca_file = "<%= $registration['tls_ca_file'] %>"
+  <%- } -%>
+  <%- if $registration['tls_cert_file'] != undef { -%>
+  tls_cert_file = "<%= $registration['tls_cert_file'] %>"
+  <%- } -%>
+  <%- if $registration['tls_key_file'] != undef { -%>
+  tls_key_file = "<%= $registration['tls_key_file'] %>"
+  <%- } -%>
+  <%- if $registration['tls_min_version'] != undef { -%>
+  tls_min_version = "<%= $registration['tls_min_version'] %>"
+  <%- } -%>
+  <%- if $registration['tls_skip_verify'] != undef { -%>
+  tls_skip_verify = "<%= $registration['tls_skip_verify'] %>"
+  <%- } -%>
+}

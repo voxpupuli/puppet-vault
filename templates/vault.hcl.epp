@@ -1,0 +1,178 @@
+<%- |
+  Hash $storage,
+  Optional[Hash] $ha_storage = undef,
+  Variant[Hash, Array[Hash]] $listener,
+  Optional[Hash] $user_lockout = undef,
+  Optional[Hash] $seal = undef,
+  Optional[String] $cluster_name = undef,
+  Optional[String] $cache_size = undef,     # 131072
+  Optional[Boolean] $disable_cache = undef, # false
+  Optional[Boolean] $disable_mlock = undef, # false
+  Optional[String] $plugin_directory = undef, # ""
+  Optional[Integer] $plugin_file_uid = undef, # 0
+  Optional[String] $plugin_file_permissions = undef, # ""
+  Optional[Hash] $telemetry = undef,
+  Optional[String] $default_lease_ttl = undef, # "768h"
+  Optional[String] $max_lease_ttl = undef, # "768h"
+  Optional[String] $default_max_request_duration = undef,
+  Optional[String] $detect_deadlocks = undef,
+  Optional[Boolean] $raw_storage_endpoint = undef,
+  Optional[Boolean] $introspection_endpoint = undef,
+  Optional[Boolean] $ui = undef,
+  Optional[String] $pid_file = undef,
+  Optional[Boolean] $enable_response_header_hostname = undef,
+  Optional[Boolean] $enable_response_header_raft_node_id = undef,
+  Optional[String] $log_level = undef,
+  Optional[String] $log_format = undef,
+  Optional[String] $log_file = undef,
+  Optional[String] $log_rotate_duration = undef,
+  Optional[String] $log_rotate_bytes = undef,
+  Optional[String] $log_rotate_max_files = undef,
+  Optional[Array] $experiments = undef,
+  Optional[String] $api_addr = undef,
+  Optional[String] $cluster_addr = undef,
+  Optional[Boolean] $disable_clustering = undef,
+  Optional[Boolean] $disable_sealwrap = undef,
+  Optional[Boolean] $disable_performance_standby = undef,
+  Optional[String] $license_path = undef,
+  Optional[Hash] $replication = undef,
+  Optional[Hash] $sentinel = undef,
+  Optional[Hash] $service_registration = undef,
+  Optional[String] $log_requests_level = undef,
+  Optional[String] $entropy_augmentation = undef,
+  Optional[String] $kms_library = undef,
+  Optional[Hash] $extra_config = undef,
+| -%>
+#
+# This file is managed by puppet, any changes made to this file will be
+# automatically overwritten the next time it runs.
+#
+<%- unless $ui == undef { -%>
+ui = "<%= $ui -%>"
+<%- } -%>
+<%- unless $cluster_name == undef { -%>
+cluster_name = "<%= $cluster_name -%>"
+<%- } -%>
+<%- unless $cache_size == undef { -%>
+cache_size = "<%= $cache_size -%>"
+<%- } -%>
+<%- unless $disable_cache == undef { -%>
+disable_cache = <%= $disable_cache -%>
+<%- } -%>
+<%- unless $disable_mlock == undef { -%>
+disable_mlock = <%= $disable_mlock -%>
+<%- } -%>
+<%- unless $plugin_directory == undef { -%>
+plugin_directory = "<%= $plugin_directory -%>"
+<%- } -%>
+<%- unless $plugin_file_uid == undef { -%>
+plugin_file_uid = <%= $plugin_file_uid -%>
+<%- } -%>
+<%- unless $plugin_file_permissions == undef { -%>
+plugin_file_permissions = "<%= $plugin_file_permissions -%>"
+<%- } -%>
+<%- unless $storage == undef { -%>
+<%= epp('vault/elements/storage.hcl.epp', { storage => $storage }) -%>
+<%- } -%>
+<%- unless $ha_storage == undef { -%>
+<%= epp('vault/elements/storage.hcl.epp', { storage => $storage, is_ha => true }) -%>
+<%- } -%>
+<%- unless $listener == undef { -%>
+<%= epp('vault/elements/listeners.hcl.epp', { listener => $listener }) -%>
+<%- } -%>
+<%- unless $user_lockout == undef { -%>
+<%= epp('vault/elements/user_lockout.hcl.epp', { user_lockout => $user_lockout }) -%>
+<%- } -%>
+<%- unless $seal == undef { -%>
+<%= epp('vault/elements/seal.hcl.epp', { seal => $seal }) -%>
+<%- } -%>
+<%- unless $telemetry == undef { -%>
+<%= epp('vault/elements/telemetry.hcl.epp', { telemetry => $telemetry }) -%>
+<%- } -%>
+<%- unless $default_lease_ttl == undef { -%>
+default_lease_ttl = "<%= $default_lease_ttl -%>"
+<%- } -%>
+<%- unless $max_lease_ttl == undef { -%>
+max_lease_ttl = "<%= $max_lease_ttl -%>"
+<%- } -%>
+<%- unless $default_max_request_duration == undef { -%>
+default_max_request_duration = "<%= $default_max_request_duration -%>"
+<%- } -%>
+<%- unless $detect_deadlocks == undef { -%>
+detect_deadlocks = <%= $detect_deadlocks -%>
+<%- } -%>
+<%- unless $raw_storage_endpoint == undef { -%>
+raw_storage_endpoint = <%= $raw_storage_endpoint -%>
+<%- } -%>
+<%- unless $introspection_endpoint == undef { -%>
+introspection_endpoint = <%= $introspection_endpoint -%>
+<%- } -%>
+<%- unless $pid_file == undef { -%>
+pid_file = "<%= $pid_file -%>"
+<%- } -%>
+<%- unless $enable_response_header_hostname == undef { -%>
+enable_response_header_hostname = <%= $enable_response_header_hostname -%>
+<%- } -%>
+<%- unless $enable_response_header_raft_node_id == undef { -%>
+enable_response_header_raft_node_id = <%= $enable_response_header_raft_node_id -%>
+<%- } -%>
+<%- unless $log_level == undef { -%>
+log_level = "<%= $log_level -%>"
+<%- } -%>
+<%- unless $log_requests_level == undef { -%>
+log_requests_level = "<%= $log_requests_level -%>"
+<%- } -%>
+<%- unless $log_format == undef { -%>
+log_format = "<%= $log_format -%>"
+<%- } -%>
+<%- unless $log_file == undef { -%>
+log_file = "<%= $log_file -%>"
+<%- } -%>
+<%- unless $log_rotate_duration == undef { -%>
+log_rotate_duration = "<%= $log_rotate_duration -%>"
+<%- } -%>
+<%- unless $log_rotate_bytes == undef { -%>
+log_rotate_bytes = "<%= $log_rotate_bytes -%>"
+<%- } -%>
+<%- unless $log_rotate_max_files == undef { -%>
+log_rotate_max_files = "<%= $log_rotate_max_files -%>"
+<%- } -%>
+<%- unless $experiments == undef { -%>
+experiments = <%= $experiments -%>
+<%- } -%>
+<%- unless $api_addr == undef { -%>
+api_addr = "<%= $api_addr -%>"
+<%- } -%>
+<%- unless $cluster_addr == undef { -%>
+cluster_addr = "<%= $cluster_addr -%>"
+<%- } -%>
+<%- unless $disable_clustering == undef { -%>
+disable_clustering = <%= $disable_clustering -%>
+<%- } -%>
+<%- unless $disable_sealwrap == undef { -%>
+disable_sealwrap = <%= $disable_sealwrap -%>
+<%- } -%>
+<%- unless $disable_performance_standby == undef { -%>
+disable_performance_standby = <%= $disable_performance_standby -%>
+<%- } -%>
+<%- unless $license_path == undef { -%>
+license_path = "<%= $license_path -%>"
+<%- } -%>
+<%- unless $replication == undef { -%>
+<%= epp('vault/elements/replication.hcl.epp', { replication => $replication }) -%>
+<%- } -%>
+<%- unless $sentinel == undef { -%>
+<%= epp('vault/elements/sentinel.hcl.epp', { sentinel => $sentinel }) -%>
+<%- } -%>
+<%- unless $service_registration == undef { -%>
+<%= epp('vault/elements/service_registration.hcl.epp', { service_registration => $service_registration }) -%>
+<%- } -%>
+# <%- unless $entropy_augmentation == undef { -%>
+# <%= epp('vault/elements/entropy_augmentation.hcl.epp', { entropy_augmentation => $entropy_augmentation }) -%>
+# <%- } -%>
+<%- unless $kms_library == undef { -%>
+<%= epp('vault/elements/kms_library.hcl.epp', { kms_library => $kms_library }) -%>
+<%- } -%>
+<%- $extra_config.each |$key, $value| { -%>
+<%= $key -%> = "<%= $value -%>"
+<%- } -%>

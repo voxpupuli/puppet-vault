@@ -1,0 +1,75 @@
+<%- |
+  Optional[Hash] $storage = undef,
+  Boolean $is_ha = false
+| -%>
+<%- if $storage != undef { -%>
+  <%- if $storage['aerospike'] != undef { -%>
+<%= epp('vault/elements/storage/aerospike.hcl.epp', { storage => $storage['aerospike'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['alicloudoss'] != undef { -%>
+<%= epp('vault/elements/storage/alicloudoss.hcl.epp', { storage => $storage['alicloudoss'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['azure'] != undef { -%>
+<%= epp('vault/elements/storage/azure.hcl.epp', { storage => $storage['azure'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['cassandra'] != undef { -%>
+<%= epp('vault/elements/storage/cassandra.hcl.epp', { storage => $storage['cassandra'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['cockroachdb'] != undef { -%>
+<%= epp('vault/elements/storage/cockroachdb.hcl.epp', { storage => $storage['cockroachdb'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['consul'] != undef { -%>
+<%= epp('vault/elements/storage/consul.hcl.epp', { storage => $storage['consul'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['couchdb'] != undef { -%>
+<%= epp('vault/elements/storage/couch.hcl.epp', { storage => $storage['couchdb'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['dynamodb'] != undef { -%>
+<%= epp('vault/elements/storage/dynamodb.hcl.epp', { storage => $storage['dynamodb'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['etcd'] != undef { -%>
+<%= epp('vault/elements/storage/etcd.hcl.epp', { storage => $storage['etcd'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['file'] != undef { -%>
+<%= epp('vault/elements/storage/file.hcl.epp', { storage => $storage['file'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['foundationdb'] != undef { -%>
+<%= epp('vault/elements/storage/foundation.hcl.epp', { storage => $storage['foundationdb'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['gcs'] != undef { -%>
+<%= epp('vault/elements/storage/gcs.hcl.epp', { storage => $storage['gcs'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['inmem'] != undef { -%>
+<%= epp('vault/elements/storage/inmem.hcl.epp', { storage => $storage['inmem'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['manta'] != undef { -%>
+<%= epp('vault/elements/storage/manta.hcl.epp', { storage => $storage['manta'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['mssql'] != undef { -%>
+<%= epp('vault/elements/storage/mssql.hcl.epp', { storage => $storage['mssql'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['mysql'] != undef { -%>
+<%= epp('vault/elements/storage/mysql.hcl.epp', { storage => $storage['mysql'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['oci'] != undef { -%>
+<%= epp('vault/element/storage/oci.hcl.epp', { storage => $storage['oci'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['postgresql'] != undef { -%>
+<%= epp('vault/element/storage/postgresql.hcl.epp', { storage => $storage['postgresql'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['raft'] != undef { -%>
+<%= epp('vault/element/storage/raft.hcl.epp', { storage => $storage['raft'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['s3'] != undef { -%>
+<%= epp('vault/element/storage/s3.hcl.epp', { storage => $storage['s3'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['spanner'] != undef { -%>
+<%= epp('vault/element/storage/spanner.hcl.epp', { storage => $storage['spanner'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['swift'] != undef { -%>
+<%= epp('vault/element/storage/swift.hcl.epp', { storage => $storage['swift'], is_ha => $is_ha }) %>
+  <%- } -%>
+  <%- if $storage['zookeeper'] != undef { -%>
+<%= epp('vault/element/storage/zookeeper.hcl.epp', { storage => $storage['zookeeper'], is_ha => $is_ha }) %>
+  <%- } -%>
+<%- } -%>

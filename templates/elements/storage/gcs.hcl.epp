@@ -1,0 +1,16 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<% if $is_ha { %>ha_<% } %>storage "gcs" {
+  bucket = "<%= $storage['bucket'] %>"
+  <%- if $storage['chunk_size'] != undef { -%>
+  chunk_size = "<%= $storage['chunk_size'] %>"
+  <%- } -%>
+  <%- if $storage['max_parallel'] != undef { -%>
+  max_parallel = <%= $storage['max_parallel'] %>
+  <%- } -%>
+  <%- if $storage['ha_enabled'] != undef { -%>
+  ha_enabled = "<%= $storage['ha_enabled'] %>"
+  <%- } -%>
+}

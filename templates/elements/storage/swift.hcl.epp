@@ -1,0 +1,38 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<%- if $is_ha { fail('The Swift storage backend is not highly available') } -%>
+storage "swift" {
+  auth_url = "<%= $storage['auth_url'] %>"
+  container = "<%= $storage['container'] %>"
+  <%- if $storage['max_parallel'] != undef { -%>
+  max_parallel = "<%= $storage['max_parallel'] %>"
+  <%- } -%>
+  password = "<%= $storage['password'] %>"
+  <%- if $storage['tenant'] != undef { -%>
+  tenant = "<%= $storage['tenant'] %>"
+  <%- } -%>
+  username = "<%= $storage['username'] %>"
+  <%- if $storage['region'] != undef { -%>
+  region = "<%= $storage['region'] %>"
+  <%- } -%>
+  <%- if $storage['tenant_id'] != undef { -%>
+  tenant_id = "<%= $storage['tenant_id'] %>"
+  <%- } -%>
+  <%- if $storage['domain'] != undef { -%>
+  domain = "<%= $storage['domain'] %>"
+  <%- } -%>
+  <%- if $storage['project-domain'] != undef { -%>
+  project-domain = "<%= $storage['project-domain'] %>"
+  <%- } -%>
+  <%- if $storage['trust_id'] != undef { -%>
+  trust_id = "<%= $storage['trust_id'] %>"
+  <%- } -%>
+  <%- if $storage['storage_url'] != undef { -%>
+  storage_url = "<%= $storage['storage_url'] %>"
+  <%- } -%>
+  <%- if $storage['auth_token'] != undef { -%>
+  auth_token = "<%= $storage['auth_token'] %>"
+  <%- } -%>
+}

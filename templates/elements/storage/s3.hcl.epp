@@ -1,0 +1,34 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<%- if $is_ha { fail('The S3 storage backend is not highly available') } -%>
+storage "s3" {
+  bucket = "<%= $storage['bucket'] %>"
+  endpoint = "<%= $storage['endpoint'] %>"
+  region = "<%= $storage['region'] %>"
+  <%- if $storage['access_key'] != undef { -%>
+  access_key = "<%= $storage['access_key'] %>"
+  <%- } -%>
+  <%- if $storage['secret_key'] != undef { -%>
+  secret_key = "<%= $storage['secret_key'] %>"
+  <%- } -%>
+  <%- if $storage['session_token'] != undef { -%>
+  session_token = "<%= $storage['session_token'] %>"
+  <%- } -%>
+  <%- if $storage['max_parallel'] != undef { -%>
+  max_parallel = "<%= $storage['max_parallel'] %>"
+  <%- } -%>
+  <%- if $storage['s3_force_path_style'] != undef { -%>
+  s3_force_path_style = "<%= $storage['s3_force_path_style'] %>"
+  <%- } -%>
+  <%- if $storage['disable_ssl'] != undef { -%>
+  disable_ssl = "<%= $storage['disable_ssl'] %>"
+  <%- } -%>
+  <%- if $storage['kms_key_id'] != undef { -%>
+  kms_key_id = "<%= $storage['kms_key_id'] %>"
+  <%- } -%>
+  <%- if $storage['path'] != undef { -%>
+  path = "<%= $storage['path'] %>"
+  <%- } -%>
+}

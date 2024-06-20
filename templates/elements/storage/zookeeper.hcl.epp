@@ -1,0 +1,39 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<% if $is_ha { %>ha_<% } %>storage "zookeeper" {
+  <%- if $storage['address'] != undef { -%>
+  address = "<%= $storage['address'] %>"
+  <%- } -%>
+  <%- if $storage['path'] != undef { -%>
+  path = "<%= $storage['path'] %>"
+  <%- } -%>
+  <%- if $storage['auth_info'] != undef { -%>
+  auth_info = "<%= $storage['auth_info'] %>"
+  <%- } -%>
+  <%- if $storage['znode_owner'] != undef { -%>
+  znode_owner = "<%= $storage['znode_owner'] %>"
+  <%- } -%>
+  <%- if $storage['tls_enabled'] != undef { -%>
+  tls_enabled = <%= $storage['tls_enabled'] %>
+  <%- } -%>
+  <%- if $storage['tls_ca_file'] != undef { -%>
+  tls_ca_file = "<%= $storage['tls_ca_file'] %>"
+  <%- } -%>
+  <%- if $storage['tls_cert_file'] != undef { -%>
+  tls_cert_file = "<%= $storage['tls_cert_file'] %>"
+  <%- } -%>
+  <%- if $storage['tls_key_file'] != undef { -%>
+  tls_key_file = "<%= $storage['tls_key_file'] %>"
+  <%- } -%>
+  <%- if $storage['tls_min_version'] != undef { -%>
+  tls_min_version = "<%= $storage['tls_min_version'] %>"
+  <%- } -%>
+  <%- if $storage['tls_skip_verify'] != undef { -%>
+  tls_skip_verify = <%= $storage['tls_skip_verify'] %>
+  <%- } -%>
+  <%- if $storage['tls_verify_ip'] != undef { -%>
+  tls_verify_ip = <%= $storage['tls_verify_ip'] %>
+  <%- } -%>
+}

@@ -1,0 +1,33 @@
+<%- |
+  Hash $seal
+| -%>
+seal "transit" {
+  address = "<%= $seal['address'] %>"
+  token = "<%= $seal['token'] %>"
+  key_name = "<%= $seal['key_name'] %>"
+  mount_path = "<%= $seal['mount_path'] %>"
+  <%- if $seal['namespace'] != undef { -%>
+  namespace = "<%= $seal['namespace'] %>"
+  <%- } -%>
+  <%- if $seal['disable_renewal'] != undef { -%>
+  disable_renewal = "<%= $seal['disable_renewal'] %>"
+  <%- } -%>
+  <%- if $seal['tls_ca_cert'] != undef { -%>
+  tls_ca_cert = "<%= $seal['tls_ca_cert'] %>"
+  <%- } -%>
+  <%- if $seal['tls_client_cert'] != undef { -%>
+  tls_client_cert = "<%= $seal['tls_client_cert'] %>"
+  <%- } -%>
+  <%- if $seal['tls_client_key'] != undef { -%>
+  tls_client_key = "<%= $seal['tls_client_key'] %>"
+  <%- } -%>
+  <%- if $seal['tls_server_name'] != undef { -%>
+  tls_server_name = "<%= $seal['tls_server_name'] %>"
+  <%- } -%>
+  <%- if $seal['tls_skip_verify'] != undef { -%>
+  tls_skip_verify = "<%= $seal['tls_skip_verify'] %>"
+  <%- } -%>
+  <%- if $seal['disabled'] != undef { -%>
+  disabled = "<%= $seal['disabled'] %>"
+  <%- } -%>
+}

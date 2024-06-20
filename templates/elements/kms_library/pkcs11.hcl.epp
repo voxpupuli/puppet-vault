@@ -1,0 +1,7 @@
+<%- |
+  Hash $settings
+| -%>
+kms_library "pkcs11" {
+  name = "<%= $settings['name'] %>"
+  library = "<%= $settings['library'] %>"
+}
