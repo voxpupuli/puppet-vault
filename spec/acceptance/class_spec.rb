@@ -82,6 +82,46 @@ describe 'vault class' do
     describe port(8200) do
       it { is_expected.to be_listening.on('127.0.0.1').with('tcp') }
     end
+
+    describe command('/usr/local/bin/vault version') do
+      its(:exit_status) { is_expected.to eq 0 }
+      its(:stdout) { is_expected.to match %r{Vault v1.12.0} }
+    end
+  end
+
+  context 'default parameters with vesion higher than fact' do
+    let(:manifest) do
+      <<-PUPPET
+      if $facts['os']['name'] == 'Archlinux' {
+        class { 'file_capability':
+          package_name => 'libcap',
+        }
+      } else {
+        include file_capability
+      }
+      package { 'unzip': ensure => present }
+      -> class { 'vault':
+        storage => {
+          file => {
+            path => '/tmp',
+          }
+        },
+        bin_dir => '/usr/local/bin',
+        install_method => 'archive',
+        version => '1.12.1',
+        require => Class['file_capability'],
+      }
+      PUPPET
+    end
+
+    it 'should not be idempotent and cause changes' do
+      apply_manifest(manifest, expect_changes: true)
+    end  
+
+    describe command('/usr/local/bin/vault version') do
+      its(:exit_status) { is_expected.to eq 0 }
+      its(:stdout) { is_expected.to match %r{Vault v1.12.1} }
+    end
   end
 
   context 'with package based setup' do
