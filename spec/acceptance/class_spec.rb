@@ -114,9 +114,9 @@ describe 'vault class' do
       PUPPET
     end
 
-    it 'should not be idempotent and cause changes' do
+    it 'will not be idempotent and cause changes' do
       apply_manifest(manifest, expect_changes: true)
-    end  
+    end
 
     describe command('/usr/local/bin/vault version') do
       its(:exit_status) { is_expected.to eq 0 }
