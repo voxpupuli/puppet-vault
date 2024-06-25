@@ -19,7 +19,13 @@ class vault::install {
         extract_path => $vault::bin_dir,
         source       => $vault::real_download_url,
         cleanup      => true,
-        creates      => $vault_bin,
+        creates      => $facts['vault_version'] ? { # lint:ignore:selector_inside_resource
+          undef   => $vault_bin,
+          default => versioncmp($vault::version, $facts['vault_version']) > 0 ? {
+            true    => undef,
+            default => $vault_bin
+          }
+        },
         before       => File['vault_binary'],
       }
 
