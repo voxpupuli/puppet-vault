@@ -13,17 +13,32 @@ class vault::install {
         }
       }
 
+      $_manage_file_capabilities = true
+      $_vault_versioned_bin = "/opt/vault-${vault::version}/vault"
+
+      file { "/opt/vault-${vault::version}":
+        ensure => directory,
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0755',
+      }
+
       archive { "${vault::download_dir}/${vault::download_filename}":
         ensure       => present,
         extract      => true,
-        extract_path => $vault::bin_dir,
+        extract_path => "/opt/vault-${vault::version}",
         source       => $vault::real_download_url,
         cleanup      => true,
-        creates      => $vault_bin,
+        creates      => $_vault_versioned_bin,
         before       => File['vault_binary'],
+        notify       => Exec['install_versioned_vault'],
       }
 
-      $_manage_file_capabilities = true
+      exec { 'install_versioned_vault':
+        command     => "/bin/cp -f ${_vault_versioned_bin} ${vault_bin}",
+        refreshonly => true,
+        notify      => Class['vault::service'],
+      }
     }
 
     'repo': {

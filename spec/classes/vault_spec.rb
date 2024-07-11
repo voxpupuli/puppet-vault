@@ -94,7 +94,8 @@ describe 'vault' do
               max_lease_ttl: exist,
               disable_mlock: exist,
               ui: exist,
-              api_addr: exist
+              api_addr: exist,
+              service_registration: exist
             )
           end
         end
@@ -131,31 +132,49 @@ describe 'vault' do
           }
         end
 
+        context 'when service_registration is set' do
+          let(:params) do
+            {
+              service_registration: { 'consul' => { 'address' => '127.0.0.1:8500' } }
+            }
+          end
+
+          it {
+            expect(param_value(catalogue, 'File', '/etc/vault/config.json', 'content')).to include_json(
+              service_registration: { 'consul' => { 'address' => '127.0.0.1:8500' } }
+            )
+          }
+        end
+
         context 'when installed from archive' do
           let(:params) { { install_method: 'archive' } }
 
           it {
             is_expected.to contain_archive('/tmp/vault.zip').
               that_comes_before('File[vault_binary]')
-          }
-
-          it {
-            is_expected.to contain_file('/etc/vault').
+            is_expected.to contain_file('/opt/vault-1.12.0').
               with_ensure('directory').
-              with_purge('true').
-              with_recurse('true').
-              with_owner('vault').
-              with_group('vault')
+              with_owner('root').
+              with_group('root').
+              with_mode('0755')
           }
 
           context 'when installed with default download options' do
             let(:params) do
-              super().merge(version: '0.7.0')
+              super().merge(
+                version: '0.7.0'
+              )
             end
 
             it {
+              is_expected.to contain_file('/opt/vault-0.7.0')
               is_expected.to contain_archive('/tmp/vault.zip').
                 with_source('https://releases.hashicorp.com/vault/0.7.0/vault_0.7.0_linux_amd64.zip')
+              # A regex is used to validate the command because vault bin_dir is OS specific
+              is_expected.to contain_exec('install_versioned_vault').
+                with_command(%r{/bin/cp -f /opt/vault-0.7.0/vault /[\w/]+/vault}).
+                with_refreshonly(true).
+                that_notifies(['Class[vault::service]'])
             }
           end
 
@@ -170,6 +189,7 @@ describe 'vault' do
             end
 
             it {
+              is_expected.to contain_file('/opt/vault-0.6.0')
               is_expected.to contain_archive('/tmp/vault.zip').
                 with_source('http://my_site.example.com/vault/0.6.0/vaultbinary_0.6.0_linux_amd64.tar.gz')
             }

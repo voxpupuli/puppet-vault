@@ -32,7 +32,12 @@
 #
 # @param manage_repo Configure the upstream HashiCorp repository. Only relevant when $nomad::install_method = 'repo'.
 #
-# @param manage_service Instruct puppet to manage service or not
+# * `service_registration`
+#   Extra configuration for service registration.
+#   `vault server --help`
+#
+# * `manage_service`
+#   Instruct puppet to manage service or not
 #
 # @param num_procs
 #   Sets the GOMAXPROCS environment variable, to determine how many CPUs Vault
@@ -62,6 +67,7 @@
 # @param manage_file_capabilities
 # @param disable_mlock
 # @param max_lease_ttl
+# @param service_registration
 # @param default_lease_ttl
 # @param telemetry
 # @param disable_cache
@@ -70,6 +76,7 @@
 # @param listener
 # @param manage_storage_dir
 # @param storage
+# @param manage_service Instruct puppet to manage service or not
 # @param manage_service_file
 # @param service_ensure
 # @param service_enable
@@ -77,11 +84,15 @@
 # @param download_filename
 # @param manage_config_dir enable/disable the directory management. not required for package based installations
 class vault (
+  $arch                                = $vault::params::arch,
+  $bin_dir                             = $vault::params::bin_dir,
+  Boolean $manage_repo                 = $vault::params::manage_repo,
+  $manage_service_file                 = $vault::params::manage_service_file,
+  $install_method                      = $vault::params::install_method,
   $user                                = 'vault',
   $manage_user                         = true,
   $group                               = 'vault',
   $manage_group                        = true,
-  $bin_dir                             = $vault::params::bin_dir,
   $manage_config_file                  = true,
   $config_mode                         = '0750',
   $purge_config_dir                    = true,
@@ -92,23 +103,21 @@ class vault (
   $service_enable                      = true,
   $service_ensure                      = 'running',
   $service_provider                    = $facts['service_provider'],
-  Boolean $manage_repo                 = $vault::params::manage_repo,
   $manage_service                      = true,
-  Optional[Boolean] $manage_service_file = $vault::params::manage_service_file,
   Hash $storage                        = { 'file' => { 'path' => '/var/lib/vault' } },
   $manage_storage_dir                  = false,
-  Variant[Hash, Array[Hash]] $listener = { 'tcp' => { 'address' => '127.0.0.1:8200', 'tls_disable' => 1 }, },
+  Variant[Hash, Array[Hash]] $listener = { 'tcp' => { 'address' => '127.0.0.1:8200', 'tls_disable' => 1 } },
   Optional[Hash] $ha_storage           = undef,
   Optional[Hash] $seal                 = undef,
   Optional[Boolean] $disable_cache     = undef,
   Optional[Hash] $telemetry            = undef,
   Optional[String] $default_lease_ttl  = undef,
   Optional[String] $max_lease_ttl      = undef,
+  Optional[Hash] $service_registration = undef,
   $disable_mlock                       = undef,
   $manage_file_capabilities            = undef,
   $service_options                     = '',
   $num_procs                           = $facts['processors']['count'],
-  $install_method                      = $vault::params::install_method,
   $config_dir                          = if $install_method == 'repo' and $manage_repo { '/etc/vault.d' } else { '/etc/vault' },
   $package_name                        = 'vault',
   $package_ensure                      = 'installed',
@@ -117,7 +126,6 @@ class vault (
   $download_filename                   = 'vault.zip',
   $version                             = '1.12.0',
   $os                                  = downcase($facts['kernel']),
-  $arch                                = $vault::params::arch,
   Optional[Boolean] $enable_ui         = undef,
   Optional[String] $api_addr           = undef,
   Hash $extra_config                   = {},
