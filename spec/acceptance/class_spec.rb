@@ -56,7 +56,7 @@ describe 'vault class' do
       it { is_expected.to be_grouped_into 'root' }
       its(:content) { is_expected.to include 'User=vault' }
       its(:content) { is_expected.to include 'Group=vault' }
-      its(:content) { is_expected.to include 'ExecStart=/usr/local/bin/vault server -config=/etc/vault/vault.json ' }
+      its(:content) { is_expected.to include 'ExecStart=/usr/local/bin/vault server -config=/etc/vault/vault.json' }
       its(:content) { is_expected.to match %r{Environment=GOMAXPROCS=\d+} }
     end
 

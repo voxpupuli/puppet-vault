@@ -38,6 +38,11 @@
 #   Whether the `config_dir` should be purged before installing the generated
 #   config.
 #
+# @param create_env_file
+#   Cause a blank vault.env file to be created in the config_dir. This also adds
+#   the EnvironmentFile directive to the service file (if manage_service_file is
+#   enabled)
+#
 # @param download_url
 #   Manual URL to download the vault zip distribution from.
 #
@@ -280,6 +285,7 @@ class vault (
   Enum['hcl', 'json']        $config_output                       = 'json',
   StdLib::Filemode           $config_mode                         = '0444',
   Boolean                    $purge_config_dir                    = true,
+  Boolean                    $create_env_file                     = false,
   Optional[StdLib::HTTPUrl]  $download_url                        = undef,
   StdLib::HTTPUrl            $download_url_base                   = $vault::params::download_base,
   String                     $download_extension                  = 'zip',
