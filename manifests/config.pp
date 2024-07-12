@@ -163,7 +163,16 @@ class vault::config {
     case $vault::service_provider {
       'systemd': {
         systemd::unit_file { 'vault.service':
-          content => template('vault/vault.systemd.erb'),
+          content => epp(
+            'vault/vault.service.epp',
+            {
+              bin_dir         => $vault::bin_dir,
+              config_dir      => $vault::config_dir,
+              config_output   => $vault::config_output,
+              create_env_file => $vault::create_env_file,
+              num_procs       => $vault::num_procs,
+            }
+          ),
         }
       }
       default: {

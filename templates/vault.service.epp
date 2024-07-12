@@ -1,20 +1,24 @@
 <% |
-  String $bin_dir,
-  String $config_dir,
-  String $config_output
+  String  $bin_dir,
+  String  $config_dir,
+  String  $config_output,
+  Boolean $create_env_file,
+  Integer $num_procs,
 | %>
 [Unit]
 Description="HashiCorp Vault - A tool for managing secrets"
 Documentation=https://www.vaultproject.io/docs/
 Requires=network-online.target
 After=network-online.target
-ConditionFileNotEmpty=<%= $config_dir %>vault.hcl
+ConditionFileNotEmpty=<%= $config_dir %>/vault.<%= $config_output %>
 StartLimitIntervalSec=60
 StartLimitBurst=3
 
 [Service]
 Type=notify
-EnvironmentFile=<%= $config_dir %>vault.env
+<%- if $create_env_file == true { -%>
+  <%= $config_dir %>/vault.env
+<%- } -%>
 User=vault
 Group=vault
 ProtectSystem=full
@@ -25,7 +29,8 @@ SecureBits=keep-caps
 AmbientCapabilities=CAP_IPC_LOCK
 CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK
 NoNewPrivileges=yes
-ExecStart=<%= $bin_dir %>vault server -config=<%= $config_dir %>vault.<%= $config_output %>
+Environment=GOMAXPROCS=<%= $num_procs %>
+ExecStart=<%= $bin_dir %>/vault server -config=<%= $config_dir %>/vault.<%= $config_output %>
 ExecReload=/bin/kill --signal HUP $MAINPID
 KillMode=process
 KillSignal=SIGINT

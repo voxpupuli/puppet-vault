@@ -98,6 +98,7 @@ The following parameters are available in the `vault` class:
 * [`config_output`](#-vault--config_output)
 * [`config_mode`](#-vault--config_mode)
 * [`purge_config_dir`](#-vault--purge_config_dir)
+* [`create_env_file`](#-vault--create_env_file)
 * [`download_url`](#-vault--download_url)
 * [`download_url_base`](#-vault--download_url_base)
 * [`download_extension`](#-vault--download_extension)
@@ -706,6 +707,14 @@ Data type: `Boolean`
 
 
 Default value: `true`
+
+##### <a name="-vault--create_env_file"></a>`create_env_file`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
 
 ##### <a name="-vault--download_url"></a>`download_url`
 
