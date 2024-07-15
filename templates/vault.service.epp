@@ -1,16 +1,20 @@
 <% |
+  String  $user,
+  String  $group,
   String  $bin_dir,
+  String  $service_options = "",
   String  $config_dir,
   String  $config_output,
   Boolean $create_env_file,
   Integer $num_procs,
+  Boolean $disable_mlock = false,
 | %>
 # vault systemd unit file
 ###########################################################################################################
 # this file has been put in place by the jsok/vault Puppet module (https://forge.puppetlabs.com/jsok/vault)
-# any changes will be overwritten if Puppet is run again
-# This script is originally from:
-# https://learn.hashicorp.com/vault/operations/ops-deployment-guide#step-3-configure-systemd
+# any changes will be overwritten if Puppet is run again.
+#
+# This unit file originally from official vault package.
 ###########################################################################################################
 
 [Unit]
@@ -27,18 +31,24 @@ Type=notify
 <%- if $create_env_file == true { -%>
   <%= $config_dir %>/vault.env
 <%- } -%>
-User=vault
-Group=vault
+User=<%= $user %>
+Group=<%= $group %>
 ProtectSystem=full
 ProtectHome=read-only
 PrivateTmp=yes
 PrivateDevices=yes
+<%- if $disable_mlock == true { -%>
+CapabilityBoundingSet=CAP_SYSLOG
+<%- } else { -%>
 SecureBits=keep-caps
+Capabilities=CAP_IPC_LOCK+ep
 AmbientCapabilities=CAP_IPC_LOCK
 CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK
+<%- } -%>
+
 NoNewPrivileges=yes
 Environment=GOMAXPROCS=<%= $num_procs %>
-ExecStart=<%= $bin_dir %>/vault server -config=<%= $config_dir %>/vault.<%= $config_output %>
+ExecStart=<%= $bin_dir %>/vault server -config=<%= $config_dir %>/vault.<%= $config_output %> <%= $service_options %>
 ExecReload=/bin/kill --signal HUP $MAINPID
 KillMode=process
 KillSignal=SIGINT
