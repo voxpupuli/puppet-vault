@@ -424,9 +424,8 @@ describe 'vault' do
           context 'RedHat >=7 specific' do
             context 'includes systemd init script' do
               it {
-                is_expected.to contain_file('/etc/systemd/system/vault.service').
+                is_expected.to contain_systemd__unit_file('vault.service').
                   with_mode('0444').
-                  with_ensure('file').
                   with_owner('root').
                   with_group('root').
                   with_content(%r{^# vault systemd unit file}).
@@ -454,9 +453,8 @@ describe 'vault' do
               end
 
               it {
-                is_expected.to contain_file('/etc/systemd/system/vault.service').
+                is_expected.to contain_systemd__unit_file('vault.service').
                   with_mode('0444').
-                  with_ensure('file').
                   with_owner('root').
                   with_group('root').
                   with_content(%r{^# vault systemd unit file}).
@@ -473,9 +471,8 @@ describe 'vault' do
               end
 
               it {
-                is_expected.to contain_file('/etc/systemd/system/vault.service').
+                is_expected.to contain_systemd__unit_file('vault.service').
                   with_mode('0444').
-                  with_ensure('file').
                   with_owner('root').
                   with_group('root').
                   with_content(%r{^# vault systemd unit file}).
@@ -598,11 +595,10 @@ describe 'vault' do
           context 'on Debian based with systemd' do
             context 'includes systemd init script' do
               it {
-                is_expected.to contain_file('/etc/systemd/system/vault.service').
-                  with_mode('0444').
-                  with_ensure('file').
+                is_expected.to contain_systemd__unit_file('vault.service').
                   with_owner('root').
                   with_group('root').
+                  with_mode('0444').
                   with_content(%r{^# vault systemd unit file}).
                   with_content(%r{^User=vault$}).
                   with_content(%r{^Group=vault$}).
@@ -628,9 +624,8 @@ describe 'vault' do
               end
 
               it {
-                is_expected.to contain_file('/etc/systemd/system/vault.service').
+                is_expected.to contain_systemd__unit_file('vault.service').
                   with_mode('0444').
-                  with_ensure('file').
                   with_owner('root').
                   with_group('root').
                   with_content(%r{^# vault systemd unit file}).
@@ -647,9 +642,8 @@ describe 'vault' do
               end
 
               it {
-                is_expected.to contain_file('/etc/systemd/system/vault.service').
+                is_expected.to contain_systemd__unit_file('vault.service').
                   with_mode('0444').
-                  with_ensure('file').
                   with_owner('root').
                   with_group('root').
                   with_content(%r{^# vault systemd unit file}).

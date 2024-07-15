@@ -166,13 +166,20 @@ class vault::config {
           content => epp(
             'vault/vault.service.epp',
             {
+              user            => $vault::user,
+              group           => $vault::group,
               bin_dir         => $vault::bin_dir,
+              service_options => $vault::service_options,
               config_dir      => $vault::config_dir,
               config_output   => $vault::config_output,
               create_env_file => $vault::create_env_file,
               num_procs       => $vault::num_procs,
+              disable_mlock   => $vault::disable_mlock,
             }
           ),
+          mode    => '0444',
+          owner   => 'root',
+          group   => 'root',
         }
       }
       default: {
