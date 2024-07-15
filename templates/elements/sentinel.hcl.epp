@@ -1,0 +1,14 @@
+<%- |
+  Optional[Hash] $sentinel
+| -%>
+<%- if $sentinel != undef { -%>
+sentinel {
+  <%- if $sentinel['additional_enabled_modules'] != undef { -%>
+  additional_enabled_modules = [
+    <%- $sentinel['additional_enabled_modules'].each |$module| { -%>
+    "<%= $module %>",
+    <%- } -%>
+  ]
+  <%- } -%>
+}
+<%- } -%>

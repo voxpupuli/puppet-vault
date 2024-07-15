@@ -1,0 +1,8 @@
+<%- |
+  Optional[Hash] $config = undef
+| -%>
+<%- if $config != undef { -%>
+<%- $config.each |$key,$value| { -%>
+<%= $key -%> = "<%= $value -%>"
+<%- } -%>
+<%- } -%>

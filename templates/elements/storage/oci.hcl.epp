@@ -1,0 +1,13 @@
+<%- |
+  Hash $storage,
+  Boolean $is_ha = false
+| -%>
+<% if $is_ha { %>ha_<% } %>storage "oci" {
+  bucket_name = "<%= $storage['bucket_name'] %>"
+  namespace_name = "<%= $storage['namespace_name'] %>"
+  <%- if $storage['region'] != undef { -%>
+  region = "<%= $storage['region'] %>"
+  <%- } -%>
+  ha_enabled = "<%= $storage['ha_enabled'] %>"
+  lock_bucket_name = "<%= $storage['lock_bucket_name'] %>"
+}

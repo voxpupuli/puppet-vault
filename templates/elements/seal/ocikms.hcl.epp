@@ -1,0 +1,14 @@
+<%- |
+  Hash $seal
+| -%>
+seal "ocikms" {
+  key_id = "<%= $seal['key_id'] %>"
+  crypto_endpoint = "<%= $seal['crypto_endpoint'] %>"
+  management_endpoint = "<%= $seal['management_endpoint'] %>"
+  <%- if $seal['auth_type_api_key'] != undef { -%>
+  auth_type_api_key = <%= $seal['auth_type_api_key'] %>
+  <%- } -%>
+  <%- if $seal['disabled'] != undef { -%>
+  disabled = "<%= $seal['disabled'] %>"
+  <%- } -%>
+}

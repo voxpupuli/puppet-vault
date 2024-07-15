@@ -1,0 +1,44 @@
+<%- |
+  Hash $seal
+| -%>
+seal "pkcs11" {
+  lib = "<%= $seal['lib'] %>"
+  slot = "<%= $seal['slot'] %>"
+  token_label = "<%= $seal['token_label'] %>"
+  pin = "<%= $seal['pin'] %>"
+  key_label = "<%= $seal['key_label'] %>"
+  <%- if $seal['default_key_label'] != undef { -%>
+  default_key_label = "<%= $seal['default_key_label'] %>"
+  <%- } -%>
+  <%- if $seal['key_id'] != undef { -%>
+  key_id = "<%= $seal['key_id'] %>"
+  <%- } -%>
+  hmac_key_label = "<%= $seal['hmac_key_label'] %>"
+  <%- if $seal['default_hmac_key_label'] != undef { -%>
+  default_hmac_key_label = "<%= $seal['default_hmac_key_label'] %>"
+  <%- } -%>
+  <%- if $seal['hmac_key_id'] != undef { -%>
+  hmac_key_id = "<%= $seal['hmac_key_id'] %>"
+  <%- } -%>
+  <%- if $seal['mechanism'] != undef { -%>
+  mechanism = "<%= $seal['mechanism'] %>"
+  <%- } -%>
+  <%- if $seal['hmac_mechanism'] != undef { -%>
+  hmac_mechanism = "<%= $seal['hmac_mechanism'] %>"
+  <%- } -%>
+  <%- if $seal['generate_key'] != undef { -%>
+  generate_key = "<%= $seal['generate_key'] %>"
+  <%- } -%>
+  <%- if $seal['force_rw_sessions'] != undef { -%>
+  force_rw_session = "<%= $seal['force_rw_session'] %>"
+  <%- } -%>
+  <%- if $seal['disabled'] != undef { -%>
+  disabled = "<%= $seal['disabled'] %>"
+  <%- } -%>
+  <%- if $seal['rsa_encrypt_local'] != undef { -%>
+  rsa_encrypt_local = "<%= $seal['rsa_encrypt_local'] %>"
+  <%- } -%>
+  <%- if $seal['rsa_oaep_hash'] != undef { -%>
+  rsa_oaep_hash = "<%= $seal['rsa_oaep_hash'] %>"
+  <%- } -%>
+}

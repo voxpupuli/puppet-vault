@@ -26,4 +26,6 @@ class vault::params {
       $manage_repo         = true
     }
   }
+
+  $download_base = 'https://releases.hashicorp.com/vault/'
 }

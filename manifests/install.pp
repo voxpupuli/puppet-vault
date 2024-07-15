@@ -13,6 +13,18 @@ class vault::install {
         }
       }
 
+      #
+      # Delete the vault binary if it exists and is not the version specified. This
+      # is required because the archive statement only applies if there isn't 
+      # already a version installed, thus making upgrades not work.
+      #
+      exec { 'delete_vault_if_incorrect_version':
+        command => "rm ${vault_bin}/vault",
+        path    => ['/bin', '/usr/bin'],
+        onlyif  => "test \$(${vault_bin}/vault --version|awk '{print \$2}'|tr -cd '[:digit:].') != ${vault::version}",
+        unless  => "test ! -f ${vault_bin}/vault",
+      }
+
       archive { "${vault::download_dir}/${vault::download_filename}":
         ensure       => present,
         extract      => true,
@@ -27,6 +39,7 @@ class vault::install {
           }
         },
         before       => File['vault_binary'],
+        require      => Exec['delete_vault_if_incorrect_version'],
       }
 
       $_manage_file_capabilities = true

@@ -1,0 +1,15 @@
+<%- |
+  Hash $seal
+| -%>
+seal "gcpckms" {
+  credentials = "<%= $seal['credentials'] %>"
+  project = "<%= $seal['project'] %>"
+  <%- if $seal['region'] != undef { -%>
+  region = "<%= $seal['region'] %>"
+  <%- } -%>
+  key_ring = "<%= $seal['key_ring'] %>"
+  crypto_key = "<%= $seal['crypto_key'] %>"
+  <%- if $seal['disabled'] != undef { -%>
+  disabled = "<%= $seal['disabled'] %>"
+  <%- } -%>
+}

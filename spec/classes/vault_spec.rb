@@ -55,13 +55,13 @@ describe 'vault' do
         end
 
         it {
-          is_expected.to contain_file('/etc/vault/config.json').
+          is_expected.to contain_file('/etc/vault/vault.json').
             with_owner('vault').
             with_group('vault')
         }
 
         context 'vault JSON config' do
-          subject { param_value(catalogue, 'File', '/etc/vault/config.json', 'content') }
+          subject { param_value(catalogue, 'File', '/etc/vault/vault.json', 'content') }
 
           it {
             is_expected.to include_json(
@@ -111,7 +111,7 @@ describe 'vault' do
           it { is_expected.not_to contain_file_capability('vault_binary_capability') }
 
           it {
-            expect(param_value(catalogue, 'File', '/etc/vault/config.json', 'content')).to include_json(
+            expect(param_value(catalogue, 'File', '/etc/vault/vault.json', 'content')).to include_json(
               disable_mlock: true
             )
           }
@@ -125,7 +125,7 @@ describe 'vault' do
           end
 
           it {
-            expect(param_value(catalogue, 'File', '/etc/vault/config.json', 'content')).to include_json(
+            expect(param_value(catalogue, 'File', '/etc/vault/vault.json', 'content')).to include_json(
               api_addr: 'something'
             )
           }
@@ -243,7 +243,7 @@ describe 'vault' do
             it { is_expected.not_to compile }
           else
             it { is_expected.not_to contain_file('/etc/vault') }
-            it { is_expected.to contain_file('/etc/vault.d/config.json') }
+            it { is_expected.to contain_file('/etc/vault.d/vault.json') }
           end
 
           case os_facts[:os]['family']
@@ -287,7 +287,7 @@ describe 'vault' do
         end
 
         it {
-          expect(param_value(catalogue, 'File', '/etc/vault/config.json', 'content')).to include_json(
+          expect(param_value(catalogue, 'File', '/etc/vault/vault.json', 'content')).to include_json(
             ui: true
           )
         }
@@ -300,7 +300,7 @@ describe 'vault' do
           }
         end
 
-        it { is_expected.to contain_file('/etc/vault/config.json').with_mode('0700') }
+        it { is_expected.to contain_file('/etc/vault/vault.json').with_mode('0700') }
       end
 
       context 'when specifying an array of listeners' do
@@ -314,7 +314,7 @@ describe 'vault' do
         end
 
         it {
-          expect(param_value(catalogue, 'File', '/etc/vault/config.json', 'content')).to include_json(
+          expect(param_value(catalogue, 'File', '/etc/vault/vault.json', 'content')).to include_json(
             listener: [
               {
                 tcp: {
@@ -398,7 +398,7 @@ describe 'vault' do
         end
 
         it {
-          is_expected.not_to contain_file('/etc/vault/config.json')
+          is_expected.not_to contain_file('/etc/vault/vault.json')
         }
       end
 
@@ -424,16 +424,15 @@ describe 'vault' do
           context 'RedHat >=7 specific' do
             context 'includes systemd init script' do
               it {
-                is_expected.to contain_file('/etc/systemd/system/vault.service').
+                is_expected.to contain_systemd__unit_file('vault.service').
                   with_mode('0444').
-                  with_ensure('file').
                   with_owner('root').
                   with_group('root').
                   with_content(%r{^# vault systemd unit file}).
                   with_content(%r{^User=vault$}).
                   with_content(%r{^Group=vault$}).
                   with_content(%r{Environment=GOMAXPROCS=3}).
-                  with_content(%r{^ExecStart=/usr/local/bin/vault server -config=/etc/vault/config.json $}).
+                  with_content(%r{^ExecStart=/usr/local/bin/vault server -config=/etc/vault/vault.json $}).
                   with_content(%r{SecureBits=keep-caps}).
                   with_content(%r{Capabilities=CAP_IPC_LOCK\+ep}).
                   with_content(%r{CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK}).
@@ -454,16 +453,15 @@ describe 'vault' do
               end
 
               it {
-                is_expected.to contain_file('/etc/systemd/system/vault.service').
+                is_expected.to contain_systemd__unit_file('vault.service').
                   with_mode('0444').
-                  with_ensure('file').
                   with_owner('root').
                   with_group('root').
                   with_content(%r{^# vault systemd unit file}).
                   with_content(%r{^User=root$}).
                   with_content(%r{^Group=admin$}).
                   with_content(%r{Environment=GOMAXPROCS=8}).
-                  with_content(%r{^ExecStart=/opt/bin/vault server -config=/opt/etc/vault/config.json -log-level=info$})
+                  with_content(%r{^ExecStart=/opt/bin/vault server -config=/opt/etc/vault/vault.json -log-level=info$})
               }
             end
 
@@ -473,15 +471,14 @@ describe 'vault' do
               end
 
               it {
-                is_expected.to contain_file('/etc/systemd/system/vault.service').
+                is_expected.to contain_systemd__unit_file('vault.service').
                   with_mode('0444').
-                  with_ensure('file').
                   with_owner('root').
                   with_group('root').
                   with_content(%r{^# vault systemd unit file}).
                   with_content(%r{^User=vault$}).
                   with_content(%r{^Group=vault$}).
-                  with_content(%r{^ExecStart=/usr/local/bin/vault server -config=/etc/vault/config.json $}).
+                  with_content(%r{^ExecStart=/usr/local/bin/vault server -config=/etc/vault/vault.json $}).
                   without_content(%r{SecureBits=keep-caps}).
                   without_content(%r{Capabilities=CAP_IPC_LOCK\+ep}).
                   with_content(%r{CapabilityBoundingSet=CAP_SYSLOG}).
@@ -598,16 +595,15 @@ describe 'vault' do
           context 'on Debian based with systemd' do
             context 'includes systemd init script' do
               it {
-                is_expected.to contain_file('/etc/systemd/system/vault.service').
-                  with_mode('0444').
-                  with_ensure('file').
+                is_expected.to contain_systemd__unit_file('vault.service').
                   with_owner('root').
                   with_group('root').
+                  with_mode('0444').
                   with_content(%r{^# vault systemd unit file}).
                   with_content(%r{^User=vault$}).
                   with_content(%r{^Group=vault$}).
                   with_content(%r{Environment=GOMAXPROCS=3}).
-                  with_content(%r{^ExecStart=/usr/local/bin/vault server -config=/etc/vault/config.json $}).
+                  with_content(%r{^ExecStart=/usr/local/bin/vault server -config=/etc/vault/vault.json $}).
                   with_content(%r{SecureBits=keep-caps}).
                   with_content(%r{Capabilities=CAP_IPC_LOCK\+ep}).
                   with_content(%r{CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK}).
@@ -628,16 +624,15 @@ describe 'vault' do
               end
 
               it {
-                is_expected.to contain_file('/etc/systemd/system/vault.service').
+                is_expected.to contain_systemd__unit_file('vault.service').
                   with_mode('0444').
-                  with_ensure('file').
                   with_owner('root').
                   with_group('root').
                   with_content(%r{^# vault systemd unit file}).
                   with_content(%r{^User=root$}).
                   with_content(%r{^Group=admin$}).
                   with_content(%r{Environment=GOMAXPROCS=8}).
-                  with_content(%r{^ExecStart=/opt/bin/vault server -config=/opt/etc/vault/config.json -log-level=info$})
+                  with_content(%r{^ExecStart=/opt/bin/vault server -config=/opt/etc/vault/vault.json -log-level=info$})
               }
             end
 
@@ -647,15 +642,14 @@ describe 'vault' do
               end
 
               it {
-                is_expected.to contain_file('/etc/systemd/system/vault.service').
+                is_expected.to contain_systemd__unit_file('vault.service').
                   with_mode('0444').
-                  with_ensure('file').
                   with_owner('root').
                   with_group('root').
                   with_content(%r{^# vault systemd unit file}).
                   with_content(%r{^User=vault$}).
                   with_content(%r{^Group=vault$}).
-                  with_content(%r{^ExecStart=/usr/local/bin/vault server -config=/etc/vault/config.json $}).
+                  with_content(%r{^ExecStart=/usr/local/bin/vault server -config=/etc/vault/vault.json $}).
                   without_content(%r{SecureBits=keep-caps}).
                   without_content(%r{Capabilities=CAP_IPC_LOCK\+ep}).
                   with_content(%r{CapabilityBoundingSet=CAP_SYSLOG}).

@@ -1,0 +1,16 @@
+<%- |
+  Hash $listener
+| -%>
+
+listener "unix" {
+  address = "<%= $listener['address'] %>"
+  <%- if $listener['mode'] != undef and $listener['mode'] != '' { -%>
+  socket_mode = "<%= $listener['mode'] %>"
+  <%- } -%>
+  <%- if $listener['user'] != undef and $listener['user'] != '' { -%>
+  socket_user = "<%= $listener['user'] %>"
+  <%- } -%>
+  <%- if $listener['group'] != undef and $listener['group'] != '' { -%>
+  socket_group = "<%= $listener['group'] %>"
+  <%- } -%>
+}

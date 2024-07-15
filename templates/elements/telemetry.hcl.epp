@@ -1,0 +1,108 @@
+<%- |
+  Optional[Hash] $telemetry
+| -%>
+<%- if $telemetry != undef { -%>
+telemetry {
+  <%- if $telemetry['usage_gauge_period'] != undef { -%>
+  usage_gauge_period = "<%= $telemetry['usage_gauge_period'] %>"
+  <%- } -%>
+  <%- if $telemetry['maximum_gauge_cardinality'] != undef { -%>
+  maximum_gauge_cardinality = <%= $telemetry['maximum_gauge_cardinality'] %>
+  <%- } -%>
+  <%- if $telemetry['disable_hostname'] != undef { -%>
+  disable_hostname = <%= $telemetry['disable_hostname'] %>
+  <%- } -%>
+  <%- if $telemetry['enable_hostname_label'] != undef { -%>
+  enable_hostname_label = <%= $telemetry['enable_hostname_label'] %>
+  <%- } -%>
+  <%- if $telemetry['lease_metrics_epsilon'] != undef { -%>
+  lease_metrics_epsilon = "<%= $telemetry['lease_metrics_epsilon'] %>"
+  <%- } -%>
+  <%- if $telemetry['num_lease_metrics_buckets'] != undef { -%>
+  num_lease_metrics_buckets = <%= $telemetry['num_lease_metrics_buckets'] %>
+  <%- } -%>
+  <%- if $telemetry['add_lease_metrics_namespace_labels'] != undef { -%>
+  add_lease_metrics_namespace_labels = <%= $telemetry['add_lease_metrics_namespace_labels'] %>
+  <%- } -%>
+  <%- if $telemetry['filter_default'] != undef { -%>
+  filter_default = <%= $telemetry['filter_default'] %>
+  <%- } -%>
+  <%- if $telemetry['prefix_filter'] != undef { -%>
+  prefix_filter = [
+    <%- $telemetry['prefix_filter'].each |$prefix| { -%>
+      "<%= $prefix %>",
+    <%- } -%>
+    ]
+  <%- } -%>
+  <%- if $telemetry['statsite_address'] != undef { -%>
+  statsite_address = "<%= $telemetry['statsite_address'] %>"
+  <%- } -%>
+  <%- if $telemetry['statsd_address'] != undef { -%>
+  statsd_address = "<%= $telemetry['statsd_address'] %>"
+  <%- } -%>
+  <%- if $telemetry['circonus_api_token'] != undef { -%>
+  circonus_api_token = "<%= $telemetry['circonus_api_token'] %>"
+  <%- } -%>
+  <%- if $telemetry['circonus_api_app'] != undef { -%>
+  circonus_api_app = "<%= $telemetry['circonus_api_app'] %>"
+  <%- } -%>
+  <%- if $telemetry['circonus_api_url'] != undef { -%>
+  circonus_api_url = "<%= $telemetry['circonus_api_url'] %>"
+  <%- } -%>
+  <%- if $telemetry['circonus_submission_interval'] != undef { -%>
+  circonus_submission_interval = "<%= $telemetry['circonus_submission_interval'] %>"
+  <%- } -%>
+  <%- if $telemetry['circonus_submission_url'] != undef { -%>
+  circonus_api_url = "<%= $telemetry['circonus_submission_url'] %>"
+  <%- } -%>
+  <%- if $telemetry['circonus_check_id'] != undef { -%>
+  circonus_check_id = "<%= $telemetry['circonus_check_id'] %>"
+  <%- } -%>
+  <%- if $telemetry['circonus_check_force_metric_activation'] != undef { -%>
+  circonus_check_force_metric_activation = <%= $telemetry['circonus_check_force_metric_activation'] %>
+  <%- } -%>
+  <%- if $telemetry['circonus_check_instance_id'] != undef { -%>
+  circonus_check_instance_id = "<%= $telemetry['circonus_check_instance_id'] %>"
+  <%- } -%>
+  <%- if $telemetry['circonus_check_search_tag'] != undef { -%>
+  circonus_check_search_tag = "<%= $telemetry['circonus_check_search_tag'] %>"
+  <%- } -%>
+  <%- if $telemetry['circonus_check_display_name'] != undef { -%>
+  circonus_check_display_name = "<%= $telemetry['circonus_check_display_name'] %>"
+  <%- } -%>
+  <%- if $telemetry['circonus_check_tags'] != undef { -%>
+  circonus_check_tags = "<%= $telemetry['circonus_check_tags'] %>"
+  <%- } -%>
+  <%- if $telemetry['circonus_broker_id'] != undef { -%>
+  circonus_broker_id = "<%= $telemetry['circonus_broker_id'] %>"
+  <%- } -%>
+  <%- if $telemetry['circonus_broker_select_tag'] != undef { -%>
+  circonus_broker_select_tag = "<%= $telemetry['circonus_broker_select_tag'] %>"
+  <%- } -%>
+  <%- if $telemetry['dogstatsd_addr'] != undef { -%>
+  dogstatsd_addr = "<%= $telemetry['dogstatsd_addr'] %>"
+  <%- } -%>
+  <%- if $telemetry['dogstatsd_tags'] != undef { -%>
+  dogstatsd_tags = [
+    <%- $telemetry['dogstatsd_tags'].each |$tag| { -%>
+    "<%= $tag %>",
+    <%- } -%>
+  ]
+  <%- } -%>
+  <%- if $telemetry['prometheus_retention_time'] != undef { -%>
+  prometheus_retention_time = "<%= $telemetry['prometheus_retention_time'] %>"
+  <%- } -%>
+  <%- if $telemetry['stackdriver_project_id'] != undef { -%>
+  stackdriver_project_id = "<%= $telemetry['stackdriver_project_id'] %>"
+  <%- } -%>
+  <%- if $telemetry['stackdriver_location'] != undef { -%>
+  stackdriver_location = "<%= $telemetry['stackdriver_location'] %>"
+  <%- } -%>
+  <%- if $telemetry['stackdriver_namespace'] != undef { -%>
+  stackdriver_namespace = "<%= $telemetry['stackdriver_namespace'] %>"
+  <%- } -%>
+  <%- if $telemetry['stackdriver_debug_logs'] != undef { -%>
+  stackdriver_debug_logs = <%= $telemetry['stackdriver_debug_logs'] %>
+  <%- } -%>
+}
+<%- } -%>

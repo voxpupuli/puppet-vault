@@ -1,0 +1,11 @@
+<%- |
+  Optional[Hash] $service_registration
+| -%>
+<%- if $service_registration != undef { -%>
+  <%- if $service_registration['consul'] != undef { -%>
+<%= epp('vault/elements/service_registration/consul.hcl.epp', { registration => $service_registration['consul'] }) %>
+  <%- } -%>
+  <%- if $service_registration['kubernetes'] != undef { -%>
+<%= epp('vault/elements/service_registration/kubernetes.hcl.epp', { registration => $service_registration['kubernetes'] }) %>
+  <%- } -%>
+<%- } -%>

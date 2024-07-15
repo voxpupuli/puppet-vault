@@ -1,0 +1,15 @@
+<%- |
+  Hash $seal
+| -%>
+seal "alicloudkms" {
+  region = "<%= $seal['region'] %>"
+  <%- if $seal['domain'] != undef { -%>
+  domain = "<%= $seal['domain'] %>"
+  <%- } -%>
+  access_key = "<%= $seal['access_key'] %>"
+  secret_key = "<%= $seal['secret_key'] %>"
+  kms_key_id = "<%= $seal['kms_key_id'] %>"
+  <% if $seal['disabled'] != undef { -%>
+  disabled = "<%= $seal['disabled'] %>"
+  <%- } -%>
+}
