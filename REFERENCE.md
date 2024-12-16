@@ -46,6 +46,7 @@ The following parameters are available in the `vault` class:
 * [`num_procs`](#-vault--num_procs)
 * [`api_addr`](#-vault--api_addr)
 * [`version`](#-vault--version)
+* [`mode`](#-vault--mode)
 * [`extra_config`](#-vault--extra_config)
 * [`enable_ui`](#-vault--enable_ui)
 * [`arch`](#-vault--arch)
@@ -233,6 +234,14 @@ Data type: `Any`
 The version of Vault to install
 
 Default value: `'1.12.0'`
+
+##### <a name="-vault--mode"></a>`mode`
+
+Data type: `Enum['server', 'agent']`
+
+start vault in server or agent mode
+
+Default value: `'server'`
 
 ##### <a name="-vault--extra_config"></a>`extra_config`
 
