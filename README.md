@@ -171,6 +171,42 @@ vault::storage:
     - leader_api_addr: https://vault3:8200
 ```
 
+## Vault Agent Configuration
+
+When running Vault in agent mode (`mode => 'agent'`), you can configure the agent behavior using these parameters:
+
+```puppet
+class { 'vault':
+  mode => 'agent',
+  agent_vault => {
+    'address' => 'https://vault.example.com:8200'
+  },
+  agent_auto_auth => {
+    'method' => [{
+      'type'       => 'approle',
+      'mount_path' => 'auth/approle',
+      'config'     => {
+        'role_id_file_path'   => '/etc/vault/role-id',
+        'secret_id_file_path' => '/etc/vault/secret-id'
+      }
+    }
+  }],
+  agent_cache => {
+    'use_auto_auth_token' => true
+  },
+  agent_listeners => [{
+    'tcp' => {
+      'address'     => '127.0.0.1:8100',
+      'tls_disable' => true
+    }
+  }],
+  agent_template => {
+    'source'      => '/etc/vault/template.ctmpl',
+    'destination' => '/etc/myapp/config.yml'
+  }
+}
+```
+
 ## mlock
 
 By default vault will use the `mlock` system call, therefore the executable will need the corresponding capability.
