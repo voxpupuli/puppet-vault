@@ -156,4 +156,51 @@ describe 'vault class' do
       it { is_expected.to be_listening.on('127.0.0.1').with('tcp') }
     end
   end
+
+  context 'vault class with agent configuration' do
+    let(:manifest) do
+      <<-PUPPET
+      class { 'vault':
+        mode => 'agent',
+        agent_vault => { 'address' => 'https://vault.example.com:8200' },
+        agent_auto_auth => {
+          'method' => [{
+            'type' => 'approle',
+            'wrap_ttl' => '1m',
+            'config' => {
+              'role_id_file_path' => '/etc/vault/role-id',
+              'secret_id_file_path' => '/etc/vault/secret-id'
+            }
+          }]
+        },
+        agent_cache => { 'use_auto_auth_token' => true },
+        agent_listeners => [{
+          'tcp' => { 'address' => '127.0.0.1:8100', 'tls_disable' => true }
+        }]
+      }
+      PUPPET
+    end
+
+    it 'applies the manifest without error' do
+      apply_manifest(manifest, catch_failures: true)
+    end
+
+    it 'creates the config.json with correct settings' do
+      config_file = file('/etc/vault/config.json')
+      expect(config_file).to be_file
+      expect(config_file.content).to include(
+        '"address": "https://vault.example.com:8200"',
+        '"wrap_ttl": "1m"',
+        '"role_id_file_path": "/etc/vault/role-id"',
+        '"secret_id_file_path": "/etc/vault/secret-id"',
+        '"use_auto_auth_token": true',
+        '"address": "127.0.0.1:8100"'
+      )
+    end
+
+    it 'ensures the vault service is running' do
+      expect(service('vault')).to be_enabled
+      expect(service('vault')).to be_running
+    end
+  end
 end

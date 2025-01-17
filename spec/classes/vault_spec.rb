@@ -417,6 +417,52 @@ describe 'vault' do
         }
       end
 
+      context 'vault class with agent configuration' do
+        let(:params) do
+          {
+            mode: 'agent',
+            agent_vault: { 'address' => 'https://vault.example.com:8200' },
+            agent_auto_auth: {
+              'method' => [{
+                'type' => 'approle',
+                'wrap_ttl' => '1m',
+                'config' => {
+                  'role_id_file_path' => '/etc/vault/role-id',
+                  'secret_id_file_path' => '/etc/vault/secret-id'
+                }
+              }]
+            },
+            agent_cache: { 'use_auto_auth_token' => true },
+            agent_listeners: [{
+              'tcp' => {
+                'address' => '127.0.0.1:8100',
+                'tls_disable' => true
+              }
+            }]
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        it 'generates the config.json with correct agent settings' do
+          expect(param_value(catalogue, 'File', '/etc/vault/config.json', 'content')).to include_json(
+            vault: { 'address' => 'https://vault.example.com:8200' },
+            auto_auth: {
+              'method' => [{
+                'type' => 'approle',
+                'wrap_ttl' => '1m',
+                'config' => {
+                  'role_id_file_path' => '/etc/vault/role-id',
+                  'secret_id_file_path' => '/etc/vault/secret-id'
+                }
+              }]
+            },
+            cache: { 'use_auto_auth_token' => true },
+            listener: [{ 'tcp' => { 'address' => '127.0.0.1:8100', 'tls_disable' => true } }]
+          )
+        end
+      end
+
       case os_facts[:os]['family']
       when 'RedHat'
         case os_facts[:os]['release']['major'].to_i

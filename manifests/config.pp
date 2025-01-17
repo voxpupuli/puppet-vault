@@ -41,7 +41,7 @@ class vault::config {
             'listener'          => $vault::agent_listeners,
             'template'          => $vault::agent_template,
             'template_config'   => $vault::agent_template_config,
-            'exec'              => $vault::exec,
+            'exec'              => $vault::agent_exec,
             'env_template'      => $vault::agent_env_template,
             'telemetry'         => $vault::agent_telemetry,
         })
