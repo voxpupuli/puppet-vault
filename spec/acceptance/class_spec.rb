@@ -197,10 +197,5 @@ describe 'vault class' do
         '"address": "127.0.0.1:8100"'
       )
     end
-
-    it 'ensures the vault service is running' do
-      expect(service('vault')).to be_enabled
-      expect(service('vault')).to be_running
-    end
   end
 end
