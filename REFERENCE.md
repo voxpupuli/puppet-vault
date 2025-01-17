@@ -21,7 +21,7 @@
 
 ### <a name="vault"></a>`vault`
 
-install hashicorp vault
+Agent specific parameters
 
 #### Parameters
 
@@ -249,7 +249,7 @@ Default value: `'1.12.0'`
 
 Data type: `Enum['server', 'agent']`
 
-start vault in server or agent mode
+Whether to start vault in 'server' or 'agent' mode
 
 Default value: `'server'`
 
@@ -257,7 +257,7 @@ Default value: `'server'`
 
 Data type: `Hash`
 
-
+Hash containing extra configuration options to merge with the generated config
 
 Default value: `{}`
 
@@ -265,7 +265,7 @@ Default value: `{}`
 
 Data type: `Optional[Boolean]`
 
-
+Whether to enable the Vault web UI
 
 Default value: `undef`
 
@@ -273,7 +273,7 @@ Default value: `undef`
 
 Data type: `Any`
 
-
+System architecture for the Vault binary (automatically determined)
 
 Default value: `$vault::params::arch`
 
@@ -281,7 +281,7 @@ Default value: `$vault::params::arch`
 
 Data type: `Any`
 
-
+Operating system for the Vault binary (automatically determined)
 
 Default value: `downcase($facts['kernel'])`
 
@@ -289,7 +289,7 @@ Default value: `downcase($facts['kernel'])`
 
 Data type: `Any`
 
-
+Whether to manage the download directory
 
 Default value: `false`
 
@@ -297,7 +297,7 @@ Default value: `false`
 
 Data type: `Any`
 
-
+Directory where the Vault archive will be downloaded
 
 Default value: `'/tmp'`
 
@@ -305,7 +305,7 @@ Default value: `'/tmp'`
 
 Data type: `Any`
 
-
+The state the package should be in (installed, absent, latest)
 
 Default value: `'installed'`
 
@@ -313,7 +313,7 @@ Default value: `'installed'`
 
 Data type: `Any`
 
-
+Name of the Vault package
 
 Default value: `'vault'`
 
@@ -321,7 +321,7 @@ Default value: `'vault'`
 
 Data type: `Any`
 
-
+Installation method: 'archive' or 'repo'
 
 Default value: `$vault::params::install_method`
 
@@ -329,7 +329,7 @@ Default value: `$vault::params::install_method`
 
 Data type: `Any`
 
-
+Whether to manage Linux file capabilities for vault binary
 
 Default value: `undef`
 
@@ -337,7 +337,7 @@ Default value: `undef`
 
 Data type: `Any`
 
-
+Whether to disable the memory lock capability
 
 Default value: `undef`
 
@@ -345,7 +345,7 @@ Default value: `undef`
 
 Data type: `Optional[String]`
 
-
+Specifies the maximum possible lease duration for tokens and secrets
 
 Default value: `undef`
 
@@ -353,7 +353,7 @@ Default value: `undef`
 
 Data type: `Optional[String]`
 
-
+Specifies the default lease duration for tokens and secrets
 
 Default value: `undef`
 
@@ -361,7 +361,7 @@ Default value: `undef`
 
 Data type: `Optional[Hash]`
 
-
+Hash containing Vault telemetry configuration
 
 Default value: `undef`
 
@@ -369,7 +369,7 @@ Default value: `undef`
 
 Data type: `Optional[Boolean]`
 
-
+Disable caching
 
 Default value: `undef`
 
@@ -377,7 +377,7 @@ Default value: `undef`
 
 Data type: `Optional[Hash]`
 
-
+Hash containing seal configuration options
 
 Default value: `undef`
 
@@ -385,7 +385,7 @@ Default value: `undef`
 
 Data type: `Optional[Hash]`
 
-
+Hash containing storage configuration for HA setup
 
 Default value: `undef`
 
@@ -393,7 +393,7 @@ Default value: `undef`
 
 Data type: `Variant[Hash, Array[Hash]]`
 
-
+Hash or Array of hashes containing listener configuration
 
 Default value: `{ 'tcp' => { 'address' => '127.0.0.1:8200', 'tls_disable' => 1 }, }`
 
@@ -401,7 +401,7 @@ Default value: `{ 'tcp' => { 'address' => '127.0.0.1:8200', 'tls_disable' => 1 }
 
 Data type: `Any`
 
-
+Whether to manage the storage directory
 
 Default value: `false`
 
@@ -409,7 +409,7 @@ Default value: `false`
 
 Data type: `Hash`
 
-
+Hash containing storage configuration
 
 Default value: `{ 'file' => { 'path' => '/var/lib/vault' } }`
 
@@ -417,7 +417,7 @@ Default value: `{ 'file' => { 'path' => '/var/lib/vault' } }`
 
 Data type: `Optional[Boolean]`
 
-
+Whether to manage the service file
 
 Default value: `$vault::params::manage_service_file`
 
@@ -425,7 +425,7 @@ Default value: `$vault::params::manage_service_file`
 
 Data type: `Any`
 
-
+Desired state of the Vault service (running, stopped)
 
 Default value: `'running'`
 
@@ -433,7 +433,7 @@ Default value: `'running'`
 
 Data type: `Any`
 
-
+Whether to enable the Vault service on boot
 
 Default value: `true`
 
@@ -441,7 +441,7 @@ Default value: `true`
 
 Data type: `Any`
 
-
+Whether to manage the Vault config file
 
 Default value: `true`
 
@@ -449,7 +449,7 @@ Default value: `true`
 
 Data type: `Any`
 
-
+Filename for the downloaded archive
 
 Default value: `'vault.zip'`
 
@@ -457,7 +457,7 @@ Default value: `'vault.zip'`
 
 Data type: `Boolean`
 
-enable/disable the directory management. not required for package based installations
+Whether to manage the configuration directory
 
 Default value: `$install_method == 'archive'`
 
