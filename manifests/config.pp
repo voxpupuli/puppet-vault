@@ -16,19 +16,40 @@ class vault::config {
   }
 
   if $vault::manage_config_file {
-    $_config_hash = delete_undef_values({
-        'listener'          => $vault::listener,
-        'storage'           => $vault::storage,
-        'ha_storage'        => $vault::ha_storage,
-        'seal'              => $vault::seal,
-        'telemetry'         => $vault::telemetry,
-        'disable_cache'     => $vault::disable_cache,
-        'default_lease_ttl' => $vault::default_lease_ttl,
-        'max_lease_ttl'     => $vault::max_lease_ttl,
-        'disable_mlock'     => $vault::disable_mlock,
-        'ui'                => $vault::enable_ui,
-        'api_addr'          => $vault::api_addr,
-    })
+    case $vault::mode {
+      'server': {
+        $_config_hash = delete_undef_values({
+            'listener'          => $vault::listener,
+            'storage'           => $vault::storage,
+            'ha_storage'        => $vault::ha_storage,
+            'seal'              => $vault::seal,
+            'telemetry'         => $vault::telemetry,
+            'disable_cache'     => $vault::disable_cache,
+            'default_lease_ttl' => $vault::default_lease_ttl,
+            'max_lease_ttl'     => $vault::max_lease_ttl,
+            'disable_mlock'     => $vault::disable_mlock,
+            'ui'                => $vault::enable_ui,
+            'api_addr'          => $vault::api_addr,
+        })
+      }
+      'agent': {
+        $_config_hash = delete_undef_values({
+            'vault'             => $vault::agent_vault,
+            'auto_auth'         => $vault::agent_auto_auth,
+            'api_proxy'         => $vault::agent_api_proxy,
+            'cache'             => $vault::agent_cache,
+            'listener'          => $vault::agent_listeners,
+            'template'          => $vault::agent_template,
+            'template_config'   => $vault::agent_template_config,
+            'exec'              => $vault::agent_exec,
+            'env_template'      => $vault::agent_env_template,
+            'telemetry'         => $vault::agent_telemetry,
+        })
+      }
+      default: {
+        fail("Unsupported vault mode: ${vault::mode}")
+      }
+    }
 
     $config_hash = merge($_config_hash, $vault::extra_config)
 

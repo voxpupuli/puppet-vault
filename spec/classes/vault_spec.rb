@@ -417,6 +417,52 @@ describe 'vault' do
         }
       end
 
+      context 'vault class with agent configuration' do
+        let(:params) do
+          {
+            mode: 'agent',
+            agent_vault: { 'address' => 'https://vault.example.com:8200' },
+            agent_auto_auth: {
+              'method' => [{
+                'type' => 'approle',
+                'wrap_ttl' => '1m',
+                'config' => {
+                  'role_id_file_path' => '/etc/vault/role-id',
+                  'secret_id_file_path' => '/etc/vault/secret-id'
+                }
+              }]
+            },
+            agent_cache: { 'use_auto_auth_token' => true },
+            agent_listeners: [{
+              'tcp' => {
+                'address' => '127.0.0.1:8100',
+                'tls_disable' => true
+              }
+            }]
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        it 'generates the config.json with correct agent settings' do
+          expect(param_value(catalogue, 'File', '/etc/vault/config.json', 'content')).to include_json(
+            vault: { 'address' => 'https://vault.example.com:8200' },
+            auto_auth: {
+              'method' => [{
+                'type' => 'approle',
+                'wrap_ttl' => '1m',
+                'config' => {
+                  'role_id_file_path' => '/etc/vault/role-id',
+                  'secret_id_file_path' => '/etc/vault/secret-id'
+                }
+              }]
+            },
+            cache: { 'use_auto_auth_token' => true },
+            listener: [{ 'tcp' => { 'address' => '127.0.0.1:8100', 'tls_disable' => true } }]
+          )
+        end
+      end
+
       case os_facts[:os]['family']
       when 'RedHat'
         case os_facts[:os]['release']['major'].to_i
@@ -464,6 +510,29 @@ describe 'vault' do
                   with_content(%r{^Group=admin$}).
                   with_content(%r{Environment=GOMAXPROCS=8}).
                   with_content(%r{^ExecStart=/opt/bin/vault server -config=/opt/etc/vault/config.json -log-level=info$})
+              }
+            end
+
+            context 'start in agent mode' do
+              let(:params) do
+                { mode: 'agent' }
+              end
+
+              it {
+                is_expected.to contain_file('/etc/systemd/system/vault.service').
+                  with_mode('0444').
+                  with_ensure('file').
+                  with_owner('root').
+                  with_group('root').
+                  with_content(%r{^# vault systemd unit file}).
+                  with_content(%r{^User=vault$}).
+                  with_content(%r{^Group=vault$}).
+                  with_content(%r{Environment=GOMAXPROCS=3}).
+                  with_content(%r{^ExecStart=/usr/local/bin/vault agent -config=/etc/vault/config.json $}).
+                  with_content(%r{SecureBits=keep-caps}).
+                  with_content(%r{Capabilities=CAP_IPC_LOCK\+ep}).
+                  with_content(%r{CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK}).
+                  with_content(%r{NoNewPrivileges=yes})
               }
             end
 
@@ -638,6 +707,29 @@ describe 'vault' do
                   with_content(%r{^Group=admin$}).
                   with_content(%r{Environment=GOMAXPROCS=8}).
                   with_content(%r{^ExecStart=/opt/bin/vault server -config=/opt/etc/vault/config.json -log-level=info$})
+              }
+            end
+
+            context 'start in agent mode' do
+              let(:params) do
+                { mode: 'agent' }
+              end
+
+              it {
+                is_expected.to contain_file('/etc/systemd/system/vault.service').
+                  with_mode('0444').
+                  with_ensure('file').
+                  with_owner('root').
+                  with_group('root').
+                  with_content(%r{^# vault systemd unit file}).
+                  with_content(%r{^User=vault$}).
+                  with_content(%r{^Group=vault$}).
+                  with_content(%r{Environment=GOMAXPROCS=3}).
+                  with_content(%r{^ExecStart=/usr/local/bin/vault agent -config=/etc/vault/config.json $}).
+                  with_content(%r{SecureBits=keep-caps}).
+                  with_content(%r{Capabilities=CAP_IPC_LOCK\+ep}).
+                  with_content(%r{CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK}).
+                  with_content(%r{NoNewPrivileges=yes})
               }
             end
 
