@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.1.1](https://github.com/voxpupuli/puppet-vault/tree/v4.1.1) (2025-01-20)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v4.1.0...v4.1.1)
+
+**Implemented enhancements:**
+
+- puppet/systemd: allow 8.x [\#59](https://github.com/voxpupuli/puppet-vault/pull/59) ([jay7x](https://github.com/jay7x))
+- update puppet-systemd upper bound to 8.0.0 [\#50](https://github.com/voxpupuli/puppet-vault/pull/50) ([TheMeier](https://github.com/TheMeier))
+- The package resource name was hardcoded instead of using the value in… [\#27](https://github.com/voxpupuli/puppet-vault/pull/27) ([sirinek](https://github.com/sirinek))
+
+**Fixed bugs:**
+
+- \(\#29\) Ensure vault is updated when version changes [\#52](https://github.com/voxpupuli/puppet-vault/pull/52) ([C24-AK](https://github.com/C24-AK))
+
+**Closed issues:**
+
+- Publish on puppetforge [\#21](https://github.com/voxpupuli/puppet-vault/issues/21)
+
 ## [v4.1.0](https://github.com/voxpupuli/puppet-vault/tree/v4.1.0) (2023-11-19)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v4.0.0...v4.1.0)
