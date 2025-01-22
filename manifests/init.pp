@@ -57,6 +57,7 @@
 # @param os Operating system for the Vault binary (automatically determined)
 # @param manage_download_dir Whether to manage the download directory
 # @param download_dir Directory where the Vault archive will be downloaded
+# @param manage_package Whether to manage the Vault package
 # @param package_ensure The state the package should be in (installed, absent, latest)
 # @param package_name Name of the Vault package
 # @param install_method Installation method: 'archive' or 'repo'
@@ -124,6 +125,7 @@ class vault (
   $num_procs                             = $facts['processors']['count'],
   $install_method                        = $vault::params::install_method,
   $config_dir                            = if $install_method == 'repo' and $manage_repo { '/etc/vault.d' } else { '/etc/vault' },
+  Boolean $manage_package                = true,
   $package_name                          = 'vault',
   $package_ensure                        = 'installed',
   $download_dir                          = '/tmp',
