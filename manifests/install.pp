@@ -38,7 +38,7 @@ class vault::install {
         Class['hashi_stack::repo'] -> Package[$vault::package_name]
       }
       package { $vault::package_name:
-        ensure  => $vault::package_ensure,
+        ensure => $vault::package_ensure,
       }
       $_manage_file_capabilities = false
     }
