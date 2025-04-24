@@ -243,7 +243,7 @@ Data type: `Any`
 
 The version of Vault to install
 
-Default value: `'1.12.0'`
+Default value: `'1.19.2'`
 
 ##### <a name="-vault--mode"></a>`mode`
 
