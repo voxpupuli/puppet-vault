@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.0.0](https://github.com/voxpupuli/puppet-vault/tree/v5.0.0) (2025-04-24)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v4.2.0...v5.0.0)
+
+**Breaking changes:**
+
+- Require stdlib 9.x / use namespaced functions [\#76](https://github.com/voxpupuli/puppet-vault/pull/76) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EoL RedHat 7 [\#75](https://github.com/voxpupuli/puppet-vault/pull/75) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EoL CentOS 7 & 8 [\#74](https://github.com/voxpupuli/puppet-vault/pull/74) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EoL Debian 10 [\#73](https://github.com/voxpupuli/puppet-vault/pull/73) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EoL Ubuntu 18.04 support [\#72](https://github.com/voxpupuli/puppet-vault/pull/72) ([bastelfreak](https://github.com/bastelfreak))
+- Update default Vault version 1.12.0-\>1.19.2 [\#68](https://github.com/voxpupuli/puppet-vault/pull/68) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v4.2.0](https://github.com/voxpupuli/puppet-vault/tree/v4.2.0) (2025-04-24)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v4.1.1...v4.2.0)
