@@ -54,7 +54,7 @@ class vault::config {
     $config_hash = $_config_hash + $vault::extra_config
 
     file { "${vault::config_dir}/config.json":
-      content => to_json_pretty($config_hash),
+      content => stdlib::to_json_pretty($config_hash),
       owner   => $vault::user,
       group   => $vault::group,
       mode    => $vault::config_mode,
