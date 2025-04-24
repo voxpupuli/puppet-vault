@@ -51,7 +51,7 @@ class vault::config {
       }
     }
 
-    $config_hash = merge($_config_hash, $vault::extra_config)
+    $config_hash = $_config_hash + $vault::extra_config
 
     file { "${vault::config_dir}/config.json":
       content => to_json_pretty($config_hash),
