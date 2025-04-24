@@ -4,12 +4,24 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.2.0](https://github.com/voxpupuli/puppet-vault/tree/v4.2.0) (2025-04-24)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v4.1.1...v4.2.0)
+
+**Implemented enhancements:**
+
+- Add Ubuntu 22.04 & 24.04 support [\#70](https://github.com/voxpupuli/puppet-vault/pull/70) ([bastelfreak](https://github.com/bastelfreak))
+- Replace legacy merge\(\) with native puppet code [\#69](https://github.com/voxpupuli/puppet-vault/pull/69) ([bastelfreak](https://github.com/bastelfreak))
+- Add Systemd Parameter LimitCORE to template [\#67](https://github.com/voxpupuli/puppet-vault/pull/67) ([C24-AK](https://github.com/C24-AK))
+- metadata.json: Add OpenVox [\#66](https://github.com/voxpupuli/puppet-vault/pull/66) ([jstraw](https://github.com/jstraw))
+
 ## [v4.1.1](https://github.com/voxpupuli/puppet-vault/tree/v4.1.1) (2025-01-20)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v4.1.0...v4.1.1)
 
 **Implemented enhancements:**
 
+- Support Vault agent in service and config file [\#61](https://github.com/voxpupuli/puppet-vault/pull/61) ([sasudi90](https://github.com/sasudi90))
 - puppet/systemd: allow 8.x [\#59](https://github.com/voxpupuli/puppet-vault/pull/59) ([jay7x](https://github.com/jay7x))
 - update puppet-systemd upper bound to 8.0.0 [\#50](https://github.com/voxpupuli/puppet-vault/pull/50) ([TheMeier](https://github.com/TheMeier))
 - The package resource name was hardcoded instead of using the value in… [\#27](https://github.com/voxpupuli/puppet-vault/pull/27) ([sirinek](https://github.com/sirinek))
@@ -20,6 +32,7 @@ These should not affect the functionality of the module.
 
 **Closed issues:**
 
+- Module does not support Vault agent only server [\#60](https://github.com/voxpupuli/puppet-vault/issues/60)
 - Publish on puppetforge [\#21](https://github.com/voxpupuli/puppet-vault/issues/21)
 
 ## [v4.1.0](https://github.com/voxpupuli/puppet-vault/tree/v4.1.0) (2023-11-19)
