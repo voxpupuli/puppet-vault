@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.1.0](https://github.com/voxpupuli/puppet-vault/tree/v5.1.0) (2025-04-25)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v5.0.0...v5.1.0)
+
+**Implemented enhancements:**
+
+- Add Systemd Parameter MemorySwapMax to template [\#78](https://github.com/voxpupuli/puppet-vault/pull/78) ([C24-AK](https://github.com/C24-AK))
+
 ## [v5.0.0](https://github.com/voxpupuli/puppet-vault/tree/v5.0.0) (2025-04-24)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v4.2.0...v5.0.0)
