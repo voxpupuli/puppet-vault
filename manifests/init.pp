@@ -41,6 +41,8 @@
 #   because Vault can block a scheduler thread". Default: number of CPUs
 #   on the system, retrieved from the ``processorcount`` Fact.
 #
+# @param ld_library_path Configure library path, usefull when using oracle database plugin
+#   
 # @param api_addr
 #   Specifies the address (full URL) to advertise to other Vault servers in the
 #   cluster for client redirection. This value is also used for plugin backends.
@@ -122,6 +124,7 @@ class vault (
   $manage_file_capabilities              = undef,
   $service_options                       = '',
   $num_procs                             = $facts['processors']['count'],
+  Optional[String] $ld_library_path      = undef,
   $install_method                        = $vault::params::install_method,
   $config_dir                            = if $install_method == 'repo' and $manage_repo { '/etc/vault.d' } else { '/etc/vault' },
   $package_name                          = 'vault',
