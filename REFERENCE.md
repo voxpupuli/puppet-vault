@@ -53,6 +53,7 @@ The following parameters are available in the `vault` class:
 * [`os`](#-vault--os)
 * [`manage_download_dir`](#-vault--manage_download_dir)
 * [`download_dir`](#-vault--download_dir)
+* [`manage_package`](#-vault--manage_package)
 * [`package_ensure`](#-vault--package_ensure)
 * [`package_name`](#-vault--package_name)
 * [`install_method`](#-vault--install_method)
@@ -300,6 +301,14 @@ Data type: `Any`
 Directory where the Vault archive will be downloaded
 
 Default value: `'/tmp'`
+
+##### <a name="-vault--manage_package"></a>`manage_package`
+
+Data type: `Any`
+
+Whether to manage the Vault package
+
+Default value: `true`
 
 ##### <a name="-vault--package_ensure"></a>`package_ensure`
 
