@@ -125,7 +125,7 @@ class vault (
   $num_procs                             = $facts['processors']['count'],
   $install_method                        = $vault::params::install_method,
   $config_dir                            = if $install_method == 'repo' and $manage_repo { '/etc/vault.d' } else { '/etc/vault' },
-  $manage_package                        = true,
+  Boolean $manage_package                = true,
   $package_name                          = 'vault',
   $package_ensure                        = 'installed',
   $download_dir                          = '/tmp',
