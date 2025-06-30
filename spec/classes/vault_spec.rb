@@ -487,6 +487,24 @@ describe 'vault' do
               }
             end
 
+            context 'with ld_library_path defined' do
+              let(:params) { { ld_library_path: '/usr/lib/oracle/19.27/client64/lib' } }
+
+              it 'includes the LD_LIBRARY_PATH line in the rendered template' do
+                content = catalogue.resource('File', '/etc/systemd/system/vault.service').send(:parameters)[:content]
+                expect(content).to include('Environment=LD_LIBRARY_PATH=/usr/lib/oracle/19.27/client64/lib')
+              end
+            end
+
+            context 'without ld_library_path' do
+              let(:params) { {} }
+
+              it 'does not include the LD_LIBRARY_PATH line' do
+                content = catalogue.resource('File', '/etc/systemd/system/vault.service').send(:parameters)[:content]
+                expect(content).not_to include('Environment=LD_LIBRARY_PATH=')
+              end
+            end
+
             context 'service with non-default options' do
               let(:params) do
                 {
