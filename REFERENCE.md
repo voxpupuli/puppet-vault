@@ -44,6 +44,7 @@ The following parameters are available in the `vault` class:
 * [`manage_repo`](#-vault--manage_repo)
 * [`manage_service`](#-vault--manage_service)
 * [`num_procs`](#-vault--num_procs)
+* [`ld_library_path`](#-vault--ld_library_path)
 * [`api_addr`](#-vault--api_addr)
 * [`version`](#-vault--version)
 * [`mode`](#-vault--mode)
@@ -224,6 +225,14 @@ because Vault can block a scheduler thread". Default: number of CPUs
 on the system, retrieved from the ``processorcount`` Fact.
 
 Default value: `$facts['processors']['count']`
+
+##### <a name="-vault--ld_library_path"></a>`ld_library_path`
+
+Data type: `Optional[String]`
+
+Configure library path, usefull when using oracle database plugin
+
+Default value: `undef`
 
 ##### <a name="-vault--api_addr"></a>`api_addr`
 
