@@ -30,6 +30,9 @@ CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK
 <% end -%>
 NoNewPrivileges=yes
 Environment=GOMAXPROCS=<%= scope['vault::num_procs'] %>
+<% if scope['vault::ld_library_path'] -%>
+Environment=LD_LIBRARY_PATH=<%= scope['vault::ld_library_path'] %>
+<% end -%>
 ExecStart=<%= scope['vault::bin_dir'] %>/vault <%= scope['vault::mode'] %> -config=<%= scope['vault::config_dir'] %>/config.json <%= scope['vault::service_options'] %>
 KillSignal=SIGINT
 TimeoutStopSec=30s
