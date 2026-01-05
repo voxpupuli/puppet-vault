@@ -304,7 +304,7 @@ Default value: `'/tmp'`
 
 ##### <a name="-vault--manage_package"></a>`manage_package`
 
-Data type: `Any`
+Data type: `Boolean`
 
 Whether to manage the Vault package
 
