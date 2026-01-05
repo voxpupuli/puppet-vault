@@ -3,7 +3,7 @@
 #
 class vault::install {
   assert_private()
-  $vault_bin = "${vault::bin_dir}/vault"
+  $vault_bin = "${vault::bin_dir}/${vault::bin_name}"
 
   if $vault::manage_package {
     case $vault::install_method {

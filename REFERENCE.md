@@ -32,7 +32,9 @@ The following parameters are available in the `vault` class:
 * [`group`](#-vault--group)
 * [`manage_group`](#-vault--manage_group)
 * [`bin_dir`](#-vault--bin_dir)
+* [`bin_name`](#-vault--bin_name)
 * [`config_dir`](#-vault--config_dir)
+* [`config_filename`](#-vault--config_filename)
 * [`config_mode`](#-vault--config_mode)
 * [`purge_config_dir`](#-vault--purge_config_dir)
 * [`download_url`](#-vault--download_url)
@@ -125,6 +127,14 @@ Directory the vault executable will be installed in.
 
 Default value: `$vault::params::bin_dir`
 
+##### <a name="-vault--bin_name"></a>`bin_name`
+
+Data type: `Any`
+
+The binary name which is used (e.g vault) can be set to bao if you want to use openbao
+
+Default value: `'vault'`
+
 ##### <a name="-vault--config_dir"></a>`config_dir`
 
 Data type: `Any`
@@ -132,6 +142,14 @@ Data type: `Any`
 Directory the vault configuration will be kept in.
 
 Default value: `if $install_method == 'repo' and $manage_repo { '/etc/vault.d' } else { '/etc/vault'`
+
+##### <a name="-vault--config_filename"></a>`config_filename`
+
+Data type: `Any`
+
+Filename for the vault configuration. Defaults to 'config.json'
+
+Default value: `'config.json'`
 
 ##### <a name="-vault--config_mode"></a>`config_mode`
 
@@ -169,7 +187,7 @@ Default value: `'https://releases.hashicorp.com/vault/'`
 
 Data type: `Any`
 
-The extension of the vault download
+The extension of the vault download_extension
 
 Default value: `'zip'`
 
@@ -404,7 +422,7 @@ Data type: `Variant[Hash, Array[Hash]]`
 
 Hash or Array of hashes containing listener configuration
 
-Default value: `{ 'tcp' => { 'address' => '127.0.0.1:8200', 'tls_disable' => 1 }, }`
+Default value: `{ 'tcp'  => { 'address' => '127.0.0.1:8200', 'tls_disable' => 1 }, }`
 
 ##### <a name="-vault--manage_storage_dir"></a>`manage_storage_dir`
 

@@ -53,7 +53,7 @@ class vault::config {
 
     $config_hash = $_config_hash + $vault::extra_config
 
-    file { "${vault::config_dir}/config.json":
+    file { "${vault::config_dir}/${vault::config_filename}":
       content => stdlib::to_json_pretty($config_hash),
       owner   => $vault::user,
       group   => $vault::group,
@@ -101,7 +101,7 @@ class vault::config {
   if $real_manage_service_file {
     case $vault::service_provider {
       'systemd': {
-        systemd::unit_file { 'vault.service':
+        systemd::unit_file { "${vault::service_name}.service":
           content => template('vault/vault.systemd.erb'),
         }
       }

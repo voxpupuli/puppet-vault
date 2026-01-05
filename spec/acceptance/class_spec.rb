@@ -199,4 +199,94 @@ describe 'vault class' do
       )
     end
   end
+
+  context 'use openbao' do
+    it_behaves_like 'an idempotent resource' do
+      let(:manifest) do
+        <<-PUPPET
+        if $facts['os']['name'] == 'Archlinux' {
+          class { 'file_capability':
+            package_name => 'libcap',
+          }
+        } else {
+          include file_capability
+        }
+        -> class { 'vault':
+          storage => {
+            file => {
+              path => '/tmp',
+            }
+          },
+          bin_dir => '/usr/local/bin',
+          bin_name =>  'bao',
+          download_url => 'https://github.com/openbao/openbao/releases/download/v2.4.4/bao_2.4.4_Linux_x86_64.tar.gz',
+          service_name => 'openbao',
+          config_dir => '/etc/openbao',
+          download_filename => 'openbao.tar.gz',
+          install_method => 'archive',
+          require => Class['file_capability'],
+        }
+        PUPPET
+      end
+    end
+    # rubocop:disable RSpec/RepeatedExampleGroupBody
+    describe user('vault') do
+      it { is_expected.to exist }
+    end
+
+    describe group('vault') do
+      it { is_expected.to exist }
+    end
+    # rubocop:enable RSpec/RepeatedExampleGroupBody
+
+    describe command('getcap /usr/local/bin/bao') do
+      its(:exit_status) { is_expected.to eq 0 }
+      its(:stdout) { is_expected.to match %r{/usr/local/bin/bao.*cap_ipc_lock.*ep} }
+    end
+
+    describe file('/usr/local/bin/bao') do
+      it { is_expected.to exist }
+      it { is_expected.to be_mode 755 }
+      it { is_expected.to be_owned_by 'root' }
+      it { is_expected.to be_grouped_into 'root' }
+    end
+
+    describe file('/etc/systemd/system/openbao.service') do
+      it { is_expected.to be_file }
+      it { is_expected.to be_mode 444 }
+      it { is_expected.to be_owned_by 'root' }
+      it { is_expected.to be_grouped_into 'root' }
+      its(:content) { is_expected.to include 'User=vault' }
+      its(:content) { is_expected.to include 'Group=vault' }
+      its(:content) { is_expected.to include 'ExecStart=/usr/local/bin/bao server -config=/etc/openbao/config.json ' }
+      its(:content) { is_expected.to match %r{Environment=GOMAXPROCS=\d+} }
+    end
+
+    describe command('systemctl list-units') do
+      its(:stdout) { is_expected.to include 'openbao.service' }
+    end
+
+    describe file('/etc/openbao') do
+      it { is_expected.to be_directory }
+    end
+
+    describe file('/etc/openbao/config.json') do
+      it { is_expected.to be_file }
+      its(:content) { is_expected.to include('"address": "127.0.0.1:8200"') }
+    end
+
+    describe service('openbao') do
+      it { is_expected.to be_enabled }
+      it { is_expected.to be_running }
+    end
+
+    describe port(8200) do
+      it { is_expected.to be_listening.on('127.0.0.1').with('tcp') }
+    end
+
+    describe command('/usr/local/bin/bao version') do
+      its(:exit_status) { is_expected.to eq 0 }
+      its(:stdout) { is_expected.to match %r{OpenBao v2.4.4} }
+    end
+  end
 end

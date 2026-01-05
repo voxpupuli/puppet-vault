@@ -37,6 +37,7 @@ Please see [The official documentation](https://www.vaultproject.io/docs/configu
 * `bin_dir`: Directory the vault executable will be installed in.
 * `config_dir`: Directory the vault configuration will be kept in.
 * `config_mode`: Mode of the configuration file (config.json). Defaults to '0750'
+* `config_filename`: Set config filename. Defaults to 'config.json'
 * `purge_config_dir`: Whether the `config_dir` should be purged before installing the generated config.
 * `install_method`: Supports the values `repo` or `archive`. See [Installation parameters](#installation-parameters).
 * `service_name`: Customise the name of the system service
@@ -66,6 +67,7 @@ When `repo` is set the module will attempt to install a package corresponding wi
 When `archive` the module will attempt to download and extract a zip file from the `download_url`, the extracted file will be placed in the `bin_dir` folder.
 The module will **not** manage any required packages to un-archive, e.g. `unzip`. See [`puppet-archive` setup](https://github.com/voxpupuli/puppet-archive#setup) documentation for more details.
 
+* `bin_name`: Optional binary name. default: `vault`
 * `download_url`: Optional manual URL to download the vault zip distribution from.  You can specify a local file on the server with a fully qualified pathname, or use `http`, `https`, `ftp` or `s3` based URI's. default: `undef`
 * `download_url_base`: This is the base URL for the hashicorp releases. If no manual `download_url` is specified, the module will download from hashicorp. default: `https://releases.hashicorp.com/vault/`
 * `download_extension`: The extension of the vault download when using hashicorp releases. default: `zip`
@@ -220,6 +222,51 @@ If you do not wish to use `mlock`, set the `disable_mlock` attribute to `true`
 class { 'vault':
   disable_mlock => true
 }
+```
+
+## OpenBao
+
+It's possible to install and manage [OpenBao](https://openbao.org) with this module.
+
+Currently only install_method **archive** is possible to use for openbao, openbao doesn't provide repositories for apt or yum/dnf.
+So you need to provide the url to a release file from openbao's github page
+
+```puppet
+class { 'vault':
+  bin_name          => 'bao',
+  download_url      => 'https://github.com/openbao/openbao/releases/download/v2.4.4/bao_2.4.4_Linux_x86_64.tar.gz',
+  service_name      => 'openbao',
+  config_dir        => '/etc/openbao',
+  download_filename => 'openbao.tar.gz',
+  listener          => [
+    {
+      tcp => {
+        address     => '127.0.0.1:8200',
+        tls_disable => 1,
+      }
+    },
+    {
+      tcp => {
+        address => '10.0.0.10:8200',
+      }
+    }
+  ]
+}
+```
+
+or with hiera
+```yaml
+vault::bin_name: 'bao'
+vault::download_url: 'https://github.com/openbao/openbao/releases/download/v2.4.4/bao_2.4.4_Linux_x86_64.tar.gz'
+vault::service_name: 'openbao'
+vault::config_dir: '/etc/openbao'
+vault::download_filename: 'openbao.tar.gz'
+vault::listener:
+  - tcp:
+      address: '127.0.0.1:8200'
+      tls_disable: 1
+  - tcp:
+      address: '10.0.0.10:8200'
 ```
 
 ## Testing
