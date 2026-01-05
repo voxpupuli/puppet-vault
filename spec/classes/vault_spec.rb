@@ -200,6 +200,16 @@ describe 'vault' do
           end
         end
 
+        context 'When asked not to manage the package' do
+          let(:params) do
+            {
+              manage_package: false
+            }
+          end
+
+          it { is_expected.not_to contain_package('vault') }
+        end
+
         context 'When asked not to manage the repo' do
           let(:params) do
             {
