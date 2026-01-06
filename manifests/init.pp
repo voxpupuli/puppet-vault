@@ -11,7 +11,11 @@
 #
 # @param bin_dir Directory the vault executable will be installed in.
 #
+# @param bin_name The binary name which is used (e.g vault) can be set to bao if you want to use openbao
+#
 # @param config_dir Directory the vault configuration will be kept in.
+#
+# @param config_filename Filename for the vault configuration. Defaults to 'config.json'
 #
 # @param config_mode Mode of the configuration file (config.json). Defaults to '0750'
 #
@@ -21,7 +25,7 @@
 #
 # @param download_url_base Hashicorp base URL to download vault zip distribution from.
 #
-# @param download_extension The extension of the vault download
+# @param download_extension The extension of the vault download_extension
 #
 # @param service_name Customise the name of the system service
 #
@@ -96,6 +100,7 @@ class vault (
   $group                                 = 'vault',
   $manage_group                          = true,
   $bin_dir                               = $vault::params::bin_dir,
+  $bin_name                              = 'vault',
   $manage_config_file                    = true,
   Enum['server', 'agent'] $mode          = 'server',
   $config_mode                           = '0750',
@@ -112,7 +117,7 @@ class vault (
   Optional[Boolean] $manage_service_file = $vault::params::manage_service_file,
   Hash $storage                          = { 'file' => { 'path' => '/var/lib/vault' } },
   $manage_storage_dir                    = false,
-  Variant[Hash, Array[Hash]] $listener   = { 'tcp' => { 'address' => '127.0.0.1:8200', 'tls_disable' => 1 }, },
+  Variant[Hash, Array[Hash]] $listener   = { 'tcp'  => { 'address' => '127.0.0.1:8200', 'tls_disable' => 1 }, },
   Optional[Hash] $ha_storage             = undef,
   Optional[Hash] $seal                   = undef,
   Optional[Boolean] $disable_cache       = undef,
@@ -125,6 +130,7 @@ class vault (
   $num_procs                             = $facts['processors']['count'],
   $install_method                        = $vault::params::install_method,
   $config_dir                            = if $install_method == 'repo' and $manage_repo { '/etc/vault.d' } else { '/etc/vault' },
+  $config_filename                       = 'config.json',
   Boolean $manage_package                = true,
   $package_name                          = 'vault',
   $package_ensure                        = 'installed',
