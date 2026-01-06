@@ -14,3 +14,4 @@ spec/spec_helper_acceptance.rb:
 .github/workflows/ci.yml:
   with:
     beaker_facter: 'vault_version:Vault:1.19.2'
+    beaker_hypervisor: 'docker'
