@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.0.0](https://github.com/voxpupuli/puppet-vault/tree/v6.0.0) (2026-01-06)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v5.1.0...v6.0.0)
+
+**Breaking changes:**
+
+- Drop puppet, update openvox minimum version to 8.19 [\#86](https://github.com/voxpupuli/puppet-vault/pull/86) ([TheMeier](https://github.com/TheMeier))
+
+**Implemented enhancements:**
+
+- Implement openbao support [\#92](https://github.com/voxpupuli/puppet-vault/pull/92) ([sebastianrakel](https://github.com/sebastianrakel))
+- puppet/archive: Allow 8.x [\#85](https://github.com/voxpupuli/puppet-vault/pull/85) ([TheMeier](https://github.com/TheMeier))
+
+**Merged pull requests:**
+
+- manage\_package variable is a Boolean, plus a test suite [\#82](https://github.com/voxpupuli/puppet-vault/pull/82) ([tskirvin](https://github.com/tskirvin))
+
 ## [v5.1.0](https://github.com/voxpupuli/puppet-vault/tree/v5.1.0) (2025-04-25)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v5.0.0...v5.1.0)
