@@ -195,7 +195,7 @@ describe 'vault class' do
         '"role_id_file_path": "/etc/vault/role-id"',
         '"secret_id_file_path": "/etc/vault/secret-id"',
         '"use_auto_auth_token": true',
-        '"address": "127.0.0.1:8100"'
+        '"address": "127.0.0.1:8100"',
       )
     end
   end
