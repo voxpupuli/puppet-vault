@@ -13,9 +13,11 @@
 #
 # @param bin_name The binary name which is used (e.g vault) can be set to bao if you want to use openbao
 #
+# @param config_format The format the config should use (hcl or json), default json
+#
 # @param config_dir Directory the vault configuration will be kept in.
 #
-# @param config_filename Filename for the vault configuration. Defaults to 'config.json'
+# @param config_filename Filename for the vault configuration. Defaults to 'config.config_format'
 #
 # @param config_mode Mode of the configuration file (config.json). Defaults to '0750'
 #
@@ -129,8 +131,9 @@ class vault (
   $service_options                       = '',
   $num_procs                             = $facts['processors']['count'],
   $install_method                        = $vault::params::install_method,
+  Enum['hcl','json'] $config_format      = 'json',
   $config_dir                            = if $install_method == 'repo' and $manage_repo { '/etc/vault.d' } else { '/etc/vault' },
-  $config_filename                       = 'config.json',
+  $config_filename                       = "config.${config_format}",
   Boolean $manage_package                = true,
   $package_name                          = 'vault',
   $package_ensure                        = 'installed',

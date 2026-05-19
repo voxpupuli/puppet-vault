@@ -473,6 +473,137 @@ describe 'vault' do
         end
       end
 
+      context 'when config_format is hcl' do
+        let(:params) do
+          {
+            config_format: 'hcl',
+            storage: {
+              'file' => {
+                'path' => '/data/vault',
+              },
+            },
+            listener: {
+              'tcp' => {
+                'address'     => '127.0.0.1:8200',
+                'tls_disable' => 1,
+              },
+            },
+          }
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        it {
+          is_expected.to contain_file('/etc/vault/config.hcl')
+            .with_owner('vault')
+            .with_group('vault')
+        }
+
+        context 'vault HCL config' do
+          subject { param_value(catalogue, 'File', '/etc/vault/config.hcl', 'content') }
+
+          it { is_expected.to match(%r{^listener "tcp" \{}) }
+          it { is_expected.to match(%r{address\s+=\s+"127\.0\.0\.1:8200"}) }
+          it { is_expected.to match(%r{tls_disable\s+=\s+1}) }
+          it { is_expected.to match(%r{^storage "file" \{}) }
+          it { is_expected.to match(%r{path\s+=\s+"/data/vault"}) }
+        end
+
+        context 'with multiple listeners' do
+          subject { param_value(catalogue, 'File', '/etc/vault/config.hcl', 'content') }
+
+          let(:params) do
+            super().merge(
+              listener: [
+                { 'tcp' => { 'address' => '127.0.0.1:8200' } },
+                { 'tcp' => { 'address' => '0.0.0.0:8200' } },
+              ],
+            )
+          end
+
+          it { is_expected.to match(%r{listener "tcp".*127\.0\.0\.1:8200}m) }
+          it { is_expected.to match(%r{listener "tcp".*0\.0\.0\.0:8200}m) }
+        end
+
+        context 'with a seal block' do
+          subject { param_value(catalogue, 'File', '/etc/vault/config.hcl', 'content') }
+
+          let(:params) do
+            super().merge(
+              seal: {
+                'awskms' => {
+                  'region'     => 'us-east-1',
+                  'kms_key_id' => 'my-key-id',
+                },
+              },
+            )
+          end
+
+          it { is_expected.to match(%r{^seal "awskms" \{}) }
+          it { is_expected.to match(%r{region\s+=\s+"us-east-1"}) }
+          it { is_expected.to match(%r{kms_key_id\s+=\s+"my-key-id"}) }
+        end
+
+        context 'with raft storage and manage_storage_dir' do
+          subject { param_value(catalogue, 'File', '/etc/vault/config.hcl', 'content') }
+
+          let(:params) do
+            {
+              config_format:      'hcl',
+              manage_storage_dir: true,
+              storage: {
+                'raft' => {
+                  'path'    => '/data/vault',
+                  'node_id' => 'vault1',
+                },
+              },
+            }
+          end
+
+          it {
+            expect(catalogue).to contain_file('/data/vault')
+              .with_ensure('directory')
+              .with_owner('vault')
+              .with_group('vault')
+          }
+
+          it { is_expected.to match(%r{^storage "raft" \{}) }
+          it { is_expected.to match(%r{node_id\s+=\s+"vault1"}) }
+        end
+
+        context 'with disable_mlock' do
+          subject { param_value(catalogue, 'File', '/etc/vault/config.hcl', 'content') }
+
+          let(:params) do
+            super().merge(disable_mlock: true)
+          end
+
+          it { is_expected.to match(%r{disable_mlock\s+=\s+true}) }
+        end
+
+        context 'with config mode' do
+          let(:params) do
+            super().merge(config_mode: '0700')
+          end
+
+          it { is_expected.to contain_file('/etc/vault/config.hcl').with_mode('0700') }
+        end
+
+        context 'excludes unconfigured options' do
+          subject { param_value(catalogue, 'File', '/etc/vault/config.hcl', 'content') }
+
+          it { is_expected.not_to match(%r{ha_storage}) }
+          it { is_expected.not_to match(%r{seal}) }
+          it { is_expected.not_to match(%r{disable_cache}) }
+          it { is_expected.not_to match(%r{telemetry}) }
+          it { is_expected.not_to match(%r{default_lease_ttl}) }
+          it { is_expected.not_to match(%r{max_lease_ttl}) }
+          it { is_expected.not_to match(%r{disable_mlock}) }
+          it { is_expected.not_to match(%r{^ui\s}) }
+          it { is_expected.not_to match(%r{api_addr}) }
+        end
+      end
+
       case os_facts[:os]['family']
       when 'RedHat'
         case os_facts[:os]['release']['major'].to_i
