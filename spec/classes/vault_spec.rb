@@ -551,7 +551,7 @@ describe 'vault' do
             {
               config_format:      'hcl',
               manage_storage_dir: true,
-              storage: {
+              storage:            {
                 'raft' => {
                   'path'    => '/data/vault',
                   'node_id' => 'vault1',
