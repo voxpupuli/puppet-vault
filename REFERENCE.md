@@ -17,6 +17,10 @@
 * `vault::params`: This class is meant to be called from vault. It sets variables according to platform.
 * `vault::service`
 
+### Functions
+
+* [`vault::to_hcl`](#vault--to_hcl): Converts a Vault configuration hash to HCL format.
+
 ## Classes
 
 ### <a name="vault"></a>`vault`
@@ -33,6 +37,7 @@ The following parameters are available in the `vault` class:
 * [`manage_group`](#-vault--manage_group)
 * [`bin_dir`](#-vault--bin_dir)
 * [`bin_name`](#-vault--bin_name)
+* [`config_format`](#-vault--config_format)
 * [`config_dir`](#-vault--config_dir)
 * [`config_filename`](#-vault--config_filename)
 * [`config_mode`](#-vault--config_mode)
@@ -135,6 +140,14 @@ The binary name which is used (e.g vault) can be set to bao if you want to use o
 
 Default value: `'vault'`
 
+##### <a name="-vault--config_format"></a>`config_format`
+
+Data type: `Enum['hcl','json']`
+
+The format the config should use (hcl or json), default json
+
+Default value: `'json'`
+
 ##### <a name="-vault--config_dir"></a>`config_dir`
 
 Data type: `Any`
@@ -147,9 +160,9 @@ Default value: `if $install_method == 'repo' and $manage_repo { '/etc/vault.d' }
 
 Data type: `Any`
 
-Filename for the vault configuration. Defaults to 'config.json'
+Filename for the vault configuration. Defaults to 'config.config_format'
 
-Default value: `'config.json'`
+Default value: `"config.${config_format}"`
 
 ##### <a name="-vault--config_mode"></a>`config_mode`
 
@@ -567,4 +580,40 @@ Data type: `Optional[Hash]`
 Hash containing telemetry configuration for agent mode
 
 Default value: `undef`
+
+## Functions
+
+### <a name="vault--to_hcl"></a>`vault::to_hcl`
+
+Type: Ruby 4.x API
+
+Converts a Vault configuration hash to HCL format.
+
+#### Examples
+
+##### Converting a config hash to HCL
+
+```puppet
+$hcl_content = vault::to_hcl($config_hash)
+```
+
+#### `vault::to_hcl(Hash $config)`
+
+The vault::to_hcl function.
+
+Returns: `String` The Vault configuration rendered as HCL.
+
+##### Examples
+
+###### Converting a config hash to HCL
+
+```puppet
+$hcl_content = vault::to_hcl($config_hash)
+```
+
+##### `config`
+
+Data type: `Hash`
+
+A hash containing the Vault configuration.
 
