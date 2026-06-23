@@ -34,6 +34,11 @@
 #
 # @param service_options Extra argument to pass to `vault server`, as per: `vault server --help`
 #
+# @param service_read_write_paths
+#   List of absolute paths added to the systemd service unit `ReadWritePaths=`
+#   directive, allowing the Vault/OpenBao process to write to these paths despite
+#   `ProtectSystem`/`ProtectHome` hardening. Empty by default (directive omitted).
+#
 # @param manage_repo Configure the upstream HashiCorp repository. Only relevant when $nomad::install_method = 'repo'.
 #
 # @param manage_service Instruct puppet to manage service or not
@@ -127,6 +132,7 @@ class vault (
   $disable_mlock                         = undef,
   $manage_file_capabilities              = undef,
   $service_options                       = '',
+  Array[Stdlib::Absolutepath] $service_read_write_paths = [],
   $num_procs                             = $facts['processors']['count'],
   $install_method                        = $vault::params::install_method,
   $config_dir                            = if $install_method == 'repo' and $manage_repo { '/etc/vault.d' } else { '/etc/vault' },

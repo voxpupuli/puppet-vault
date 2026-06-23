@@ -20,6 +20,10 @@ PrivateDevices=yes
 PrivateTmp=yes
 ProtectSystem=full
 ProtectHome=read-only
+<% rwp = scope['vault::service_read_write_paths'] -%>
+<% unless rwp.empty? -%>
+ReadWritePaths=<%= rwp.join(' ') %>
+<% end -%>
 <% # Still require check for :undef for Puppet 3.x -%>
 <% if scope['vault::disable_mlock'] && scope['vault::disable_mlock'] != :undef -%>
 CapabilityBoundingSet=CAP_SYSLOG

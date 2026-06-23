@@ -43,6 +43,7 @@ The following parameters are available in the `vault` class:
 * [`service_name`](#-vault--service_name)
 * [`service_provider`](#-vault--service_provider)
 * [`service_options`](#-vault--service_options)
+* [`service_read_write_paths`](#-vault--service_read_write_paths)
 * [`manage_repo`](#-vault--manage_repo)
 * [`manage_service`](#-vault--manage_service)
 * [`num_procs`](#-vault--num_procs)
@@ -215,6 +216,16 @@ Data type: `Any`
 Extra argument to pass to `vault server`, as per: `vault server --help`
 
 Default value: `''`
+
+##### <a name="-vault--service_read_write_paths"></a>`service_read_write_paths`
+
+Data type: `Array[Stdlib::Absolutepath]`
+
+List of absolute paths added to the systemd service unit `ReadWritePaths=`
+directive, allowing the Vault/OpenBao process to write to these paths despite
+`ProtectSystem`/`ProtectHome` hardening. Empty by default (directive omitted).
+
+Default value: `[]`
 
 ##### <a name="-vault--manage_repo"></a>`manage_repo`
 
