@@ -494,6 +494,29 @@ describe 'vault' do
                   .with_content(%r{Capabilities=CAP_IPC_LOCK\+ep})
                   .with_content(%r{CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK})
                   .with_content(%r{NoNewPrivileges=yes})
+                  .without_content(%r{ReadWritePaths})
+              }
+            end
+
+            context 'with service_read_write_paths set' do
+              let(:params) do
+                { service_read_write_paths: ['/srv/vault/data', '/var/log/vault'] }
+              end
+
+              it {
+                is_expected.to contain_file('/etc/systemd/system/vault.service')
+                  .with_content(%r{^ReadWritePaths=/srv/vault/data /var/log/vault$})
+              }
+            end
+
+            context 'with service_read_write_paths set to an empty array' do
+              let(:params) do
+                { service_read_write_paths: [] }
+              end
+
+              it {
+                is_expected.to contain_file('/etc/systemd/system/vault.service')
+                  .without_content(%r{ReadWritePaths})
               }
             end
 
@@ -691,6 +714,29 @@ describe 'vault' do
                   .with_content(%r{Capabilities=CAP_IPC_LOCK\+ep})
                   .with_content(%r{CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK})
                   .with_content(%r{NoNewPrivileges=yes})
+                  .without_content(%r{ReadWritePaths})
+              }
+            end
+
+            context 'with service_read_write_paths set' do
+              let(:params) do
+                { service_read_write_paths: ['/srv/vault/data', '/var/log/vault'] }
+              end
+
+              it {
+                is_expected.to contain_file('/etc/systemd/system/vault.service')
+                  .with_content(%r{^ReadWritePaths=/srv/vault/data /var/log/vault$})
+              }
+            end
+
+            context 'with service_read_write_paths set to an empty array' do
+              let(:params) do
+                { service_read_write_paths: [] }
+              end
+
+              it {
+                is_expected.to contain_file('/etc/systemd/system/vault.service')
+                  .without_content(%r{ReadWritePaths})
               }
             end
 
