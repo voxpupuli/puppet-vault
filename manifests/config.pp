@@ -53,11 +53,26 @@ class vault::config {
 
     $config_hash = $_config_hash + $vault::extra_config
 
-    file { "${vault::config_dir}/${vault::config_filename}":
-      content => stdlib::to_json_pretty($config_hash),
-      owner   => $vault::user,
-      group   => $vault::group,
-      mode    => $vault::config_mode,
+    case $vault::config_format {
+      'json': {
+        file { "${vault::config_dir}/${vault::config_filename}":
+          content => stdlib::to_json_pretty($config_hash),
+          owner   => $vault::user,
+          group   => $vault::group,
+          mode    => $vault::config_mode,
+        }
+      }
+      'hcl': {
+        file { "${vault::config_dir}/${vault::config_filename}":
+          content => vault::to_hcl($config_hash),
+          owner   => $vault::user,
+          group   => $vault::group,
+          mode    => $vault::config_mode,
+        }
+      }
+      default: {
+        fail("Unsupported config_format: ${vault::config_format}")
+      }
     }
 
     # If manage_storage_dir is true and a file or raft storage backend is

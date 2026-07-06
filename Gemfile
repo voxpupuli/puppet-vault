@@ -26,4 +26,6 @@ gem 'rake', :require => false
 
 gem 'openvox', ENV.fetch('OPENVOX_GEM_VERSION', [">= 7", "< 9"]), :require => false, :groups => [:test]
 
+gem 'puppet-hcl', git: 'https://github.com/avitacco/puppet-hcl', tag: 'v1.0.0'
+
 # vim: syntax=ruby
