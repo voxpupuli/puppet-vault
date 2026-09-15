@@ -287,5 +287,5 @@ This module was forked from https://github.com/jsok/puppet-vault
 
 ## Related Projects
 
- * [hiera-vault](https://github.com/petems/petems-hiera_vault): A Hiera storage backend to retrieve secrets from Hashicorp's Vault
+ * [hiera-vault](https://github.com/voxpupuli/puppet-hiera_vault): A Hiera storage backend to retrieve secrets from Hashicorp's Vault
  * [vault_lookup](https://github.com/voxpupuli/puppet-vault_lookup): A puppet (deferred) function to do lookups in Vault
