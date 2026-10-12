@@ -225,19 +225,19 @@ describe 'vault' do
           end
         end
 
-        context 'When asked to manage the repo but not to install using repo' do
+        context 'When asked to manage the repo and using openbao' do
           let(:params) do
             {
-              install_method: 'archive',
               manage_repo: true,
+              bin_name: 'bao',
             }
           end
 
           case os_facts[:os]['family']
           when 'Debian'
-            it { is_expected.not_to contain_apt__source('HashiCorp') }
+            it { is_expected.to contain_apt__source('openbao') }
           when 'RedHat'
-            it { is_expected.not_to contain_yumrepo('HashiCorp') }
+            it { is_expected.to contain_yumrepo('openbao') }
           end
         end
 
