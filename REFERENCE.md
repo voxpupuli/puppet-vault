@@ -15,6 +15,7 @@
 * `vault::config`: This class is called from vault for service config
 * `vault::install`
 * `vault::params`: This class is meant to be called from vault. It sets variables according to platform.
+* `vault::repo`: This class is called from vault to set up the managed apt or yum repo
 * `vault::service`
 
 ### Functions
@@ -627,4 +628,3 @@ $hcl_content = vault::to_hcl($config_hash)
 Data type: `Hash`
 
 A hash containing the Vault configuration.
-

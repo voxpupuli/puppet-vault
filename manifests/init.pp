@@ -169,10 +169,12 @@ class vault (
   $real_download_url = pick($download_url, "${download_url_base}${version}/${package_name}_${version}_${os}_${arch}.${download_extension}")
   # lint:endignore
 
+  contain vault::repo
   contain vault::install
   contain vault::config
   contain vault::service
 
+  Class['vault::repo'] -> Class['vault::install']
   Class['vault::install'] -> Class['vault::config']
   Class['vault::config'] ~> Class['vault::service']
 }

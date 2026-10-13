@@ -289,4 +289,47 @@ describe 'vault class' do
       its(:stdout) { is_expected.to match %r{OpenBao v2.4.4} }
     end
   end
+
+  unless fact('os.family') == 'Archlinux'
+    context 'with openbao package based setup' do
+      it_behaves_like 'an idempotent resource' do
+        let(:manifest) do
+          <<-PUPPET
+          include file_capability
+          class { 'vault':
+            storage => {
+              'raft' => {
+                'path' => '/opt/openbao/data',
+              }
+            },
+            bin_name            =>  'bao',
+            service_name        => 'openbao',
+            install_method      => 'repo',
+            package_name        => 'openbao',
+            config_dir          => '/etc/openbao',
+            bin_dir             => '/usr/bin',
+            manage_service_file => true,
+            extra_config        => {
+              'cluster_addr' => 'https://127.0.0.1:8201',
+            },
+            api_addr            => 'https://127.0.0.1:8200',
+            user                => 'openbao',
+            group               => 'openbao',
+            manage_user         => false,
+            manage_group        => false,
+            require => Class['file_capability'],
+          }
+          PUPPET
+        end
+      end
+      describe service('openbao') do
+        it { is_expected.to be_enabled }
+        it { is_expected.to be_running }
+      end
+
+      describe port(8200) do
+        it { is_expected.to be_listening.on('127.0.0.1').with('tcp') }
+      end
+    end
+  end
 end
