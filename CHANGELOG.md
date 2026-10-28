@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v7.0.0](https://github.com/voxpupuli/puppet-vault/tree/v7.0.0) (2026-10-28)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v6.0.0...v7.0.0)
+
+**Breaking changes:**
+
+- Add openbao repo [\#103](https://github.com/voxpupuli/puppet-vault/pull/103) ([yakatz](https://github.com/yakatz))
+
+**Implemented enhancements:**
+
+- puppet/systemd: Allow 11.x [\#105](https://github.com/voxpupuli/puppet-vault/pull/105) ([bastelfreak](https://github.com/bastelfreak))
+- Update requirements to allow OpenVox 9 [\#102](https://github.com/voxpupuli/puppet-vault/pull/102) ([sebastianrakel](https://github.com/sebastianrakel))
+- puppet/hashi\_stack: Require 4.x [\#99](https://github.com/voxpupuli/puppet-vault/pull/99) ([corporate-gadfly](https://github.com/corporate-gadfly))
+- replace deprecated calls with Facter::Core::Execution [\#98](https://github.com/voxpupuli/puppet-vault/pull/98) ([corporate-gadfly](https://github.com/corporate-gadfly))
+- Add service\_read\_write\_paths parameter for systemd ReadWritePaths [\#97](https://github.com/voxpupuli/puppet-vault/pull/97) ([overag3](https://github.com/overag3))
+- Adding hcl as an output option [\#96](https://github.com/voxpupuli/puppet-vault/pull/96) ([avitacco](https://github.com/avitacco))
+
+**Closed issues:**
+
+- Support installation and use of openbao [\#80](https://github.com/voxpupuli/puppet-vault/issues/80)
+- The package resource name is hardcoded in one place. [\#28](https://github.com/voxpupuli/puppet-vault/issues/28)
+- Vault preferres HCL [\#18](https://github.com/voxpupuli/puppet-vault/issues/18)
+
+**Merged pull requests:**
+
+- README: update URL to puppet-hiera\_vault [\#100](https://github.com/voxpupuli/puppet-vault/pull/100) ([kenyon](https://github.com/kenyon))
+
 ## [v6.0.0](https://github.com/voxpupuli/puppet-vault/tree/v6.0.0) (2026-01-06)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-vault/compare/v5.1.0...v6.0.0)
